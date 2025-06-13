@@ -1,191 +1,188 @@
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-  background: linear-gradient(135deg, #dde7f3 0%, #eaf1fa 100%);
-  min-height: 100vh;
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+  background: linear-gradient(140deg, #dce3ef 0%, #f3f6fd 100%);
   margin: 0;
+  min-height: 100vh;
 }
 
 .container {
   max-width: 420px;
-  margin: 48px auto;
-  background: rgba(255,255,255,0.98);
-  border-radius: 32px;
-  box-shadow: 0 8px 32px 0 rgba(31,38,135,0.13);
-  padding: 36px 24px 28px 24px;
+  margin: 40px auto 0 auto;
+  background: #fff;
+  border-radius: 28px;
+  box-shadow: 0 4px 36px 0 rgba(60,88,156,0.15), 0 1.5px 6px 0 rgba(60,88,156,0.12);
+  padding: 36px 22px 32px 22px;
   position: relative;
 }
 
 h1 {
   text-align: center;
   font-size: 2.2em;
-  color: #273e5e;
-  letter-spacing: 1px;
   font-weight: 700;
-  margin-top: 0;
+  color: #283b53;
+  margin: 0 0 28px 0;
+  letter-spacing: 0.01em;
 }
 
-.grid-2 {
+.main-buttons {
   display: flex;
-  gap: 16px;
-  margin-bottom: 18px;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 22px;
 }
-.grid-2 > .block-btn {
+
+.main-btn {
   flex: 1;
-}
-
-.block-btn {
+  background: #eaf1fb;
+  color: #3d4762;
+  border: 1.5px solid #a8b7d0;
   border-radius: 28px;
-  border: 1.5px solid #b3c7e1;
-  background: #f4f8ff;
-  color: #304463;
-  font-size: 1.13em;
-  padding: 30px 0 24px 0;
-  margin-bottom: 12px;
-  text-align: center;
+  font-size: 1.1em;
   font-weight: 600;
+  padding: 28px 0 20px 0;
+  margin: 0;
   cursor: pointer;
-  transition: box-shadow 0.15s, border-color 0.15s;
-  box-shadow: 0 2px 8px rgba(84,110,179,0.08);
-}
-.block-btn:hover {
-  border-color: #5e90fa;
-  background: #e6f0ff;
+  box-shadow: 0 2px 12px 0 rgba(100,120,170,0.08);
+  transition: background .2s;
 }
 
-.options-btn {
+.main-btn:active {
+  background: #d3e4fc;
+}
+
+.option-btn,
+#get-answer {
   width: 100%;
-  border-radius: 30px;
-  border: 1.5px solid #b3c7e1;
-  background: #f8fafd;
-  color: #465774;
-  font-size: 1.12em;
-  padding: 23px 0 20px 0;
-  margin-bottom: 16px;
-  text-align: center;
+  background: #eaf1fb;
+  color: #2d384d;
+  border: 1.5px solid #a8b7d0;
+  border-radius: 28px;
+  font-size: 1.13em;
   font-weight: 500;
+  margin: 0 0 18px 0;
+  padding: 20px 0 16px 0;
   cursor: pointer;
-  transition: box-shadow 0.15s, border-color 0.15s;
-  box-shadow: 0 2px 8px rgba(84,110,179,0.08);
-}
-.options-btn:hover {
-  border-color: #6db1ff;
-  background: #ecf4ff;
+  box-shadow: 0 2px 12px 0 rgba(100,120,170,0.07);
+  transition: background .2s;
 }
 
-.question-block {
-  border-radius: 30px;
-  border: 1.5px solid #b3c7e1;
-  background: #fff;
-  color: #25344c;
-  padding: 28px 18px 20px 18px;
-  margin-bottom: 16px;
-  font-size: 1.15em;
-  min-height: 56px;
-  font-weight: 500;
-  text-align: center;
+.option-btn:active, #get-answer:active {
+  background: #d3e4fc;
 }
 
-#ask-btn {
+textarea, input, select {
   width: 100%;
-  border-radius: 30px;
-  background: #2976f8;
-  color: #fff;
-  border: none;
-  padding: 22px 0 18px 0;
+  padding: 14px 16px;
+  font-size: 1.09em;
+  border: 1.5px solid #a8b7d0;
+  border-radius: 14px;
+  background: #fafdff;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+  transition: border-color .15s;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #4388fd;
+}
+
+label {
   font-size: 1.18em;
-  font-weight: 700;
-  margin-top: 14px;
-  cursor: pointer;
-  box-shadow: 0 2px 10px rgba(41,118,248,0.11);
-  transition: background 0.12s;
-}
-#ask-btn:hover, #ask-btn:active {
-  background: #1d56c6;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #5e6e9e;
+  display: block;
 }
 
-/* Модальное окно (форма данных) */
 .modal-bg {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(45,54,80,0.16);
-  z-index: 50;
+  width: 100vw; height: 100vh;
+  z-index: 1100;
+  background: rgba(26,34,44,0.20);
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0;
 }
+
 .modal {
   background: #fff;
-  border-radius: 34px;
-  box-shadow: 0 4px 36px rgba(30,48,101,0.16);
-  padding: 34px 20px 22px 20px;
-  max-width: 98vw;
-  min-width: 320px;
-  width: 360px;
-  position: relative;
-}
-
-.modal h2 {
-  margin-top: 0;
-  font-size: 1.32em;
-  color: #132a47;
-  font-weight: 700;
-  margin-bottom: 18px;
-}
-
-.modal label {
-  color: #6b7aa7;
-  font-size: 1.06em;
-  font-weight: 600;
-  margin-bottom: 7px;
-  display: block;
-  margin-top: 13px;
-}
-
-.modal input, .modal select {
-  width: 94%;
+  border-radius: 32px;
+  box-shadow: 0 8px 36px 0 rgba(60,88,156,0.14), 0 2px 12px 0 rgba(60,88,156,0.08);
+  max-width: 370px;
+  min-width: 0;
+  width: 96vw;
+  padding: 30px 22px 18px 22px;
   box-sizing: border-box;
-  padding: 12px 15px;
-  margin-bottom: 17px;
-  border-radius: 12px;
-  border: 1.2px solid #bbc8e7;
-  font-size: 1.11em;
-  background: #f7fafd;
-  color: #26345c;
-  transition: border 0.14s;
-}
-.modal input:focus, .modal select:focus {
-  border: 1.5px solid #4687f7;
-  outline: none;
+  animation: modalFade .18s;
 }
 
-.modal .modal-btns {
+@keyframes modalFade {
+  from { opacity: 0; transform: translateY(44px);}
+  to   { opacity: 1; transform: translateY(0);}
+}
+
+.modal-title {
+  font-size: 1.5em;
+  font-weight: 700;
+  margin-bottom: 22px;
+  color: #222;
+}
+
+.modal-actions {
   display: flex;
-  gap: 12px;
-  margin-top: 24px;
+  justify-content: space-between;
+  margin-top: 12px;
 }
-.modal .modal-btn {
-  flex: 1;
-  padding: 15px 0 12px 0;
-  border-radius: 15px;
-  font-size: 1.08em;
+
+.modal-btn {
+  flex: 1 1 0;
+  padding: 14px 0;
+  border-radius: 16px;
+  font-size: 1.09em;
   font-weight: 600;
-  cursor: pointer;
+  margin: 0 6px;
   border: none;
-  transition: background 0.12s;
+  cursor: pointer;
+  transition: background .2s;
 }
-.modal .modal-btn.cancel {
-  background: #e7e9ee;
-  color: #5d6173;
+
+.modal-btn.cancel {
+  background: #ececf1;
+  color: #777;
 }
-.modal .modal-btn.save {
-  background: #2c75fb;
+
+.modal-btn.save {
+  background: #347efd;
   color: #fff;
 }
-.modal .modal-btn.save:active {
-  background: #1b54bf;
+
+@media (max-width: 480px) {
+  .container {
+    max-width: 100vw;
+    border-radius: 0 0 24px 24px;
+    box-shadow: 0 1px 8px 0 rgba(60,88,156,0.10);
+    padding: 20px 4vw 12px 4vw;
+  }
+  .modal {
+    max-width: 100vw;
+    border-radius: 18px;
+    padding: 16px 3vw 16px 3vw;
+  }
+  .main-buttons {
+    gap: 9px;
+  }
+  .main-btn, .option-btn, #get-answer {
+    font-size: 1em;
+    padding: 15px 0 11px 0;
+  }
+  label { font-size: 1em; }
 }
 
-@media (max-width: 510px) {
-  .container, .modal { width: 97vw !important; min-width: unset; }
-  .modal { padding: 24px 7px 15px 7px; }
-}
+/* Дополнительные мелкие улучшения */
+::-webkit-input-placeholder {color:#a9b6c8;}
+::-moz-placeholder {color:#a9b6c8;}
+:-ms-input-placeholder {color:#a9b6c8;}
+::placeholder {color:#a9b6c8;}
