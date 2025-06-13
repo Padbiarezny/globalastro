@@ -14,6 +14,7 @@
     button:hover { background: #0056b3; }
     .lang { margin-top: 10px; text-align: center; }
     .lang button { width: 48%; margin: 1%; }
+    #result { white-space: pre-wrap; margin-top: 10px; }
   </style>
 </head>
 <body>
@@ -28,19 +29,20 @@
 
   <label id="label-gender">Пол / Gender</label>
   <select id="gender">
-    <option value="male">Мужской / Male</option>
-    <option value="female">Женский / Female</option>
+    <option value="мужской">Мужской / Male</option>
+    <option value="женский">Женский / Female</option>
   </select>
 
   <label id="label-time">Время рождения (необязательно) / Time of Birth (optional)</label>
   <input type="time" id="time">
 
-  <button onclick="submitData()">Получить гороскоп / Get Horoscope</button>
+  <button type="button" onclick="submitData()" id="get-horoscope-btn">Получить гороскоп / Get Horoscope</button>
 
   <div class="lang">
     <button onclick="setLang('ru')">🇷🇺 Русский</button>
     <button onclick="setLang('en')">🇬🇧 English</button>
   </div>
+  <div id="result"></div>
 </div>
 
 <script>
@@ -51,14 +53,14 @@ function setLang(lang) {
     document.getElementById("label-place").innerText = "Место рождения";
     document.getElementById("label-gender").innerText = "Пол";
     document.getElementById("label-time").innerText = "Время рождения (необязательно)";
-    document.querySelector("button").innerText = "Получить гороскоп";
+    document.getElementById("get-horoscope-btn").innerText = "Получить гороскоп";
   } else {
     document.getElementById("form-title").innerText = "GlobalAstro";
     document.getElementById("label-dob").innerText = "Date of Birth";
     document.getElementById("label-place").innerText = "Place of Birth";
     document.getElementById("label-gender").innerText = "Gender";
     document.getElementById("label-time").innerText = "Time of Birth (optional)";
-    document.querySelector("button").innerText = "Get Horoscope";
+    document.getElementById("get-horoscope-btn").innerText = "Get Horoscope";
   }
 }
 
@@ -72,15 +74,31 @@ function submitData() {
     dob: dob,
     place: place,
     gender: gender,
-    time: time
+    time: time,
+    question: "Дай мне гороскоп на ближайшую неделю"
   };
 
-  alert("Отправка данных...\\nSending data...");
-  console.log(data);
+  document.getElementById("result").innerText = "Запрос отправлен... ждём ответ :)";
 
-  // Тут будет отправка на сервер
+  fetch("https://globalastro.onrender.com/horoscope", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  })
+    .then(response => response.json())
+    .then(result => {
+      if (result.response) {
+        document.getElementById("result").innerText = result.response;
+      } else if (result.error) {
+        document.getElementById("result").innerText = "Ошибка: " + result.error;
+      } else {
+        document.getElementById("result").innerText = "Нет данных от сервера.";
+      }
+    })
+    .catch(e => {
+      document.getElementById("result").innerText = "Ошибка соединения: " + e;
+    });
 }
 </script>
-<button id="send-btn" onclick="submitData()">Отправить</button>
-<div id="result" style="white-space:pre-wrap;margin-top:10px;"></div></body>
+</body>
 </html>
