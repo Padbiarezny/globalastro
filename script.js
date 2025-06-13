@@ -1,44 +1,55 @@
-function submitData() {
-    const dob = document.getElementById("dob").value;
-    const place = document.getElementById("place").value;
-    const gender = document.getElementById("gender").value;
-    const time = document.getElementById("time").value;
-    const question = document.getElementById("question").value || "Дай мне гороскоп на ближайшую неделю";
+// ---- Восстанавливаем данные из localStorage ----
+window.addEventListener("DOMContentLoaded", () => {
+  ["dob", "place", "gender", "time"].forEach(key => {
+    if (localStorage.getItem("astro_" + key)) {
+      document.getElementById(key).value = localStorage.getItem("astro_" + key);
+    }
+  });
+});
 
-const data = {
-    dob: dob,
-    place: place,
-    gender: gender,
-    time: time,
-    question: question
-};
+// ---- Сохраняем данные при вводе ----
+["dob", "place", "gender", "time"].forEach(key => {
+  document.getElementById(key).addEventListener("input", e => {
+    localStorage.setItem("astro_" + key, e.target.value);
+  });
+});
 
-    // Открываем новое окно заранее (чтобы не блокировалось браузером)
-    const win = window.open('', '_blank');
-    win.document.write('<h2 style="font-family:sans-serif;">⏳ Ждём ответ...</h2>');
+// ---- Основная логика ----
+document.getElementById("astro-form").addEventListener("submit", function(e) {
+  e.preventDefault();
+  const dob = document.getElementById("dob").value;
+  const place = document.getElementById("place").value;
+  const gender = document.getElementById("gender").value;
+  const time = document.getElementById("time").value;
+  const question = document.getElementById("question").value.trim();
 
-    fetch("https://globalastro.onrender.com/horoscope", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
-    })
-    .then(response => response.json())
-    .then(result => {
-        if (result.response) {
-            win.document.body.innerHTML = `
-                <div style="font-family:sans-serif;padding:24px;">
-                    <h2>🔮 Результат:</h2>
-                    <div>${result.response.replace(/\n/g, "<br>")}</div>
-                    <br>
-                    <button onclick="window.close()" style="margin-top:24px;padding:10px 20px;font-size:18px;border:none;border-radius:5px;background:#007bff;color:#fff;cursor:pointer;">Закрыть</button>
-                </div>`;
-        } else if (result.error) {
-            win.document.body.innerHTML = "<b>Ошибка:</b> " + result.error;
-        } else {
-            win.document.body.innerHTML = "Что-то пошло не так!";
-        }
-    })
-    .catch(error => {
-        win.document.body.innerHTML = "Ошибка соединения: " + error;
-    });
-}
+  if (!dob || !place || !gender || !question) {
+    document.getElementById("result").innerText = "Пожалуйста, заполните все обязательные поля.";
+    return;
+  }
+
+  document.getElementById("result").innerText = "⏳ Запрос отправлен... ждём ответ от звёзд :)";
+  document.getElementById("ask-btn").disabled = true;
+
+  fetch("https://globalastro.onrender.com/horoscope", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ dob, place, gender, time, question })
+  })
+  .then(res => res.json())
+  .then(res => {
+    if (res.response) {
+      document.getElementById("result").innerText = res.response;
+    } else if (res.error) {
+      document.getElementById("result").innerText = "Ошибка: " + res.error;
+    } else {
+      document.getElementById("result").innerText = "Нет ответа от сервера.";
+    }
+  })
+  .catch(err => {
+    document.getElementById("result").innerText = "Ошибка соединения: " + err;
+  })
+  .finally(() => {
+    document.getElementById("ask-btn").disabled = false;
+  });
+});
