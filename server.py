@@ -23,5 +23,8 @@ def horoscope():
     )
     return jsonify({"response": response.choices[0].message.content})
 
+import os  # эта строчка обычно уже есть выше, но если нет — добавь
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=3000)
+    port = int(os.environ.get("PORT", 10000))  # <-- вот эта строка!
+    app.run(host="0.0.0.0", port=port)
