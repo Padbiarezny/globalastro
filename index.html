@@ -9,7 +9,8 @@
     .container { max-width: 400px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px #ccc; }
     h1 { text-align: center; }
     label { display: block; margin-top: 10px; }
-    input, select, button { width: 100%; padding: 10px; margin-top: 5px; border-radius: 5px; border: 1px solid #ccc; }
+    input, select, textarea, button { width: 100%; padding: 10px; margin-top: 5px; border-radius: 5px; border: 1px solid #ccc; }
+    textarea { resize: vertical; }
     button { background: #007bff; color: white; border: none; margin-top: 20px; cursor: pointer; }
     button:hover { background: #0056b3; }
     .lang { margin-top: 10px; text-align: center; }
@@ -36,23 +37,30 @@
   <label id="label-time">Время рождения (необязательно) / Time of Birth (optional)</label>
   <input type="time" id="time">
 
+  <label id="label-question">Ваш вопрос / Your question</label>
+  <textarea id="question" placeholder="Напишите свой вопрос..." rows="2"></textarea>
+
   <button type="button" onclick="submitData()" id="get-horoscope-btn">Получить гороскоп / Get Horoscope</button>
 
   <div class="lang">
     <button onclick="setLang('ru')">🇷🇺 Русский</button>
     <button onclick="setLang('en')">🇬🇧 English</button>
   </div>
-  <div id="result"></div>
 </div>
 
 <script>
+let currentLang = 'ru';
+
 function setLang(lang) {
+  currentLang = lang;
   if (lang === 'ru') {
     document.getElementById("form-title").innerText = "GlobalAstro";
     document.getElementById("label-dob").innerText = "Дата рождения";
     document.getElementById("label-place").innerText = "Место рождения";
     document.getElementById("label-gender").innerText = "Пол";
     document.getElementById("label-time").innerText = "Время рождения (необязательно)";
+    document.getElementById("label-question").innerText = "Ваш вопрос";
+    document.getElementById("question").placeholder = "Напишите свой вопрос...";
     document.getElementById("get-horoscope-btn").innerText = "Получить гороскоп";
   } else {
     document.getElementById("form-title").innerText = "GlobalAstro";
@@ -60,6 +68,8 @@ function setLang(lang) {
     document.getElementById("label-place").innerText = "Place of Birth";
     document.getElementById("label-gender").innerText = "Gender";
     document.getElementById("label-time").innerText = "Time of Birth (optional)";
+    document.getElementById("label-question").innerText = "Your question";
+    document.getElementById("question").placeholder = "Type your question...";
     document.getElementById("get-horoscope-btn").innerText = "Get Horoscope";
   }
 }
@@ -69,16 +79,14 @@ function submitData() {
   const place = document.getElementById("place").value;
   const gender = document.getElementById("gender").value;
   const time = document.getElementById("time").value;
+  const question = document.getElementById("question").value || 
+      (currentLang === 'ru' ? "Дай мне гороскоп на ближайшую неделю" : "Give me a horoscope for next week");
 
-  const data = {
-    dob: dob,
-    place: place,
-    gender: gender,
-    time: time,
-    question: "Дай мне гороскоп на ближайшую неделю"
-  };
+  const data = { dob, place, gender, time, question };
 
-  document.getElementById("result").innerText = "Запрос отправлен... ждём ответ :)";
+  // Открываем окно для результата сразу (чтобы не блокировалось popup-менеджером браузера)
+  const win = window.open('', '_blank');
+  win.document.write('<h2 style="font-family:sans-serif;">⏳ Ждём ответа...</h2>');
 
   fetch("https://globalastro.onrender.com/horoscope", {
     method: "POST",
@@ -88,15 +96,17 @@ function submitData() {
     .then(response => response.json())
     .then(result => {
       if (result.response) {
-        document.getElementById("result").innerText = result.response;
+        win.document.body.innerHTML = '<div style="font-family:sans-serif;padding:24px;"><h2>🔮 Результат:</h2><div>' +
+          result.response.replace(/\n/g, "<br>") +
+          '</div><br><button onclick="window.close()" style="margin-top:24px;padding:10px 20px;font-size:18px;border:none;border-radius:5px;background:#007bff;color:#fff;cursor:pointer;">Закрыть</button></div>';
       } else if (result.error) {
-        document.getElementById("result").innerText = "Ошибка: " + result.error;
+        win.document.body.innerHTML = '<b>Ошибка:</b> ' + result.error;
       } else {
-        document.getElementById("result").innerText = "Нет данных от сервера.";
+        win.document.body.innerHTML = 'Нет данных от сервера.';
       }
     })
     .catch(e => {
-      document.getElementById("result").innerText = "Ошибка соединения: " + e;
+      win.document.body.innerHTML = 'Ошибка соединения: ' + e;
     });
 }
 </script>
