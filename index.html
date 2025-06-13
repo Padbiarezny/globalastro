@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GlobalAstro</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; background: #f9f9f9; }
+    .container { max-width: 400px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px #ccc; }
+    h1 { text-align: center; }
+    label { display: block; margin-top: 10px; }
+    input, select, button { width: 100%; padding: 10px; margin-top: 5px; border-radius: 5px; border: 1px solid #ccc; }
+    button { background: #007bff; color: white; border: none; margin-top: 20px; cursor: pointer; }
+    button:hover { background: #0056b3; }
+    .lang { margin-top: 10px; text-align: center; }
+    .lang button { width: 48%; margin: 1%; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1 id="form-title">GlobalAstro</h1>
+
+  <label id="label-dob">Дата рождения / Date of Birth</label>
+  <input type="date" id="dob">
+
+  <label id="label-place">Место рождения / Place of Birth</label>
+  <input type="text" id="place">
+
+  <label id="label-gender">Пол / Gender</label>
+  <select id="gender">
+    <option value="male">Мужской / Male</option>
+    <option value="female">Женский / Female</option>
+  </select>
+
+  <label id="label-time">Время рождения (необязательно) / Time of Birth (optional)</label>
+  <input type="time" id="time">
+
+  <button onclick="submitData()">Получить гороскоп / Get Horoscope</button>
+
+  <div class="lang">
+    <button onclick="setLang('ru')">🇷🇺 Русский</button>
+    <button onclick="setLang('en')">🇬🇧 English</button>
+  </div>
+</div>
+
+<script>
+function setLang(lang) {
+  if (lang === 'ru') {
+    document.getElementById("form-title").innerText = "GlobalAstro";
+    document.getElementById("label-dob").innerText = "Дата рождения";
+    document.getElementById("label-place").innerText = "Место рождения";
+    document.getElementById("label-gender").innerText = "Пол";
+    document.getElementById("label-time").innerText = "Время рождения (необязательно)";
+    document.querySelector("button").innerText = "Получить гороскоп";
+  } else {
+    document.getElementById("form-title").innerText = "GlobalAstro";
+    document.getElementById("label-dob").innerText = "Date of Birth";
+    document.getElementById("label-place").innerText = "Place of Birth";
+    document.getElementById("label-gender").innerText = "Gender";
+    document.getElementById("label-time").innerText = "Time of Birth (optional)";
+    document.querySelector("button").innerText = "Get Horoscope";
+  }
+}
+
+function submitData() {
+  const dob = document.getElementById("dob").value;
+  const place = document.getElementById("place").value;
+  const gender = document.getElementById("gender").value;
+  const time = document.getElementById("time").value;
+
+  const data = {
+    dob: dob,
+    place: place,
+    gender: gender,
+    time: time
+  };
+
+  alert("Отправка данных...\\nSending data...");
+  console.log(data);
+
+  // Тут будет отправка на сервер
+}
+</script>
+<button id="send-btn" onclick="submitData()">Отправить</button>
+<div id="result" style="white-space:pre-wrap;margin-top:10px;"></div></body>
+</html>
