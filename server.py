@@ -20,21 +20,40 @@ def style():
 @app.route("/horoscope", methods=["POST"])
 def horoscope():
     data = request.get_json(force=True)
+
+    # Получаем все данные по новой структуре
+    me = data.get("me", {})
+    partner = data.get("partner", {})
+    options = data.get("options", [])
+    question = data.get("question", "")
+
     prompt = (
-        f"Ты опытный астролог и отвечаешь на вопросы, используя астрологические знания."
-        f"\nВот данные пользователя:\n"
-        f"- Дата рождения: {data.get('dob')}\n"
-        f"- Место рождения: {data.get('place')}\n"
-        f"- Пол: {data.get('gender')}\n"
-        f"- Время рождения: {data.get('time') or 'не указано'}\n"
-        f"Вопрос пользователя: {data.get('question')}\n"
-        f"Дай подробный астрологический ответ, основанный именно на этих данных и вопросе пользователя. Не отвечай общими фразами, не проси дополнительных данных, не объясняй что такое астрология."
+        "Ты опытный астролог и отвечаешь на вопросы пользователя по астрологическим данным. "
+        "Используй ВСЮ информацию ниже для анализа, добавляй выбранные опции (нумерология, таро, китайский гороскоп и др), если они указаны. "
+        "Дай развернутый, уникальный астрологический ответ на вопрос пользователя, без воды и повторов.\n\n"
+        "Данные пользователя:\n"
+        f"- Дата рождения: {me.get('dob','')}\n"
+        f"- Место рождения: {me.get('place','')}\n"
+        f"- Пол: {me.get('gender','')}\n"
+        f"- Время рождения: {me.get('time','')}\n"
+        + (
+            f"Данные партнёра:\n"
+            f"- Имя: {partner.get('name','')}\n"
+            f"- Дата рождения: {partner.get('dob','')}\n"
+            f"- Место рождения: {partner.get('place','')}\n"
+            f"- Пол: {partner.get('gender','')}\n"
+            f"- Время рождения: {partner.get('time','')}\n"
+            if partner else ""
+        ) +
+        (f"Выбранные опции: {', '.join(options)}\n" if options else "") +
+        f"\nВопрос пользователя: {question}\n"
+        "Ответ должен быть подробным, конкретным и учитывать все вышеуказанные детали."
     )
 
     response = openai.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": prompt}],
-        max_tokens=450,
+        max_tokens=600,
         temperature=0.8
     )
     return jsonify({"response": response.choices[0].message.content})
