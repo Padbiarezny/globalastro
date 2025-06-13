@@ -5,6 +5,26 @@ import os
 app = Flask(__name__)
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
+from flask import Flask, request, jsonify, send_from_directory
+import openai
+import os
+
+app = Flask(__name__)
+
+# ... (твои другие маршруты) ...
+
+@app.route("/")
+def home():
+    return send_from_directory('.', 'index.html')
+
+@app.route("/script.js")
+def script():
+    return send_from_directory('.', 'script.js')
+
+@app.route("/style.css")
+def style():
+    return send_from_directory('.', 'style.css')
+
 @app.route("/horoscope", methods=["POST"])
 def horoscope():
     data = request.get_json(force=True)
