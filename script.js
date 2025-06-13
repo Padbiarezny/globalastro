@@ -5,13 +5,13 @@ function submitData() {
     const time = document.getElementById("time").value;
     const question = document.getElementById("question").value || "Дай мне гороскоп на ближайшую неделю";
 
-    const data = {
-        dob: dob,
-        place: place,
-        gender: gender,
-        time: time,
-        question: question
-    };
+const data = {
+    dob: dob,
+    place: place,
+    gender: gender,
+    time: time,
+    question: question
+};
 
     // Открываем новое окно заранее (чтобы не блокировалось браузером)
     const win = window.open('', '_blank');
