@@ -24,12 +24,11 @@ document.getElementById("astro-form").addEventListener("submit", function(e) {
   const question = document.getElementById("question").value.trim();
 
   if (!dob || !place || !gender || !question) {
-    document.getElementById("result").innerText = "Пожалуйста, заполните все обязательные поля.";
+    showResult("Пожалуйста, заполните все обязательные поля.");
     return;
   }
 
-  document.getElementById("result").innerText = "⏳ Запрос отправлен... ждём ответ от звёзд :)";
-  document.getElementById("ask-btn").disabled = true;
+  showResult("⏳ Запрос отправлен... ждём ответ от звёзд :)");
 
   fetch("https://globalastro.onrender.com/horoscope", {
     method: "POST",
@@ -39,17 +38,27 @@ document.getElementById("astro-form").addEventListener("submit", function(e) {
   .then(res => res.json())
   .then(res => {
     if (res.response) {
-      document.getElementById("result").innerText = res.response;
+      showResult(res.response);
     } else if (res.error) {
-      document.getElementById("result").innerText = "Ошибка: " + res.error;
+      showResult("Ошибка: " + res.error);
     } else {
-      document.getElementById("result").innerText = "Нет ответа от сервера.";
+      showResult("Нет ответа от сервера.");
     }
   })
   .catch(err => {
-    document.getElementById("result").innerText = "Ошибка соединения: " + err;
-  })
-  .finally(() => {
-    document.getElementById("ask-btn").disabled = false;
+    showResult("Ошибка соединения: " + err);
   });
 });
+
+// ---- Показать результат вместо формы ----
+function showResult(text) {
+  document.getElementById("form-container").style.display = "none";
+  document.getElementById("result-container").style.display = "block";
+  document.getElementById("result").innerText = text;
+}
+
+// ---- Кнопка "Назад к форме" ----
+function backToForm() {
+  document.getElementById("result-container").style.display = "none";
+  document.getElementById("form-container").style.display = "block";
+}
