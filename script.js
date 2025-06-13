@@ -14,7 +14,7 @@ function submitData() {
 
     document.getElementById("result").innerText = "Запрос отправлен... ждём ответ :)";
 
-    fetch("https://globalastro-backend.replit.app/horoscope", { // если backend на этом же replit
+    fetch("https://globalastro.onrender.com/horoscope", { // если backend на этом же replit
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
