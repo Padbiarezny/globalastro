@@ -68,18 +68,42 @@ body {
   color: #7c43cb;
   border: none;
   border-radius: 18px;
-  padding: 17px 6px;
+  padding: 11px 7px 11px 11px;
   font-weight: 600;
   font-size: 1.01rem;
   margin-bottom: 8px;
   box-shadow: 0 2px 8px #e8dbf7;
   cursor: pointer;
-  transition: background 0.2s, box-shadow 0.2s;
+  transition: background 0.2s, box-shadow 0.2s, color 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 82px;
+  position: relative;
 }
-.card-btn:hover {
-  background: linear-gradient(101deg, #e8d4f4 20%, #bca6df 100%);
-  box-shadow: 0 4px 12px #d3bbec;
+.card-title {
+  font-size: 1.02rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: inherit;
 }
+.card-content {
+  font-size: 1.01rem;
+  line-height: 1.21;
+  color: inherit;
+  opacity: 0.85;
+  padding-left: 2px;
+}
+.card-btn.empty {
+  background: #ededed;
+  color: #aaa;
+  border: 1.1px solid #e5e5e5;
+}
+.card-btn.filled {
+  background: linear-gradient(101deg, #ece2fa 10%, #e1d0f5 100%);
+  color: #7c43cb;
+}
+
 .full-btn {
   width: 100%;
   margin-bottom: 15px;
@@ -112,7 +136,6 @@ body {
   color: #3f3356;
   box-shadow: 0 0.5px 4px #e5d3fa1a;
 }
-
 .modal-bg {
   display: none;
   position: fixed;
