@@ -18,16 +18,22 @@
         <textarea id="question" placeholder="Покупать мне BMW X5 на следующей неделе?"></textarea>
       </div>
       <div class="block-buttons">
-        <button class="card-btn" id="open-me">Мои данные</button>
-        <button class="card-btn" id="open-partner">Данные партнёра<br>(по желанию)</button>
+        <button class="card-btn empty" id="open-me" type="button">
+          <div class="card-title">Мои данные</div>
+          <div class="card-content" id="me-summary"></div>
+        </button>
+        <button class="card-btn empty" id="open-partner" type="button">
+          <div class="card-title">Данные партнёра</div>
+          <div class="card-content" id="partner-summary"></div>
+        </button>
       </div>
-      <button class="card-btn full-btn" id="open-options">Дополнительные<br>опции</button>
-      <button class="ask-btn" id="ask-btn">Получить ответ</button>
+      <button class="card-btn full-btn" id="open-options" type="button">Дополнительные<br>опции</button>
+      <button class="ask-btn" id="ask-btn" type="button">Получить ответ</button>
       <div id="result"></div>
     </div>
   </div>
 
-  <!-- Modal windows (форма ввода) -->
+  <!-- Modal windows -->
   <div class="modal-bg" id="modal-bg">
     <div class="modal" id="modal-me">
       <h3>Мои данные</h3>
@@ -43,8 +49,8 @@
       <label>Время рождения (опционально)</label>
       <input type="time" id="me-time">
       <div class="modal-btn-row">
-        <button class="modal-btn cancel" onclick="closeModal()">Отмена</button>
-        <button class="modal-btn" onclick="saveMe()">Сохранить</button>
+        <button class="modal-btn cancel" type="button" onclick="closeModal()">Отмена</button>
+        <button class="modal-btn" type="button" onclick="saveMe()">Сохранить</button>
       </div>
     </div>
     <div class="modal" id="modal-partner">
@@ -64,8 +70,8 @@
       <label>Время рождения (опционально)</label>
       <input type="time" id="p-time">
       <div class="modal-btn-row">
-        <button class="modal-btn cancel" onclick="closeModal()">Отмена</button>
-        <button class="modal-btn" onclick="savePartner()">Сохранить</button>
+        <button class="modal-btn cancel" type="button" onclick="closeModal()">Отмена</button>
+        <button class="modal-btn" type="button" onclick="savePartner()">Сохранить</button>
       </div>
     </div>
     <div class="modal" id="modal-options">
@@ -75,8 +81,8 @@
       <label><input type="checkbox" class="option-checkbox" id="opt-china"> Китайский гороскоп</label>
       <label><input type="checkbox" class="option-checkbox" id="opt-more"> Ещё что-нибудь</label>
       <div class="modal-btn-row">
-        <button class="modal-btn cancel" onclick="closeModal()">Отмена</button>
-        <button class="modal-btn" onclick="saveOptions()">Сохранить</button>
+        <button class="modal-btn cancel" type="button" onclick="closeModal()">Отмена</button>
+        <button class="modal-btn" type="button" onclick="saveOptions()">Сохранить</button>
       </div>
     </div>
   </div>
