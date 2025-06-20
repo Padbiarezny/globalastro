@@ -1,104 +1,109 @@
-// --- Модальные окна ---
-document.getElementById('open-me').onclick = () => openModal('me');
-document.getElementById('open-partner').onclick = () => openModal('partner');
-document.getElementById('open-options').onclick = () => openModal('options');
-
-function openModal(which) {
-  document.getElementById('modal-bg').style.display = "flex";
-  document.getElementById('modal-me').style.display = (which === 'me') ? "block" : "none";
-  document.getElementById('modal-partner').style.display = (which === 'partner') ? "block" : "none";
-  document.getElementById('modal-options').style.display = (which === 'options') ? "block" : "none";
-  // Восстанавливаем значения
-  if (which === 'me') {
-    ["dob","place","gender","time"].forEach(k => {
-      if (localStorage.getItem("astro_me_"+k)) document.getElementById("me-"+k).value = localStorage.getItem("astro_me_"+k);
-    });
-  }
-  if (which === 'partner') {
-    ["name","dob","place","gender","time"].forEach(k => {
-      if (localStorage.getItem("astro_p_"+k)) document.getElementById("p-"+k).value = localStorage.getItem("astro_p_"+k);
-    });
-  }
-  if (which === 'options') {
-    ["num","taro","china","more"].forEach(k => {
-      document.getElementById("opt-"+k).checked = !!localStorage.getItem("astro_opt_"+k);
-    });
-  }
+// ——— Работа с localStorage ———
+function getData(type) {
+  // type: 'me' или 'partner'
+  const fields = (type === 'me') ? ['dob', 'place', 'gender', 'time'] : ['name', 'dob', 'place', 'gender', 'time'];
+  let data = {};
+  fields.forEach(f => {
+    data[f] = localStorage.getItem(`astro_${type}_${f}`) || '';
+  });
+  return data;
 }
+function setData(type, data) {
+  Object.keys(data).forEach(key => {
+    localStorage.setItem(`astro_${type}_${key}`, data[key] || '');
+  });
+}
+
+// ——— Обновление кнопок с данными ———
+function updateSummary() {
+  // Мои данные
+  const me = getData('me');
+  let meFields = [
+    me.dob ? me.dob : '—',
+    me.place ? me.place : '—',
+    me.gender ? (me.gender === 'мужской' ? 'М' : 'Ж') : '—',
+    me.time ? me.time : '—'
+  ];
+  let meFilled = me.dob && me.place && me.gender;
+  document.getElementById('me-summary').innerHTML = meFields.join('<br>');
+  document.getElementById('open-me').className = 'card-btn ' + (meFilled ? 'filled' : 'empty');
+
+  // Партнёр
+  const partner = getData('partner');
+  let partnerFields = [
+    partner.name ? partner.name : '—',
+    partner.dob ? partner.dob : '—',
+    partner.place ? partner.place : '—',
+    partner.gender ? (partner.gender === 'мужской' ? 'М' : (partner.gender === 'женский' ? 'Ж' : '—')) : '—',
+    partner.time ? partner.time : '—'
+  ];
+  let partnerFilled = partner.name && partner.dob && partner.place && partner.gender;
+  document.getElementById('partner-summary').innerHTML = partnerFields.join('<br>');
+  document.getElementById('open-partner').className = 'card-btn ' + (partnerFilled ? 'filled' : 'empty');
+}
+
+// ——— Модальные окна ———
 function closeModal() {
-  document.getElementById('modal-bg').style.display = "none";
-  ["modal-me","modal-partner","modal-options"].forEach(id => document.getElementById(id).style.display="none");
-}
-function saveMe() {
-  ["dob","place","gender","time"].forEach(k => localStorage.setItem("astro_me_"+k, document.getElementById("me-"+k).value));
-  closeModal();
-}
-function savePartner() {
-  ["name","dob","place","gender","time"].forEach(k => localStorage.setItem("astro_p_"+k, document.getElementById("p-"+k).value));
-  closeModal();
-}
-function saveOptions() {
-  ["num","taro","china","more"].forEach(k => {
-    let id = "opt-"+k;
-    if (document.getElementById(id).checked)
-      localStorage.setItem("astro_opt_"+k, "1");
-    else
-      localStorage.removeItem("astro_opt_"+k);
-  });
-  closeModal();
+  document.getElementById('modal-bg').classList.remove('active');
+  document.getElementById('modal-me').style.display = 'none';
+  document.getElementById('modal-partner').style.display = 'none';
+  document.getElementById('modal-options').style.display = 'none';
 }
 
-// --- Получить ответ от сервера ---
-document.getElementById('ask-btn').onclick = getAstroResult;
-function getAstroResult() {
-  // Собрать данные из localStorage
-  let me = {};
-  ["dob","place","gender","time"].forEach(k => me[k] = localStorage.getItem("astro_me_"+k) || "");
-  let partner = {};
-  ["name","dob","place","gender","time"].forEach(k => partner[k] = localStorage.getItem("astro_p_"+k) || "");
-  let options = [];
-  if (localStorage.getItem("astro_opt_num")) options.push("нумерология");
-  if (localStorage.getItem("astro_opt_taro")) options.push("таро");
-  if (localStorage.getItem("astro_opt_china")) options.push("китайский гороскоп");
-  if (localStorage.getItem("astro_opt_more")) options.push("ещё что-нибудь");
-  let question = document.getElementById("question").value.trim();
-
-  // Валидация
-  if (!me.dob || !me.place || !me.gender || !question) {
-    document.getElementById("result").innerText = "Пожалуйста, заполните минимум ваши данные и сам вопрос!";
-    return;
-  }
-
-  document.getElementById("result").innerText = "⏳ Запрос отправлен...";
-  document.getElementById("ask-btn").disabled = true;
-
-  fetch("/horoscope", { // если нужен внешний адрес, замени тут!
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ me, partner, options, question })
-  })
-  .then(res => res.json())
-  .then(res => {
-    if (res.response) {
-      document.getElementById("result").innerText = res.response;
-    } else if (res.error) {
-      document.getElementById("result").innerText = "Ошибка: " + res.error;
-    } else {
-      document.getElementById("result").innerText = "Нет ответа от сервера.";
-    }
-  })
-  .catch(err => {
-    document.getElementById("result").innerText = "Ошибка соединения: " + err;
-  })
-  .finally(() => {
-    document.getElementById("ask-btn").disabled = false;
-  });
-}
-
-// --- Модальное управление: ESC и клик вне модалки ---
-document.addEventListener('keydown', (e) => {
-  if (e.key === "Escape") closeModal();
-});
-document.getElementById('modal-bg').onclick = function(e) {
-  if (e.target === this) closeModal();
+// Открытие модалок
+document.getElementById('open-me').onclick = function() {
+  const me = getData('me');
+  document.getElementById('me-dob').value = me.dob || '';
+  document.getElementById('me-place').value = me.place || '';
+  document.getElementById('me-gender').value = me.gender || 'мужской';
+  document.getElementById('me-time').value = me.time || '';
+  document.getElementById('modal-bg').classList.add('active');
+  document.getElementById('modal-me').style.display = 'block';
+  document.getElementById('modal-partner').style.display = 'none';
+  document.getElementById('modal-options').style.display = 'none';
 };
+document.getElementById('open-partner').onclick = function() {
+  const partner = getData('partner');
+  document.getElementById('p-name').value = partner.name || '';
+  document.getElementById('p-dob').value = partner.dob || '';
+  document.getElementById('p-place').value = partner.place || '';
+  document.getElementById('p-gender').value = partner.gender || '';
+  document.getElementById('p-time').value = partner.time || '';
+  document.getElementById('modal-bg').classList.add('active');
+  document.getElementById('modal-partner').style.display = 'block';
+  document.getElementById('modal-me').style.display = 'none';
+  document.getElementById('modal-options').style.display = 'none';
+};
+document.getElementById('open-options').onclick = function() {
+  document.getElementById('modal-bg').classList.add('active');
+  document.getElementById('modal-options').style.display = 'block';
+  document.getElementById('modal-me').style.display = 'none';
+  document.getElementById('modal-partner').style.display = 'none';
+};
+window.onclick = function(event) {
+  if (event.target === document.getElementById('modal-bg')) closeModal();
+};
+
+// Сохранение "Мои данные"
+function saveMe() {
+  const data = {
+    dob: document.getElementById('me-dob').value,
+    place: document.getElementById('me-place').value,
+    gender: document.getElementById('me-gender').value,
+    time: document.getElementById('me-time').value
+  };
+  setData('me', data);
+  updateSummary();
+  closeModal();
+}
+
+// Сохранение "Партнёр"
+function savePartner() {
+  const data = {
+    name: document.getElementById('p-name').value,
+    dob: document.getElementById('p-dob').value,
+    place: document.getElementById('p-place').value,
+    gender: document.getElementById('p-gender').value,
+    time: document.getElementById('p-time').value
+  };
+ 
