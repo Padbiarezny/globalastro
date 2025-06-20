@@ -1,77 +1,68 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>GlobalAstro</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <h1>GlobalAstro</h1>
+    <div class="header">
+      <img src="your-astro-girl.png" alt="Astro Girl" class="astro-img">
+      <span class="logo-text">GlobalAstro</span>
+    </div>
+    <div class="question-block">
+      <label for="astro-question" class="block-label">Какой Ваш вопрос астрологу?</label>
+      <textarea id="astro-question" class="question-input" placeholder="Покупать мне BMW X5 на следующей неделе?"></textarea>
+    </div>
+    <div class="subtitle">Введите данные для ответа на Ваш вопрос:</div>
     <div class="row">
-      <button class="card-btn" id="open-me">Мои данные</button>
-      <button class="card-btn" id="open-partner">Данные партнёра<br>(по желанию)</button>
-    </div>
-    <button class="card-btn full-btn" id="open-options">Дополнительные<br>опции</button>
-    <textarea id="question" placeholder="Вопрос (например: 'Что меня ждет на новой работе?')" required></textarea>
-    <button class="ask-btn" id="ask-btn">Получить ответ</button>
-    <div id="result"></div>
-  </div>
-
-  <!-- Modal windows (форма ввода) -->
-  <div class="modal-bg" id="modal-bg">
-    <div class="modal" id="modal-me">
-      <h3>Мои данные</h3>
-      <label>Дата рождения</label>
-      <input type="date" id="me-dob">
-      <label>Место рождения</label>
-      <input type="text" id="me-place">
-      <label>Пол</label>
-      <select id="me-gender">
-        <option value="мужской">Мужской</option>
-        <option value="женский">Женский</option>
-      </select>
-      <label>Время рождения (опционально)</label>
-      <input type="time" id="me-time">
-      <div class="modal-btn-row">
-        <button class="modal-btn cancel" onclick="closeModal()">Отмена</button>
-        <button class="modal-btn" onclick="saveMe()">Сохранить</button>
+      <div class="profile-card active">
+        <div class="card-title">Ваши данные<br><span class="req">(обязательно)</span></div>
+        <div class="profile-info">
+          Имя: Лера<br>
+          Дата: 08.12.1999<br>
+          Мест: Москва<br>
+          Время: --:--
+        </div>
+      </div>
+      <div class="profile-card">
+        <div class="card-title">Ваш партнер</div>
+        <div class="profile-info">
+          Имя: -----<br>
+          Дата: --.--.----<br>
+          Мест: -----<br>
+          Время: --:--
+        </div>
       </div>
     </div>
-    <div class="modal" id="modal-partner">
-      <h3>Данные партнёра</h3>
-      <label>Имя</label>
-      <input type="text" id="p-name">
-      <label>Дата рождения</label>
-      <input type="date" id="p-dob">
-      <label>Место рождения</label>
-      <input type="text" id="p-place">
-      <label>Пол</label>
-      <select id="p-gender">
-        <option value="">-</option>
-        <option value="мужской">Мужской</option>
-        <option value="женский">Женский</option>
-      </select>
-      <label>Время рождения (опционально)</label>
-      <input type="time" id="p-time">
-      <div class="modal-btn-row">
-        <button class="modal-btn cancel" onclick="closeModal()">Отмена</button>
-        <button class="modal-btn" onclick="savePartner()">Сохранить</button>
+    <button class="main-btn">ПОЛУЧИТЬ ОТВЕТ</button>
+    <div class="options-block">
+      <div class="options-title">Добавить продвинутые опции?</div>
+      <div class="options-row">
+        <div class="option">
+          <img src="num-icon.svg" alt="Нумерология">
+          <span>Нумерологи</span>
+        </div>
+        <div class="option">
+          <img src="taro1.svg" alt="Таро">
+          <span>Таро</span>
+        </div>
+        <div class="option">
+          <img src="chinese.svg" alt="Китайский">
+          <span>Китайский</span>
+        </div>
+        <div class="option">
+          <img src="taro2.svg" alt="Таро">
+          <span>Таро</span>
+        </div>
       </div>
     </div>
-    <div class="modal" id="modal-options">
-      <h3>Доп. опции</h3>
-      <label><input type="checkbox" class="option-checkbox" id="opt-num"> Нумерология</label>
-      <label><input type="checkbox" class="option-checkbox" id="opt-taro"> Таро</label>
-      <label><input type="checkbox" class="option-checkbox" id="opt-china"> Китайский гороскоп</label>
-      <label><input type="checkbox" class="option-checkbox" id="opt-more"> Ещё что-нибудь</label>
-      <div class="modal-btn-row">
-        <button class="modal-btn cancel" onclick="closeModal()">Отмена</button>
-        <button class="modal-btn" onclick="saveOptions()">Сохранить</button>
-      </div>
+    <div class="lang-switch">
+      <button class="lang-btn active">Engleash</button>
+      <button class="lang-btn">Russian</button>
     </div>
   </div>
-  <script src="script.js"></script>
 </body>
 </html>
