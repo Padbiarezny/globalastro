@@ -106,4 +106,65 @@ function savePartner() {
     gender: document.getElementById('p-gender').value,
     time: document.getElementById('p-time').value
   };
- 
+  setData('partner', data);
+  updateSummary();
+  closeModal();
+}
+
+// Сохранение доп. опций
+function saveOptions() {
+  ['num', 'taro', 'china', 'more'].forEach(opt => {
+    localStorage.setItem(`astro_opt_${opt}`, document.getElementById('opt-' + opt).checked ? '1' : '0');
+  });
+  closeModal();
+}
+
+// ——— ОБНОВЛЯЕМ ПРИ ЗАПУСКЕ ———
+updateSummary();
+
+// ——— ОСНОВНАЯ ЛОГИКА: ОТПРАВКА ВОПРОСА ———
+document.getElementById('ask-btn').onclick = function() {
+  const question = document.getElementById('question').value.trim();
+  if (!question) {
+    document.getElementById('result').innerText = "Пожалуйста, введите вопрос.";
+    return;
+  }
+
+  const me = getData('me');
+  const partner = getData('partner');
+  // Собираем доп. опции
+  let options = [];
+  ['num', 'taro', 'china', 'more'].forEach(opt => {
+    if (localStorage.getItem(`astro_opt_${opt}`) === '1') options.push(opt);
+  });
+
+  document.getElementById('result').innerText = "⏳ Запрос отправлен... ждём ответ :)";
+  document.getElementById('ask-btn').disabled = true;
+
+  fetch("/horoscope", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      question: question,
+      me: me,
+      partner: partner,
+      options: options
+    })
+  })
+  .then(res => res.json())
+  .then(res => {
+    if (res.response) {
+      document.getElementById('result').innerText = res.response;
+    } else if (res.error) {
+      document.getElementById('result').innerText = "Ошибка: " + res.error;
+    } else {
+      document.getElementById('result').innerText = "Нет ответа от сервера.";
+    }
+  })
+  .catch(err => {
+    document.getElementById('result').innerText = "Ошибка соединения: " + err;
+  })
+  .finally(() => {
+    document.getElementById('ask-btn').disabled = false;
+  });
+};
