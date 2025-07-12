@@ -1,95 +1,218 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <title>GlobalAstro</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div class="container shadow">
-    <div class="logo-row">
-      <img src="https://img.icons8.com/?size=96&id=a0tQpEKxL17w&format=png" alt="Astro" class="logo-img"/>
-      <h1 class="brand-title">GlobalAstro</h1>
-    </div>
-    <div class="main-block">
-      <div class="block-question">
-        <label for="question" class="label-title" id="lbl-q">Какой Ваш вопрос астрологу?</label>
-        <textarea id="question" placeholder="Покупать мне BMW X5 на следующей неделе?"></textarea>
-      </div>
-      <div class="block-buttons">
-        <button class="card-btn empty" id="open-me" type="button">
-          <div class="card-title" id="lbl-me">Мои данные</div>
-          <div class="card-content" id="me-summary"></div>
-        </button>
-        <button class="card-btn empty" id="open-partner" type="button">
-          <div class="card-title" id="lbl-partner">Данные партнёра</div>
-          <div class="card-content" id="partner-summary"></div>
-        </button>
-      </div>
-      <button class="card-btn full-btn" id="open-options" type="button">
-        <div class="card-title" id="lbl-options">Дополнительные опции</div>
-        <div class="card-content" id="options-summary"></div>
-      </button>
-      <button class="ask-btn" id="ask-btn" type="button">Получить ответ</button>
-      <!-- Переключатель языков -->
-      <div id="lang-switch" style="margin: 18px 0 6px 0; text-align: center;"></div>
-      <div id="result"></div>
-    </div>
-  </div>
-  <!-- Modal windows -->
-  <div class="modal-bg" id="modal-bg">
-    <div class="modal" id="modal-me">
-      <h3 id="lbl-me-modal">Мои данные</h3>
-      <label id="lbl-me-dob">Дата рождения</label>
-      <input type="date" id="me-dob">
-      <label id="lbl-me-place">Место рождения</label>
-      <input type="text" id="me-place">
-      <label id="lbl-me-gender">Пол</label>
-      <select id="me-gender">
-        <option value="мужской">Мужской</option>
-        <option value="женский">Женский</option>
-      </select>
-      <label id="lbl-me-time">Время рождения (опционально)</label>
-      <input type="time" id="me-time">
-      <div class="modal-btn-row">
-        <button class="modal-btn cancel" type="button" onclick="closeModal()" id="btn-cancel-me">Отмена</button>
-        <button class="modal-btn" type="button" onclick="saveMe()" id="btn-save-me">Сохранить</button>
-      </div>
-    </div>
-    <div class="modal" id="modal-partner">
-      <h3 id="lbl-partner-modal">Данные партнёра</h3>
-      <label id="lbl-partner-name">Имя</label>
-      <input type="text" id="p-name">
-      <label id="lbl-partner-dob">Дата рождения</label>
-      <input type="date" id="p-dob">
-      <label id="lbl-partner-place">Место рождения</label>
-      <input type="text" id="p-place">
-      <label id="lbl-partner-gender">Пол</label>
-      <select id="p-gender">
-        <option value="">-</option>
-        <option value="мужской">Мужской</option>
-        <option value="женский">Женский</option>
-      </select>
-      <label id="lbl-partner-time">Время рождения (опционально)</label>
-      <input type="time" id="p-time">
-      <div class="modal-btn-row">
-        <button class="modal-btn cancel" type="button" onclick="closeModal()" id="btn-cancel-partner">Отмена</button>
-        <button class="modal-btn" type="button" onclick="savePartner()" id="btn-save-partner">Сохранить</button>
-      </div>
-    </div>
-    <div class="modal" id="modal-options">
-      <h3 id="lbl-options-modal">Доп. опции</h3>
-      <label><input type="checkbox" class="option-checkbox" id="opt-num"> <span id="lbl-opt-num">Нумерология</span></label>
-      <label><input type="checkbox" class="option-checkbox" id="opt-taro"> <span id="lbl-opt-taro">Таро</span></label>
-      <label><input type="checkbox" class="option-checkbox" id="opt-china"> <span id="lbl-opt-china">Китайский гороскоп</span></label>
-      <label><input type="checkbox" class="option-checkbox" id="opt-more"> <span id="lbl-opt-more">Ещё что-нибудь</span></label>
-      <div class="modal-btn-row">
-        <button class="modal-btn cancel" type="button" onclick="closeModal()" id="btn-cancel-opt">Отмена</button>
-        <button class="modal-btn" type="button" onclick="saveOptions()" id="btn-save-opt">Сохранить</button>
-      </div>
-    </div>
-  </div>
-  <script src="script.js"></script>
-</body>
-</html>
+body {
+  margin: 0;
+  background: linear-gradient(135deg, #e6e9f5 0%, #f9f9f9 100%);
+  font-family: 'San Francisco', 'Segoe UI', Arial, sans-serif;
+  min-height: 100vh;
+}
+.container {
+  background: #fff;
+  max-width: 430px;
+  margin: 36px auto 24px;
+  border-radius: 28px;
+  padding: 24px 16px 32px 16px;
+  box-shadow: 0 4px 40px 0 #b4bbcc2f;
+  position: relative;
+}
+.shadow {
+  box-shadow: 0 10px 36px 0 #a390e470, 0 1.5px 3.5px #d5c1ed;
+}
+.logo-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.logo-img {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: #f6f2ff;
+  object-fit: cover;
+  border: 2px solid #dec8fa;
+}
+.brand-title {
+  font-family: 'SF Pro Display', 'Segoe UI', Arial, sans-serif;
+  font-weight: 900;
+  font-size: 2.3rem;
+  color: #7c43cb;
+  letter-spacing: -2px;
+  margin: 0 0 0 5px;
+}
+.label-title {
+  font-size: 1.13rem;
+  font-weight: 600;
+  color: #544e5b;
+  margin-bottom: 8px;
+  display: block;
+}
+.block-question textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 13px;
+  border: 1.5px solid #bfa0e6;
+  font-size: 1rem;
+  box-sizing: border-box;
+  resize: vertical;
+  background: #f8f6fa;
+  margin-bottom: 12px;
+  text-align: left;
+}
+.block-buttons {
+  display: flex;
+  gap: 13px;
+  margin-bottom: 8px;
+}
+.card-btn {
+  flex: 1;
+  background: linear-gradient(101deg, #ece2fa 10%, #e1d0f5 100%);
+  color: #7c43cb;
+  border: none;
+  border-radius: 18px;
+  padding: 11px 7px 11px 11px;
+  font-weight: 600;
+  font-size: 1.01rem;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 8px #e8dbf7;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s, color 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 82px;
+  position: relative;
+  text-align: center;
+  justify-content: center;
+}
+.card-title {
+  font-size: 1.02rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: inherit;
+  width: 100%;
+  text-align: center;
+}
+.card-content {
+  font-size: 1.01rem;
+  line-height: 1.21;
+  color: inherit;
+  opacity: 0.85;
+  width: 100%;
+  text-align: center;
+  padding-left: 0;
+}
+.card-btn.empty {
+  background: #ededed;
+  color: #aaa;
+  border: 1.1px solid #e5e5e5;
+}
+.card-btn.filled {
+  background: linear-gradient(101deg, #ece2fa 10%, #e1d0f5 100%);
+  color: #7c43cb;
+}
+.full-btn {
+  width: 100%;
+  margin-bottom: 15px;
+}
+.ask-btn {
+  width: 100%;
+  padding: 18px;
+  background: linear-gradient(90deg, #8651d1 40%, #5e36a3 100%);
+  color: #fff;
+  border: none;
+  border-radius: 17px;
+  font-size: 1.13rem;
+  font-weight: bold;
+  box-shadow: 0 2.5px 16px #bca6df85;
+  margin-top: 7px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+.ask-btn:hover {
+  background: linear-gradient(90deg, #6e3fc7 40%, #493585 100%);
+}
+#result {
+  min-height: 24px;
+  margin-top: 14px;
+  background: #f8f6fa;
+  border-radius: 14px;
+  padding: 10px 13px;
+  font-size: 1.02rem;
+  color: #3f3356;
+  box-shadow: 0 0.5px 4px #e5d3fa1a;
+}
+.modal-bg {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  left: 0; top: 0; width: 100vw; height: 100vh;
+  background: rgba(116, 81, 168, 0.14);
+  align-items: center; justify-content: center;
+}
+.modal-bg.active { display: flex; }
+.modal {
+  background: #fff;
+  border-radius: 23px;
+  padding: 28px 20px 20px 20px;
+  max-width: 365px;
+  width: 92vw;
+  box-shadow: 0 6px 38px 0 #ad8bd68c;
+  position: relative;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.modal h3 {
+  margin-top: 0; margin-bottom: 12px;
+  font-size: 1.4rem; font-weight: 700; color: #7c43cb;
+  text-align: left;
+}
+.modal label {
+  font-size: 1.03rem; color: #6c5f88;
+  font-weight: 600; margin-bottom: 3px;
+  margin-top: 8px;
+}
+.modal input, .modal select {
+  font-size: 1.03rem;
+  border-radius: 11px;
+  border: 1.4px solid #bfa0e6;
+  padding: 10px 12px;
+  margin-bottom: 3px;
+  margin-top: 3px;
+  width: 100%;
+  background: #f8f6fa;
+  box-sizing: border-box;
+}
+.modal-btn-row {
+  display: flex; gap: 12px; margin-top: 15px;
+  justify-content: flex-end;
+}
+.modal-btn {
+  padding: 11px 0;
+  min-width: 115px;
+  border-radius: 11px;
+  background: #ece2fa;
+  color: #7c43cb;
+  font-weight: bold;
+  border: none;
+  font-size: 1.01rem;
+  box-shadow: 0 2px 8px #e8dbf7;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.modal-btn.cancel {
+  background: #d7d6dd;
+  color: #756f82;
+}
+.modal-btn:hover {
+  background: #e5d3fa;
+}
+@media (max-width: 560px) {
+  .container { max-width: 99vw; border-radius: 0 0 20px 20px; }
+  .main-block { padding: 0 2px; }
+  .logo-row { margin-bottom: 6px; }
+  .brand-title { font-size: 2rem; }
+  .modal { padding: 17px 5vw 14px 5vw; max-width: 97vw;}
+}
