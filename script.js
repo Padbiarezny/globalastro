@@ -1,4 +1,4 @@
-// ------- Мультиязычные подписи ------
+// --------- Мультиязычность и автоопределение языка Telegram --------
 const LANGS = {
   ru: {
     astro: "GlobalAstro",
@@ -65,20 +65,25 @@ const LANGS = {
     resError: "Connection error: ",
     wait: "⏳ Request sent... waiting for an answer from the stars :)",
     enterQ: "Please enter your question!"
-  },
-  // ...добавь ещё нужные языки тут аналогично (es, pt, fr, de, pl, sr, ar, zh-hans)
+  }
+  // ... добавь другие языки по аналогии
 };
 
-// --- Языковой автодетект (Telegram Mini App)
+// --- Детектор языка Telegram MiniApp или браузера ---
 function detectLang() {
   let code = "ru";
   try {
-    if (window.Telegram && Telegram.WebApp && Telegram.WebApp.initDataUnsafe && Telegram.WebApp.initDataUnsafe.user && Telegram.WebApp.initDataUnsafe.user.language_code) {
+    if (
+      window.Telegram &&
+      Telegram.WebApp &&
+      Telegram.WebApp.initDataUnsafe &&
+      Telegram.WebApp.initDataUnsafe.user &&
+      Telegram.WebApp.initDataUnsafe.user.language_code
+    ) {
       code = Telegram.WebApp.initDataUnsafe.user.language_code.toLowerCase();
-      if (code === "zh-hans" || code === "zh-cn") code = "zh-hans";
       if (code in LANGS) return code;
     }
-    // если нет Telegram, берём язык браузера
+    // если не из Telegram, пробуем по браузеру
     code = navigator.language ? navigator.language.toLowerCase().split('-')[0] : "ru";
     if (code in LANGS) return code;
   } catch (e) {}
