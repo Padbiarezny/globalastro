@@ -1,104 +1,237 @@
-body { font-family: 'Segoe UI',sans-serif; background: #f9f9f9; margin: 0; }
-.container { max-width: 420px; margin: 36px auto 0 auto; background: #fff; border-radius: 18px; box-shadow: 0 0 28px #ebe4ff; padding: 28px 18px 32px 18px; }
-
-h1 { text-align: center; margin-bottom: 22px; font-size: 2em; letter-spacing: 0.02em; }
-
-.cards-row {
+/* --- Оставляю твой аккуратный стиль --- */
+body {
+  margin: 0;
+  background: linear-gradient(135deg, #e6e9f5 0%, #f9f9f9 100%);
+  font-family: 'San Francisco', 'Segoe UI', Arial, sans-serif;
+  min-height: 100vh;
+}
+.container {
+  background: #fff;
+  max-width: 430px;
+  margin: 36px auto 24px;
+  border-radius: 28px;
+  padding: 24px 16px 32px 16px;
+  box-shadow: 0 4px 40px 0 #b4bbcc2f;
+  position: relative;
+}
+.logo-row {
   display: flex;
-  gap: 12px;
+  align-items: center;
   justify-content: center;
-  margin-bottom: 18px;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.logo-img {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: #f6f2ff;
+  object-fit: cover;
+  border: 2px solid #dec8fa;
+}
+.brand-title {
+  font-family: 'SF Pro Display', 'Segoe UI', Arial, sans-serif;
+  font-weight: 900;
+  font-size: 2.3rem;
+  color: #7c43cb;
+  letter-spacing: -2px;
+  margin: 0 0 0 5px;
+}
+.lang-switch-row {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 13px;
+  margin-bottom: 0px;
+  position: relative;
+  z-index: 20;
+  padding-right: 15vw;
+}
+#lang-select {
+  padding: 7px 15px 7px 10px;
+  font-size: 1.03rem;
+  border-radius: 12px;
+  background: #eae6f7;
+  border: 1.2px solid #bca0db;
+  color: #7145b2;
+  font-weight: bold;
+  margin-right: 7px;
+  min-width: 125px;
+  box-shadow: 0 1.5px 10px #dfcbe425;
+  outline: none;
+  cursor: pointer;
+}
+.label-title {
+  font-size: 1.13rem;
+  font-weight: 600;
+  color: #544e5b;
+  margin-bottom: 8px;
+  display: block;
+}
+.block-question textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 13px;
+  border: 1.5px solid #bfa0e6;
+  font-size: 1rem;
+  box-sizing: border-box;
+  resize: vertical;
+  background: #f8f6fa;
+  margin-bottom: 12px;
+  text-align: left;
+  min-height: 60px;
+}
+.block-buttons {
+  display: flex;
+  gap: 13px;
+  margin-bottom: 8px;
 }
 .card-btn {
-  flex: 1; min-width: 130px; min-height: 80px;
-  background: #f4f2fd;
-  border-radius: 16px;
+  flex: 1;
+  background: linear-gradient(101deg, #ece2fa 10%, #e1d0f5 100%);
+  color: #7c43cb;
+  border: none;
+  border-radius: 18px;
+  padding: 11px 7px 11px 11px;
+  font-weight: 600;
+  font-size: 1.01rem;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 8px #e8dbf7;
   cursor: pointer;
-  padding: 13px 8px 15px 8px;
-  display: flex; flex-direction: column; align-items: center;
-  border: 2px solid #e5dfff;
-  transition: box-shadow .12s;
-  font-size: 1.14em;
+  transition: background 0.2s, box-shadow 0.2s, color 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 82px;
+  position: relative;
+  text-align: center;
+  justify-content: center;
 }
-.card-btn.empty { background: #f8f7fc; color: #bbb; border: 2px solid #ece8f8; }
-.card-btn span { font-weight: bold; font-size: 1.11em; margin-bottom: 7px; }
-.card-content { font-size: 1.02em; margin-top: 2px; text-align: center; line-height: 1.38; }
-
-.question-label { font-weight: bold; font-size: 1.11em; margin: 13px 0 5px 0; display: block;}
-#user-question {
-  width: 100%; min-height: 110px; resize: vertical; padding: 17px;
-  font-size: 1.13em; border: 2px solid #cebaf7; border-radius: 11px;
-  margin-bottom: 19px; background: #f7f5fa;
-  box-sizing: border-box;
+.card-title {
+  font-size: 1.02rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: inherit;
+  width: 100%;
+  text-align: center;
+}
+.card-content {
+  font-size: 1.01rem;
+  line-height: 1.21;
+  color: inherit;
+  opacity: 0.85;
+  width: 100%;
+  text-align: center;
+  padding-left: 0;
+}
+.card-btn.empty {
+  background: #ededed;
+  color: #aaa;
+  border: 1.1px solid #e5e5e5;
+}
+.card-btn.filled {
+  background: linear-gradient(101deg, #ece2fa 10%, #e1d0f5 100%);
+  color: #7c43cb;
+}
+.ask-btn {
+  width: 100%;
+  padding: 18px;
+  background: linear-gradient(90deg, #8651d1 40%, #5e36a3 100%);
+  color: #fff;
+  border: none;
+  border-radius: 17px;
+  font-size: 1.13rem;
+  font-weight: bold;
+  box-shadow: 0 2.5px 16px #bca6df85;
+  margin-top: 7px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+.ask-btn:hover {
+  background: linear-gradient(90deg, #6e3fc7 40%, #493585 100%);
+}
+#result {
+  min-height: 24px;
+  margin-top: 14px;
+  background: #f8f6fa;
+  border-radius: 14px;
+  padding: 10px 13px;
+  font-size: 1.02rem;
+  color: #3f3356;
+  box-shadow: 0 0.5px 4px #e5d3fa1a;
 }
 
-.accordion-list { margin: 0 0 15px 0; }
+/* --- Аккордеоны, стилизуем как "дополнительные опции" --- */
+.accordion-list {
+  margin-bottom: 20px;
+}
 .accordion-card {
-  margin-bottom: 13px;
-  border-radius: 15px;
-  background: #f2effc;
-  border: 2px solid #e3dbfa;
-  box-shadow: 0 1px 6px #f3e9fd24;
-  transition: box-shadow 0.18s;
+  background: linear-gradient(101deg, #ece2fa 10%, #e1d0f5 100%);
+  border-radius: 18px;
+  box-shadow: 0 2px 8px #e8dbf7;
+  margin-bottom: 11px;
+  transition: box-shadow 0.22s;
+  cursor: pointer;
+  padding: 0;
   overflow: hidden;
 }
 .accordion-header {
-  padding: 16px 18px; cursor: pointer; font-size: 1.06em; font-weight: bold;
-  background: #f2effc;
-  border-bottom: 1px solid #e8e3fb;
-  user-select: none;
+  padding: 14px 22px;
+  font-weight: bold;
+  color: #7c43cb;
+  font-size: 1.09rem;
+  border-bottom: 1px solid #e1d0f5;
+  position: relative;
+}
+.accordion-header::after {
+  content: '▼';
+  position: absolute;
+  right: 18px; top: 12px;
+  font-size: 1rem;
+  color: #ab94db;
+  transition: transform 0.2s;
+}
+.accordion-card.open .accordion-header::after {
+  transform: rotate(180deg);
 }
 .accordion-body {
-  display: none; background: #fcfbfe;
-  padding: 10px 16px 14px 16px;
-  font-size: 1.01em;
+  display: none;
+  background: #f8f6fa;
+  padding: 18px 22px 14px 22px;
+  color: #5a4a78;
+  font-size: 0.98rem;
+  border-radius: 0 0 17px 17px;
 }
-.accordion-card.open .accordion-body { display: block; }
-
-.acc-block-title { font-weight: bold; color: #8562d7; margin-top: 8px; margin-bottom: 4px; }
-
+.accordion-card.open .accordion-body {
+  display: block;
+}
 .accordion-body label {
-  display: block; padding-left: 3px; margin-bottom: 3px;
-  cursor: pointer; font-size: 1em;
+  display: block;
+  margin-bottom: 2px;
+  font-size: 0.99rem;
+  cursor: pointer;
+  font-weight: 500;
+}
+.accordion-body strong {
+  color: #a874ec;
+  display: block;
+  margin-top: 9px;
+  margin-bottom: 2px;
+  font-size: 1.03rem;
+  font-weight: 600;
 }
 .accordion-body input[type="checkbox"] {
-  margin-right: 6px; accent-color: #826be2;
+  accent-color: #7c43cb;
+  margin-right: 7px;
+  transform: scale(1.11);
 }
 
-button, .modal-btn {
-  background: #8562d7; color: #fff; border: none;
-  font-weight: bold; font-size: 1.14em; padding: 11px 0; width: 100%;
-  border-radius: 12px; margin: 17px 0 0 0; cursor: pointer;
-  transition: background .14s;
-}
-button:hover, .modal-btn:hover { background: #6440bb; }
-#ask-btn { margin-top: 23px; }
-
-#result {
-  margin-top: 16px; background: #f4f1fa; border-radius: 10px;
-  padding: 14px; white-space: pre-wrap; font-size: 1.06em; min-height: 24px;
-}
-
-.modal-bg {
-  display: none; position: fixed; z-index: 100;
-  left: 0; top: 0; width: 100vw; height: 100vh;
-  background: #1a133530; align-items: center; justify-content: center;
-}
-.modal {
-  background: #fff; border-radius: 14px; padding: 24px 18px 15px 18px;
-  box-shadow: 0 0 28px #9c8be570; min-width: 280px; max-width: 96vw;
-  display: flex; flex-direction: column; gap: 12px;
-}
-.modal input, .modal select {
-  width: 100%; font-size: 1.09em; padding: 9px; border-radius: 8px;
-  border: 1.5px solid #ded3f5; background: #faf7fe; margin-bottom: 7px;
-}
-.modal h2 { margin: 0 0 12px 0; font-size: 1.28em; text-align: center; }
-.modal-btn { margin-top: 0; }
-
-@media (max-width: 530px) {
-  .container { max-width: 97vw; border-radius: 10px; padding: 8vw 2vw 10vw 2vw;}
-  .cards-row { gap: 7px; }
-  .accordion-header { padding: 14px 9px; }
-  .accordion-body { padding: 7px 7px 10px 9px; }
+/* --- адаптив --- */
+@media (max-width: 560px) {
+  .container { max-width: 99vw; border-radius: 0 0 20px 20px; }
+  .main-block { padding: 0 2px; }
+  .logo-row { margin-bottom: 6px; }
+  .brand-title { font-size: 2rem; }
+  .modal { padding: 17px 5vw 14px 5vw; max-width: 97vw;}
 }
