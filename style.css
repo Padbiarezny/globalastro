@@ -1,265 +1,95 @@
-body {
-  margin: 0;
-  background: linear-gradient(135deg, #e6e9f5 0%, #f9f9f9 100%);
-  font-family: 'San Francisco', 'Segoe UI', Arial, sans-serif;
-  min-height: 100vh;
-}
-.lang-select-row {
-  width: 100vw;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 9px 15px 0 0;
-  background: transparent;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 20;
-}
-#lang-select {
-  font-size: 1.02rem;
-  border-radius: 8px;
-  padding: 5px 13px;
-  margin-top: 5px;
-  margin-bottom: 2px;
-  border: 1.1px solid #c9b0e7;
-  background: #fcfcfd;
-  color: #5c38b1;
-  font-weight: 600;
-  box-shadow: 0 2px 5px #ece1fc65;
-  cursor: pointer;
-  min-width: 130px;
-  outline: none;
-  transition: border 0.13s, background 0.13s;
-}
-#lang-select:focus { border: 1.1px solid #9a72ce; background: #f2edfa; }
+// --- ТЕКСТЫ ДЛЯ РАЗНЫХ ЯЗЫКОВ ---
+const UI_TEXTS = {
+  ru: {
+    questionLabel: "Какой ваш вопрос астрологу?",
+    questionPH: "Покупать мне BMW X5 на следующей неделе?",
+    btnMe: "Мои данные",
+    btnPartner: "Данные партнера",
+    btnOptions: "Дополнительные опции",
+    askBtn: "Получить ответ",
+    modalMe: "Мои данные",
+    modalPartner: "Данные партнера",
+    modalOptions: "Дополнительные опции",
+    labelDob: "Дата рождения",
+    labelPlace: "Место рождения",
+    labelGender: "Пол",
+    labelTime: "Время рождения",
+    labelName: "Имя",
+    optNum: "Нумерология",
+    optTaro: "Таро",
+    optChina: "Китайский гороскоп",
+    optMore: "Ещё",
+    cancel: "Отмена",
+    ok: "OK"
+  },
+  en: {
+    questionLabel: "What is your question for the astrologer?",
+    questionPH: "Should I buy a BMW X5 next week?",
+    btnMe: "My Data",
+    btnPartner: "Partner's Data",
+    btnOptions: "Additional Options",
+    askBtn: "Get Answer",
+    modalMe: "My Data",
+    modalPartner: "Partner's Data",
+    modalOptions: "Additional Options",
+    labelDob: "Date of Birth",
+    labelPlace: "Place of Birth",
+    labelGender: "Gender",
+    labelTime: "Time of Birth",
+    labelName: "Name",
+    optNum: "Numerology",
+    optTaro: "Tarot",
+    optChina: "Chinese Horoscope",
+    optMore: "Other",
+    cancel: "Cancel",
+    ok: "OK"
+  }
+  // ... добавь остальные языки!
+};
 
-.container {
-  background: #fff;
-  max-width: 430px;
-  margin: 58px auto 24px;
-  border-radius: 28px;
-  padding: 24px 16px 32px 16px;
-  box-shadow: 0 4px 40px 0 #b4bbcc2f;
-  position: relative;
+// --- ЛОКАЛИЗАЦИЯ ---
+function setLangUI(lang) {
+  const t = UI_TEXTS[lang] || UI_TEXTS['ru'];
+  document.getElementById('label-question').innerText = t.questionLabel;
+  document.getElementById('question').placeholder = t.questionPH;
+  document.getElementById('btn-me-title').innerText = t.btnMe;
+  document.getElementById('btn-partner-title').innerText = t.btnPartner;
+  document.getElementById('btn-options-title').innerText = t.btnOptions;
+  document.getElementById('ask-btn').innerText = t.askBtn;
+
+  // Модалки
+  document.getElementById('modal-me-title').innerText = t.modalMe;
+  document.getElementById('label-me-dob').innerText = t.labelDob;
+  document.getElementById('label-me-place').innerText = t.labelPlace;
+  document.getElementById('label-me-gender').innerText = t.labelGender;
+  document.getElementById('label-me-time').innerText = t.labelTime;
+  document.getElementById('btn-save-me').innerText = t.ok;
+  document.getElementById('btn-cancel-me').innerText = t.cancel;
+
+  document.getElementById('modal-partner-title').innerText = t.modalPartner;
+  document.getElementById('label-p-name').innerText = t.labelName;
+  document.getElementById('label-p-dob').innerText = t.labelDob;
+  document.getElementById('label-p-place').innerText = t.labelPlace;
+  document.getElementById('label-p-gender').innerText = t.labelGender;
+  document.getElementById('label-p-time').innerText = t.labelTime;
+  document.getElementById('btn-save-partner').innerText = t.ok;
+  document.getElementById('btn-cancel-partner').innerText = t.cancel;
+
+  document.getElementById('modal-options-title').innerText = t.modalOptions;
+  document.getElementById('label-opt-num').innerText = t.optNum;
+  document.getElementById('label-opt-taro').innerText = t.optTaro;
+  document.getElementById('label-opt-china').innerText = t.optChina;
+  document.getElementById('label-opt-more').innerText = t.optMore;
+  document.getElementById('btn-save-options').innerText = t.ok;
+  document.getElementById('btn-cancel-options').innerText = t.cancel;
 }
-.shadow {
-  box-shadow: 0 10px 36px 0 #a390e470, 0 1.5px 3.5px #d5c1ed;
-}
-.logo-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 14px;
-}
-.logo-img {
-  width: 54px;
-  height: 54px;
-  border-radius: 50%;
-  background: #f6f2ff;
-  object-fit: cover;
-  border: 2px solid #dec8fa;
-}
-.brand-title {
-  font-family: 'SF Pro Display', 'Segoe UI', Arial, sans-serif;
-  font-weight: 900;
-  font-size: 2.3rem;
-  color: #7c43cb;
-  letter-spacing: -2px;
-  margin: 0 0 0 5px;
-}
-.label-title {
-  font-size: 1.13rem;
-  font-weight: 600;
-  color: #544e5b;
-  margin-bottom: 8px;
-  display: block;
-}
-.block-question textarea {
-  width: 100%;
-  padding: 12px 14px;
-  border-radius: 13px;
-  border: 1.5px solid #bfa0e6;
-  font-size: 1rem;
-  box-sizing: border-box;
-  resize: vertical;
-  background: #f8f6fa;
-  margin-bottom: 12px;
-  text-align: left;
-}
-.block-buttons {
-  display: flex;
-  gap: 13px;
-  margin-bottom: 8px;
-}
-.card-btn {
-  flex: 1;
-  background: linear-gradient(101deg, #ece2fa 10%, #e1d0f5 100%);
-  color: #7c43cb;
-  border: none;
-  border-radius: 18px;
-  padding: 11px 7px 11px 11px;
-  font-weight: 600;
-  font-size: 1.01rem;
-  margin-bottom: 8px;
-  box-shadow: 0 2px 8px #e8dbf7;
-  cursor: pointer;
-  transition: background 0.2s, box-shadow 0.2s, color 0.2s;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 82px;
-  position: relative;
-  text-align: center;
-  justify-content: center;
-}
-.card-title {
-  font-size: 1.02rem;
-  font-weight: bold;
-  margin-bottom: 5px;
-  color: inherit;
-  width: 100%;
-  text-align: center;
-}
-.card-content {
-  font-size: 1.01rem;
-  line-height: 1.21;
-  color: inherit;
-  opacity: 0.85;
-  width: 100%;
-  text-align: center;
-  padding-left: 0;
-}
-.card-btn.empty {
-  background: #ededed;
-  color: #aaa;
-  border: 1.1px solid #e5e5e5;
-}
-.card-btn.filled {
-  background: linear-gradient(101deg, #ece2fa 10%, #e1d0f5 100%);
-  color: #7c43cb;
-}
-.options-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  margin: 4px 0 13px 0;
-  min-height: 60px;
-  background: #ededed;
-  color: #aaa;
-  border: 1.1px solid #e5e5e5;
-  border-radius: 18px;
-  box-shadow: 0 2px 8px #e8dbf7;
-  font-size: 1.01rem;
-  text-align: center;
-  transition: background 0.2s, box-shadow 0.2s, color 0.2s;
-}
-.options-btn.filled {
-  background: linear-gradient(101deg, #ece2fa 10%, #e1d0f5 100%);
-  color: #7c43cb;
-}
-.ask-btn {
-  width: 100%;
-  padding: 18px;
-  background: linear-gradient(90deg, #8651d1 40%, #5e36a3 100%);
-  color: #fff;
-  border: none;
-  border-radius: 17px;
-  font-size: 1.13rem;
-  font-weight: bold;
-  box-shadow: 0 2.5px 16px #bca6df85;
-  margin-top: 7px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  transition: background 0.18s;
-}
-.ask-btn:hover {
-  background: linear-gradient(90deg, #6e3fc7 40%, #493585 100%);
-}
-#result {
-  min-height: 24px;
-  margin-top: 14px;
-  background: #f8f6fa;
-  border-radius: 14px;
-  padding: 10px 13px;
-  font-size: 1.02rem;
-  color: #3f3356;
-  box-shadow: 0 0.5px 4px #e5d3fa1a;
-}
-.modal-bg {
-  display: none;
-  position: fixed;
-  z-index: 10;
-  left: 0; top: 0; width: 100vw; height: 100vh;
-  background: rgba(116, 81, 168, 0.14);
-  align-items: center; justify-content: center;
-}
-.modal-bg.active { display: flex; }
-.modal {
-  background: #fff;
-  border-radius: 23px;
-  padding: 28px 20px 20px 20px;
-  max-width: 365px;
-  width: 92vw;
-  box-shadow: 0 6px 38px 0 #ad8bd68c;
-  position: relative;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-}
-.modal h3 {
-  margin-top: 0; margin-bottom: 12px;
-  font-size: 1.4rem; font-weight: 700; color: #7c43cb;
-  text-align: left;
-}
-.modal label {
-  font-size: 1.03rem; color: #6c5f88;
-  font-weight: 600; margin-bottom: 3px;
-  margin-top: 8px;
-}
-.modal input, .modal select {
-  font-size: 1.03rem;
-  border-radius: 11px;
-  border: 1.4px solid #bfa0e6;
-  padding: 10px 12px;
-  margin-bottom: 3px;
-  margin-top: 3px;
-  width: 100%;
-  background: #f8f6fa;
-  box-sizing: border-box;
-}
-.modal-btn-row {
-  display: flex; gap: 12px; margin-top: 15px;
-  justify-content: flex-end;
-}
-.modal-btn {
-  padding: 11px 0;
-  min-width: 115px;
-  border-radius: 11px;
-  background: #ece2fa;
-  color: #7c43cb;
-  font-weight: bold;
-  border: none;
-  font-size: 1.01rem;
-  box-shadow: 0 2px 8px #e8dbf7;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.modal-btn.cancel {
-  background: #d7d6dd;
-  color: #756f82;
-}
-.modal-btn:hover {
-  background: #e5d3fa;
-}
-@media (max-width: 560px) {
-  .container { max-width: 99vw; border-radius: 0 0 20px 20px; }
-  .main-block { padding: 0 2px; }
-  .logo-row { margin-bottom: 6px; }
-  .brand-title { font-size: 2rem; }
-  .modal { padding: 17px 5vw 14px 5vw; max-width: 97vw;}
-}
+
+// --- ОБРАБОТЧИК ЯЗЫКА ---
+document.getElementById('lang-select').addEventListener('change', function() {
+  setLangUI(this.value);
+});
+
+// --- ВОССТАНОВЛЕНИЕ ДАННЫХ (аналогично твоей старой логике, если нужно, можешь расширить) ---
+// ...твои функции для заполнения/открытия модалок и отправки данных...
+
+// Ниже вставь старый код JS для кнопок и открытия модалок (он никак не конфликтует со сменой языка).
