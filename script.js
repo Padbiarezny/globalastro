@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-  // --- Язык ---
+  // Язык
   const langSelect = document.getElementById('lang-select');
   if (langSelect) {
     langSelect.value = localStorage.getItem('astro_lang') || 'ru';
@@ -9,38 +9,37 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // --- Восстановление данных ---
+  // Восстановление данных пользователя и партнёра
   restoreCard('my', 'my-data');
   restoreCard('partner', 'partner-data');
 
-  // --- Открытие модалок ---
+  // Мои данные/Партнёр — открытие модалок
   document.getElementById('my-data-btn').onclick = () => openModal('my');
   document.getElementById('partner-data-btn').onclick = () => openModal('partner');
 
-  // --- Закрытие модалок ---
+  // Закрытие модалок
   document.querySelectorAll('.modal-btn.cancel').forEach(btn => {
-    btn.onclick = function() {
+    btn.onclick = function () {
       this.closest('.modal-bg').style.display = 'none';
     }
   });
 
-  // --- Сохранение данных пользователя/партнёра ---
+  // Сохранение данных пользователя/партнёра
   document.getElementById('save-my').onclick = () => saveCard('my', 'my-data');
   document.getElementById('save-partner').onclick = () => saveCard('partner', 'partner-data');
 
-  // --- Accordion функционал ---
+  // Accordion функционал
   document.querySelectorAll('.accordion-header').forEach(head => {
     head.onclick = function () {
       const parent = this.parentNode;
       parent.classList.toggle('open');
-      // Для мультиоткрытия: закомментируй след. 2 строки
       document.querySelectorAll('.accordion-card').forEach(card => {
         if (card !== parent) card.classList.remove('open');
       });
     }
   });
 
-  // --- Отправка формы ---
+  // Отправка формы
   document.getElementById('ask-btn').onclick = async function () {
     const question = document.getElementById('user-question').value.trim();
     if (!question) return alert('Введите ваш вопрос!');
@@ -91,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   function restoreCard(type, cardId) {
     let d = {};
-    try { d = JSON.parse(localStorage.getItem(`astro_${type}`) || '{}'); } catch {}
+    try { d = JSON.parse(localStorage.getItem(`astro_${type}`) || '{}'); } catch { }
     let lines = [];
     if (d.name) lines.push(d.name);
     if (d.dob) lines.push(d.dob);
@@ -99,8 +98,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (d.gender) lines.push(d.gender);
     if (d.time) lines.push(d.time);
     const card = document.getElementById(cardId);
-    card.innerHTML = lines.length ? lines.map(s=>`<div>${s}</div>`).join('') : "<div>—</div><div>—</div><div>—</div>";
-    // Серый, если пусто:
+    card.innerHTML = lines.length ? lines.map(s => `<div>${s}</div>`).join('') : "<div>—</div><div>—</div><div>—</div>";
     card.parentNode.classList.toggle('empty', !lines.length);
   }
   function loadCardData(type) {
