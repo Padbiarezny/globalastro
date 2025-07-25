@@ -43,8 +43,8 @@ body {
   margin-bottom: 14px;
 }
 .block-question textarea {
-  width: calc(100% - 4px); /* Уменьшает ширину, чтобы не выходить за границы */
-  height: 54px;
+  width: calc(100% - 4px);
+  height: 100px;          /* Было 54px, теперь больше вниз! */
   padding: 12px 15px;
   border-radius: 12px;
   border: 2px solid #c3a7f5;
