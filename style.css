@@ -1,14 +1,48 @@
+body {
+  font-family: "SF Pro Display", Arial, sans-serif;
+  background: #f9f6ff;
+  margin: 0;
+  padding: 0;
+}
+.container {
+  max-width: 440px;
+  margin: 32px auto 0 auto;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 24px 2px #a285e833;
+  padding: 24px 22px 30px 22px;
+  min-height: 650px;
+  position: relative;
+}
 .header-row {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+}
+.logo-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.logo-img {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: #f4f0fa;
+  border: 2px solid #e3d0fd;
+}
+.brand-title {
+  font-weight: 700;
+  font-size: 1.36em;
+  color: #7c43cb;
+  letter-spacing: 0.01em;
 }
 .lang-select-wrap {
   margin-top: 8px;
 }
 .lang-select {
-  padding: 8px 10px;
+  padding: 7px 10px;
   border-radius: 12px;
   border: 1.5px solid #bfa0e6;
   background: #f6f2ff;
@@ -17,3 +51,145 @@
   font-weight: 600;
 }
 .lang-select:focus { outline: none; }
+
+.main-block {
+  margin-top: 4px;
+}
+.label-title {
+  display: block;
+  margin-bottom: 8px;
+  color: #7c43cb;
+  font-size: 1.14em;
+  font-weight: 600;
+  text-align: left;
+  letter-spacing: 0.01em;
+}
+.block-question {
+  margin-bottom: 12px;
+}
+#question {
+  width: 100%;
+  border-radius: 10px;
+  border: 1.5px solid #e2d4fb;
+  padding: 13px 14px;
+  font-size: 1.08em;
+  background: #faf7ff;
+  min-height: 62px;
+  resize: vertical;
+  color: #312b42;
+  margin-top: 3px;
+}
+#question:focus { outline: 2px solid #b0a0f2; }
+
+.block-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 11px;
+  justify-content: center;
+}
+.card-btn {
+  flex: 1 1 0;
+  background: #f6f2ff;
+  border: 1.5px solid #cdbbee;
+  border-radius: 14px;
+  color: #6b2fd2;
+  padding: 15px 5px 12px 5px;
+  font-size: 1em;
+  font-weight: 600;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: box-shadow 0.1s;
+  min-height: 64px;
+  cursor: pointer;
+}
+.card-btn:hover { box-shadow: 0 0 0 2px #dbd6ff; }
+.card-title { display: block; margin-bottom: 2px; font-size: 1.07em; font-weight: 600;}
+.card-content { display: block; font-size: 0.95em; color: #473a76; opacity: 0.88; line-height: 1.1; }
+.full-btn { width: 100%; margin: 0 0 11px 0; }
+
+.ask-btn {
+  width: 100%;
+  margin: 15px 0 6px 0;
+  background: linear-gradient(90deg,#9747ff,#6778ec 80%);
+  border: none;
+  border-radius: 14px;
+  color: #fff;
+  font-size: 1.12em;
+  font-weight: 700;
+  padding: 14px;
+  cursor: pointer;
+  box-shadow: 0 2px 9px #ceb7fd33;
+  transition: background .18s;
+}
+.ask-btn:hover { background: linear-gradient(90deg,#7746c6,#6778ec 80%); }
+#result { margin-top: 18px; background: #f3f6fd; border-radius: 10px; padding: 15px; white-space: pre-wrap; min-height: 50px; font-size: 1.08em; }
+
+.modal-bg {
+  position: fixed; left: 0; top: 0; right: 0; bottom: 0;
+  background: #38304066;
+  z-index: 200;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.modal {
+  background: #fff;
+  border-radius: 15px;
+  padding: 30px 24px 18px 24px;
+  min-width: 280px;
+  min-height: 220px;
+  max-width: 97vw;
+  box-shadow: 0 8px 40px #a57dfc22;
+  position: relative;
+  animation: popupShow 0.18s;
+}
+@keyframes popupShow { from { transform: scale(0.92); opacity:0; } to { transform:scale(1); opacity:1; } }
+.modal h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  color: #713fc9;
+  font-size: 1.19em;
+  text-align: center;
+}
+.modal label {
+  margin-top: 8px;
+  display: block;
+  font-weight: 500;
+  color: #523c77;
+}
+.modal input, .modal select {
+  width: 100%;
+  padding: 9px 10px;
+  margin-top: 3px;
+  margin-bottom: 8px;
+  border-radius: 7px;
+  border: 1.3px solid #e2d4fb;
+  font-size: 1em;
+  background: #faf7ff;
+  color: #3a3452;
+}
+.modal-btn-row {
+  display: flex; gap: 10px; justify-content: flex-end; margin-top: 13px;
+}
+.modal-btn {
+  padding: 8px 13px;
+  border-radius: 8px;
+  background: linear-gradient(90deg,#c5a7fa,#b3d7f7 60%);
+  color: #6b2fd2;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: background .15s;
+  font-size: 1em;
+}
+.modal-btn.cancel { background: #f4f0fa; color: #9486ac; font-weight: 500; }
+.modal-btn:hover { filter: brightness(1.05);}
+.modal-btn.cancel:hover { background: #ede7f7; }
+@media (max-width: 500px) {
+  .container { max-width: 99vw; min-height: 95vw; padding: 6vw 3vw 11vw 3vw;}
+  .main-block { margin-top: 2vw;}
+  .logo-img { width: 8vw; height: 8vw;}
+  .brand-title { font-size: 1.12em;}
+}
