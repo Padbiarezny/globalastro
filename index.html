@@ -4,40 +4,33 @@
   <meta charset="UTF-8">
   <title>GlobalAstro</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
-    <div class="logo-row">
-      <img src="https://cdn-icons-png.flaticon.com/512/1815/1815961.png" class="logo-img" alt="astro">
-      <div class="brand-title"></div>
-    </div>
-    <div class="label-title"></div>
-    <div class="block-question">
-      <textarea id="question" rows="3" placeholder=""></textarea>
-    </div>
-    <div class="block-buttons">
-      <button id="open-me" class="card-btn empty" type="button">
-        <span class="card-title"></span>
-        <span class="card-content" id="me-summary">—<br>—<br>—<br>—</span>
+  <div class="main-container">
+    <div class="brand-title"></div>
+    <div class="card-row">
+      <button id="open-me" class="card-btn">
+        <div class="card-title"></div>
+        <div class="card-info" id="me-info">—<br>—<br>—</div>
       </button>
-      <button id="open-partner" class="card-btn empty" type="button">
-        <span class="card-title"></span>
-        <span class="card-content" id="partner-summary">—<br>—<br>—<br>—<br>—</span>
-      </button>
-      <button id="open-options" class="card-btn empty full-btn" type="button">
-        <span class="card-title"></span>
-        <span class="card-content" id="options-summary">—</span>
+      <button id="open-partner" class="card-btn">
+        <div class="card-title"></div>
+        <div class="card-info" id="partner-info">—<br>—<br>—</div>
       </button>
     </div>
-    <button id="ask-btn" class="ask-btn" type="button"></button>
+    <button id="open-options" class="card-btn">
+      <div class="card-title"></div>
+      <div class="card-info">—</div>
+    </button>
+
+    <div class="form-block">
+      <label class="label-title" for="question"></label>
+      <textarea id="question" placeholder=""></textarea>
+      <button class="ask-btn" id="ask-btn"></button>
+    </div>
     <div id="result"></div>
   </div>
-  <!-- Модальные окна (остались без изменений, если были) -->
-  <div id="modal-bg" class="modal-bg"></div>
-  <div id="modal-me" class="modal" style="display:none"></div>
-  <div id="modal-partner" class="modal" style="display:none"></div>
-  <div id="modal-options" class="modal" style="display:none"></div>
   <script src="script.js"></script>
 </body>
 </html>
