@@ -7,133 +7,142 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h1>GlobalAstro</h1>
-    <div class="cards-row">
-      <div class="card-btn empty" id="my-data-btn">
-        <span>Мои данные</span>
-        <div class="card-content" id="my-data"><div>—</div><div>—</div><div>—</div></div>
-      </div>
-      <div class="card-btn empty" id="partner-data-btn">
-        <span>Данные партнера</span>
-        <div class="card-content" id="partner-data"><div>—</div><div>—</div><div>—</div></div>
-      </div>
-    </div>
+<div class="container">
+  <h1>GlobalAstro</h1>
 
-    <!-- Модалки -->
-    <div class="modal-bg" id="my-modal-bg">
-      <div class="modal">
-        <h2>Мои данные</h2>
-        <input type="text" id="my-name" placeholder="Имя (необязательно)">
-        <input type="date" id="my-dob" placeholder="Дата рождения">
-        <input type="text" id="my-place" placeholder="Место рождения">
-        <select id="my-gender">
-          <option value="">Пол</option>
-          <option value="мужской">Мужской</option>
-          <option value="женский">Женский</option>
-        </select>
-        <input type="time" id="my-time" placeholder="Время рождения (необязательно)">
-        <button class="modal-btn" id="save-my">Сохранить</button>
-        <button class="modal-btn cancel">Отмена</button>
-      </div>
+  <div class="cards-row">
+    <div id="my-data-btn" class="card-btn empty">
+      <span>Мои данные</span>
+      <div id="my-data" class="card-content"></div>
     </div>
-    <div class="modal-bg" id="partner-modal-bg">
-      <div class="modal">
-        <h2>Данные партнера</h2>
-        <input type="text" id="partner-name" placeholder="Имя (необязательно)">
-        <input type="date" id="partner-dob" placeholder="Дата рождения">
-        <input type="text" id="partner-place" placeholder="Место рождения">
-        <select id="partner-gender">
-          <option value="">Пол</option>
-          <option value="мужской">Мужской</option>
-          <option value="женский">Женский</option>
-        </select>
-        <input type="time" id="partner-time" placeholder="Время рождения (необязательно)">
-        <button class="modal-btn" id="save-partner">Сохранить</button>
-        <button class="modal-btn cancel">Отмена</button>
-      </div>
+    <div id="partner-data-btn" class="card-btn empty">
+      <span>Данные партнера</span>
+      <div id="partner-data" class="card-content"></div>
     </div>
-
-    <label class="question-label" for="user-question">Какой ваш вопрос астрологу?</label>
-    <textarea id="user-question" placeholder="Например: Какой у меня будет ближайший месяц?"></textarea>
-
-    <!-- АККОРДЕОНЫ -->
-    <div class="accordion-list">
-      <div class="accordion-card">
-        <div class="accordion-header">Время прогноза</div>
-        <div class="accordion-body">
-          <b>Долгосрочные</b><br>
-          <label><input type="checkbox" value="Натальный прогноз на жизнь"> Натальный прогноз на жизнь</label>
-          <label><input type="checkbox" value="Прогноз на год (соляр)"> Прогноз на год (соляр)</label>
-          <label><input type="checkbox" value="Прогноз на месяц (лунар, ингрессии)"> Прогноз на месяц (лунар, ингрессии)</label>
-          <label><input type="checkbox" value="Прогноз на неделю"> Прогноз на неделю</label>
-          <label><input type="checkbox" value="Прогноз на день"> Прогноз на день</label>
-          <label><input type="checkbox" value="Прогноз по жизненным периодам (Фирдарии, дирекции, прогрессии, Вимшоттари Даша)"> Прогноз по жизненным периодам (Фирдарии, дирекции, прогрессии, Вимшоттари Даша)</label>
-          <br><b>Краткосрочные</b><br>
-          <label><input type="checkbox" value="Ежедневный прогноз (по транзитам Луны и аспектам)"> Ежедневный прогноз (по транзитам Луны и аспектам)</label>
-          <label><input type="checkbox" value="Прогноз на час (часовая астрология / хорар)"> Прогноз на час (часовая астрология / хорар)</label>
-        </div>
-      </div>
-      <div class="accordion-card">
-        <div class="accordion-header">Школа и традиция астрологии</div>
-        <div class="accordion-body">
-          <b>Западная астрология</b><br>
-          <label><input type="checkbox" value="Классическая"> Классическая</label>
-          <label><input type="checkbox" value="Психологическая"> Психологическая</label>
-          <label><input type="checkbox" value="Эзотерическая"> Эзотерическая</label>
-          <label><input type="checkbox" value="Эволюционная"> Эволюционная</label>
-          <label><input type="checkbox" value="Ураническая"> Ураническая</label>
-          <label><input type="checkbox" value="Гелиоцентрическая"> Гелиоцентрическая</label>
-          <br><b>Индийская (Ведическая / Джйотиш)</b><br>
-          <label><input type="checkbox" value="Сидерическая система"> Сидерическая система</label>
-          <label><input type="checkbox" value="Даша-системы (Вимшоттари и др.)"> Даша-системы (Вимшоттари и др.)</label>
-          <label><input type="checkbox" value="Навамша и варги"> Навамша и варги</label>
-          <label><input type="checkbox" value="Панчанга-прогноз"> Панчанга-прогноз</label>
-          <label><input type="checkbox" value="Мухурта"> Мухурта</label>
-          <br><b>Китайская астрология</b><br>
-          <label><input type="checkbox" value="Ба Цзы (4 столпа судьбы)"> Ба Цзы (4 столпа судьбы)</label>
-          <label><input type="checkbox" value="Цзы Вэй Доу Шу"> Цзы Вэй Доу Шу</label>
-          <label><input type="checkbox" value="Фэн-шуй с натальной привязкой"> Фэн-шуй с натальной привязкой</label>
-          <label><input type="checkbox" value="12 животных + стихии"> 12 животных + стихии</label>
-          <br><b>Другое</b><br>
-          <label><input type="checkbox" value="Тибетская астрология"> Тибетская астрология</label>
-          <label><input type="checkbox" value="Арабская традиция"> Арабская традиция</label>
-          <label><input type="checkbox" value="Майянская (Тцолкин, Кин)"> Майянская (Тцолкин, Кин)</label>
-          <label><input type="checkbox" value="Кармическая астрология"> Кармическая астрология</label>
-          <label><input type="checkbox" value="Оккультная (Каббала, Таро)"> Оккультная (Каббала, Таро)</label>
-        </div>
-      </div>
-      <div class="accordion-card">
-        <div class="accordion-header">Техника прогноза</div>
-        <div class="accordion-body">
-          <label><input type="checkbox" value="Транзиты"> Транзиты (текущие планеты к наталу)</label>
-          <label><input type="checkbox" value="Прогрессии"> Прогрессии (1 день = 1 год жизни)</label>
-          <label><input type="checkbox" value="Дирекции"> Дирекции (смещение точек карты)</label>
-          <label><input type="checkbox" value="Соляр"> Соляр (год от дня рождения)</label>
-          <label><input type="checkbox" value="Лунар"> Лунар (месяц от лунного цикла)</label>
-          <label><input type="checkbox" value="Ингрессии"> Ингрессии (вход планет в знаки)</label>
-          <label><input type="checkbox" value="Астрокартография"> Астрокартография (планеты на карте мира)</label>
-          <label><input type="checkbox" value="Хорар"> Хорар (ответ по моменту вопроса)</label>
-          <label><input type="checkbox" value="Электив"> Электив (поиск лучшего времени)</label>
-        </div>
-      </div>
-      <div class="accordion-card">
-        <div class="accordion-header">Редкие и нестандартные прогнозы</div>
-        <div class="accordion-body">
-          <label><input type="checkbox" value="Гороскоп страны (мунда́нная астрология)"> Гороскоп страны (мунда́нная астрология)</label>
-          <label><input type="checkbox" value="Гороскоп по Таро"> Гороскоп по Таро</label>
-          <label><input type="checkbox" value="Сакральная геометрия"> Сакральная геометрия</label>
-          <label><input type="checkbox" value="Астрология фиксированных звёзд"> Астрология фиксированных звёзд</label>
-          <label><input type="checkbox" value="Космограмма (без точного времени)"> Космограмма (без точного времени)</label>
-          <label><input type="checkbox" value="Нумерологическая астрология"> Нумерологическая астрология</label>
-          <label><input type="checkbox" value="Астро-психотипирование (MBTI + зодиак)"> Астро-психотипирование (MBTI + зодиак)</label>
-        </div>
-      </div>
-    </div>
-
-    <button id="ask-btn">Получить ответ</button>
-    <div id="result"></div>
   </div>
-  <script src="script.js"></script>
+
+  <label class="question-label" for="user-question">Какой ваш вопрос астрологу?</label>
+  <textarea id="user-question" rows="5" placeholder="Например: Что меня ждет в отношениях?"></textarea>
+
+  <div class="accordion-list">
+    <!-- Блок 1 -->
+    <div class="accordion-card">
+      <div class="accordion-header">🕰️ Время прогноза</div>
+      <div class="accordion-body">
+        <b>Долгосрочные</b><br>
+        <label><input type="checkbox" value="Натальный прогноз на жизнь">Натальный прогноз на жизнь</label>
+        <label><input type="checkbox" value="Прогноз на год">Прогноз на год (соляр)</label>
+        <label><input type="checkbox" value="Прогноз на месяц">Прогноз на месяц (лунар, ингрессии)</label>
+        <label><input type="checkbox" value="Прогноз на неделю">Прогноз на неделю</label>
+        <label><input type="checkbox" value="Прогноз на день">Прогноз на день</label>
+        <label><input type="checkbox" value="Жизненные периоды">Прогноз по жизненным периодам (Фирдарии, дирекции, прогрессии, Вимшоттари Даша)</label>
+        <br><b>Краткосрочные</b><br>
+        <label><input type="checkbox" value="Ежедневный прогноз">Ежедневный прогноз (по транзитам Луны и аспектам)</label>
+        <label><input type="checkbox" value="Прогноз на час">Прогноз на час (часовая астрология / хорар)</label>
+      </div>
+    </div>
+    <!-- Блок 2 -->
+    <div class="accordion-card">
+      <div class="accordion-header">🧭 Школа и традиция астрологии</div>
+      <div class="accordion-body">
+        <b>Западная астрология</b><br>
+        <label><input type="checkbox" value="Классическая">Классическая</label>
+        <label><input type="checkbox" value="Психологическая">Психологическая</label>
+        <label><input type="checkbox" value="Эзотерическая">Эзотерическая</label>
+        <label><input type="checkbox" value="Эволюционная">Эволюционная</label>
+        <label><input type="checkbox" value="Ураническая">Ураническая</label>
+        <label><input type="checkbox" value="Гелиоцентрическая">Гелиоцентрическая</label>
+        <br><b>Индийская (Ведическая / Джйотиш)</b><br>
+        <label><input type="checkbox" value="Сидерическая система">Сидерическая система</label>
+        <label><input type="checkbox" value="Даша-системы">Даша-системы (Вимшоттари и др.)</label>
+        <label><input type="checkbox" value="Навамша и варги">Навамша и варги</label>
+        <label><input type="checkbox" value="Панчанга-прогноз">Панчанга-прогноз</label>
+        <label><input type="checkbox" value="Мухурта">Мухурта</label>
+        <br><b>Китайская астрология</b><br>
+        <label><input type="checkbox" value="Ба Цзы">Ба Цзы (4 столпа судьбы)</label>
+        <label><input type="checkbox" value="Цзы Вэй Доу Шу">Цзы Вэй Доу Шу</label>
+        <label><input type="checkbox" value="Фэн-шуй">Фэн-шуй с натальной привязкой</label>
+        <label><input type="checkbox" value="12 животных + стихии">12 животных + стихии</label>
+        <br><b>Другое</b><br>
+        <label><input type="checkbox" value="Тибетская астрология">Тибетская астрология</label>
+        <label><input type="checkbox" value="Арабская традиция">Арабская традиция (арабские части, лунные дома)</label>
+        <label><input type="checkbox" value="Майянская">Майянская (Тцолкин, Кин)</label>
+        <label><input type="checkbox" value="Кармическая астрология">Кармическая астрология</label>
+        <label><input type="checkbox" value="Оккультная">Оккультная (Каббала, Таро)</label>
+      </div>
+    </div>
+    <!-- Блок 3 -->
+    <div class="accordion-card">
+      <div class="accordion-header">🔧 Техника прогноза</div>
+      <div class="accordion-body">
+        <label><input type="checkbox" value="Транзиты">Транзиты (текущие планеты к наталу)</label>
+        <label><input type="checkbox" value="Прогрессии">Прогрессии (1 день = 1 год жизни)</label>
+        <label><input type="checkbox" value="Дирекции">Дирекции (смещение точек карты)</label>
+        <label><input type="checkbox" value="Соляр">Соляр (год от дня рождения)</label>
+        <label><input type="checkbox" value="Лунар">Лунар (месяц от лунного цикла)</label>
+        <label><input type="checkbox" value="Ингрессии">Ингрессии (вход планет в знаки)</label>
+        <label><input type="checkbox" value="Астрокартография">Астрокартография (планеты на карте мира)</label>
+        <label><input type="checkbox" value="Хорар">Хорар (ответ по моменту вопроса)</label>
+        <label><input type="checkbox" value="Электив">Электив (поиск лучшего времени)</label>
+      </div>
+    </div>
+    <!-- Блок 4 -->
+    <div class="accordion-card">
+      <div class="accordion-header">🌌 Редкие и нестандартные прогнозы</div>
+      <div class="accordion-body">
+        <label><input type="checkbox" value="Гороскоп страны">Гороскоп страны (мунда́нная астрология)</label>
+        <label><input type="checkbox" value="Гороскоп по Таро">Гороскоп по Таро</label>
+        <label><input type="checkbox" value="Сакральная геометрия">Сакральная геометрия</label>
+        <label><input type="checkbox" value="Астрология фиксированных звёзд">Астрология фиксированных звёзд</label>
+        <label><input type="checkbox" value="Космограмма">Космограмма (без точного времени)</label>
+        <label><input type="checkbox" value="Нумерологическая астрология">Нумерологическая астрология</label>
+        <label><input type="checkbox" value="Астро-психотипирование">Астро-психотипирование (MBTI + зодиак)</label>
+      </div>
+    </div>
+  </div>
+
+  <button id="ask-btn">Получить ответ</button>
+  <div id="result"></div>
+</div>
+
+<!-- Модалки -->
+<div id="my-modal-bg" class="modal-bg">
+  <div class="modal">
+    <h2>Мои данные</h2>
+    <input id="my-name" type="text" placeholder="Имя (необязательно)">
+    <input id="my-dob" type="date" placeholder="Дата рождения">
+    <input id="my-place" type="text" placeholder="Место рождения">
+    <select id="my-gender">
+      <option value="">Пол</option>
+      <option value="мужской">Мужской</option>
+      <option value="женский">Женский</option>
+    </select>
+    <input id="my-time" type="time" placeholder="Время рождения (необязательно)">
+    <div style="display:flex;gap:7px;">
+      <button class="modal-btn" id="save-my">Сохранить</button>
+      <button class="modal-btn cancel">Отмена</button>
+    </div>
+  </div>
+</div>
+<div id="partner-modal-bg" class="modal-bg">
+  <div class="modal">
+    <h2>Данные партнера</h2>
+    <input id="partner-name" type="text" placeholder="Имя (необязательно)">
+    <input id="partner-dob" type="date" placeholder="Дата рождения">
+    <input id="partner-place" type="text" placeholder="Место рождения">
+    <select id="partner-gender">
+      <option value="">Пол</option>
+      <option value="мужской">Мужской</option>
+      <option value="женский">Женский</option>
+    </select>
+    <input id="partner-time" type="time" placeholder="Время рождения (необязательно)">
+    <div style="display:flex;gap:7px;">
+      <button class="modal-btn" id="save-partner">Сохранить</button>
+      <button class="modal-btn cancel">Отмена</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
