@@ -1,29 +1,30 @@
 document.addEventListener('DOMContentLoaded', function () {
-  // Смена языка
+  // --- Язык ---
   const langSelect = document.getElementById('lang-select');
   if (langSelect) {
+    langSelect.value = localStorage.getItem('astro_lang') || 'ru';
     langSelect.addEventListener('change', function () {
       localStorage.setItem('astro_lang', langSelect.value);
       location.reload();
     });
   }
 
-  // Восстановление данных пользователя и партнёра
+  // --- Восстановление данных ---
   restoreCard('my', 'my-data');
   restoreCard('partner', 'partner-data');
 
-  // Мои данные/Партнёр - открытие модалок
+  // --- Открытие модалок ---
   document.getElementById('my-data-btn').onclick = () => openModal('my');
   document.getElementById('partner-data-btn').onclick = () => openModal('partner');
 
-  // Закрытие модалок
+  // --- Закрытие модалок ---
   document.querySelectorAll('.modal-btn.cancel').forEach(btn => {
     btn.onclick = function() {
       this.closest('.modal-bg').style.display = 'none';
     }
   });
 
-  // Сохранение данных пользователя/партнёра
+  // --- Сохранение данных пользователя/партнёра ---
   document.getElementById('save-my').onclick = () => saveCard('my', 'my-data');
   document.getElementById('save-partner').onclick = () => saveCard('partner', 'partner-data');
 
@@ -32,6 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
     head.onclick = function () {
       const parent = this.parentNode;
       parent.classList.toggle('open');
+      // Для мультиоткрытия: закомментируй след. 2 строки
       document.querySelectorAll('.accordion-card').forEach(card => {
         if (card !== parent) card.classList.remove('open');
       });
@@ -57,7 +59,8 @@ document.addEventListener('DOMContentLoaded', function () {
       user: userData,
       partner: partnerData,
       question: question,
-      options: options
+      options: options,
+      lang: (langSelect ? langSelect.value : "ru")
     };
     fetch('/horoscope', {
       method: 'POST',
