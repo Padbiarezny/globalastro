@@ -20,39 +20,45 @@
       </div>
     </div>
 
-    <!-- Модалки -->
-    <div class="modal-bg" id="my-modal-bg">
-      <div class="modal">
-        <h2>Мои данные</h2>
-        <input type="text" id="my-name" placeholder="Имя (необязательно)">
-        <input type="date" id="my-dob" placeholder="Дата рождения">
-        <input type="text" id="my-place" placeholder="Место рождения">
-        <select id="my-gender">
-          <option value="">Пол</option>
-          <option value="мужской">Мужской</option>
-          <option value="женский">Женский</option>
-        </select>
-        <input type="time" id="my-time" placeholder="Время рождения (необязательно)">
-        <button class="modal-btn" id="save-my">Сохранить</button>
-        <button class="modal-btn cancel">Отмена</button>
-      </div>
+<!-- МОДАЛКИ -->
+<div class="modal-bg" id="my-modal-bg">
+  <div class="modal">
+    <h2>Мои данные</h2>
+    <input id="my-name" placeholder="Имя (необязательно)" autocomplete="off">
+    <input id="my-dob" type="date" placeholder="Дата рождения">
+    <input id="my-place" placeholder="Место рождения">
+    <select id="my-gender">
+      <option value="">Пол (не выбрано)</option>
+      <option value="Мужской">Мужской</option>
+      <option value="Женский">Женский</option>
+    </select>
+    <input id="my-time" type="time" placeholder="Время рождения (необязательно)">
+    <div style="display:flex;gap:8px;">
+      <button class="modal-btn" id="save-my">Сохранить</button>
+      <button class="modal-btn cancel">Отмена</button>
     </div>
-    <div class="modal-bg" id="partner-modal-bg">
-      <div class="modal">
-        <h2>Данные партнера</h2>
-        <input type="text" id="partner-name" placeholder="Имя (необязательно)">
-        <input type="date" id="partner-dob" placeholder="Дата рождения">
-        <input type="text" id="partner-place" placeholder="Место рождения">
-        <select id="partner-gender">
-          <option value="">Пол</option>
-          <option value="мужской">Мужской</option>
-          <option value="женский">Женский</option>
-        </select>
-        <input type="time" id="partner-time" placeholder="Время рождения (необязательно)">
-        <button class="modal-btn" id="save-partner">Сохранить</button>
-        <button class="modal-btn cancel">Отмена</button>
-      </div>
+  </div>
+</div>
+
+<div class="modal-bg" id="partner-modal-bg">
+  <div class="modal">
+    <h2>Данные партнера</h2>
+    <input id="partner-name" placeholder="Имя (необязательно)" autocomplete="off">
+    <input id="partner-dob" type="date" placeholder="Дата рождения">
+    <input id="partner-place" placeholder="Место рождения">
+    <select id="partner-gender">
+      <option value="">Пол (не выбрано)</option>
+      <option value="Мужской">Мужской</option>
+      <option value="Женский">Женский</option>
+    </select>
+    <input id="partner-time" type="time" placeholder="Время рождения (необязательно)">
+    <div style="display:flex;gap:8px;">
+      <button class="modal-btn" id="save-partner">Сохранить</button>
+      <button class="modal-btn cancel">Отмена</button>
     </div>
+  </div>
+</div>
+<!-- МОДАЛКИ конец -->
 
     <label class="question-label" for="user-question">Какой ваш вопрос астрологу?</label>
     <textarea id="user-question" placeholder="Например: Какой у меня будет ближайший месяц?"></textarea>
