@@ -5,6 +5,12 @@ import os
 app = Flask(__name__)
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
+UI_PROMPTS = {
+    "ru": "Ты опытный астролог и отвечаешь на вопросы, используя астрологические знания. Вот данные пользователя: Дата рождения: {dob}, Место рождения: {place}, Пол: {gender}, Время рождения: {time}, Данные партнера: {partner}, Доп. опции: {opts}. Вопрос пользователя: {question}. Дай подробный астрологический ответ на том языке, на котором был вопрос. Не отвечай общими фразами, не проси дополнительных данных, не объясняй что такое астрология.",
+    "en": "You are an experienced astrologer. Use astrology to answer the question. User's data: Date of birth: {dob}, Place of birth: {place}, Gender: {gender}, Time of birth: {time}, Partner's data: {partner}, Extra options: {opts}. User's question: {question}. Give a detailed astrology-based answer in the language of the question. Do not reply with general phrases or request more data, and do not explain what astrology is.",
+    # ... добавь по аналогии для других языков
+}
+
 @app.route("/")
 def home():
     return send_from_directory('.', 'index.html')
@@ -20,40 +26,26 @@ def style():
 @app.route("/horoscope", methods=["POST"])
 def horoscope():
     data = request.get_json(force=True)
+    lang = data.get("lang", "ru")
+    prompt_template = UI_PROMPTS.get(lang, UI_PROMPTS["ru"])
 
-    # Получаем все данные по новой структуре
     me = data.get("me", {})
     partner = data.get("partner", {})
-    options = data.get("options", [])
-    question = data.get("question", "")
-
-    prompt = (
-        "Ты опытный астролог и отвечаешь на вопросы пользователя по астрологическим данным. "
-        "Используй ВСЮ информацию ниже для анализа, добавляй выбранные опции (нумерология, таро, китайский гороскоп и др), если они указаны. "
-        "Дай развернутый, уникальный астрологический ответ на вопрос пользователя, без воды и повторов.\n\n"
-        "Данные пользователя:\n"
-        f"- Дата рождения: {me.get('dob','')}\n"
-        f"- Место рождения: {me.get('place','')}\n"
-        f"- Пол: {me.get('gender','')}\n"
-        f"- Время рождения: {me.get('time','')}\n"
-        + (
-            f"Данные партнёра:\n"
-            f"- Имя: {partner.get('name','')}\n"
-            f"- Дата рождения: {partner.get('dob','')}\n"
-            f"- Место рождения: {partner.get('place','')}\n"
-            f"- Пол: {partner.get('gender','')}\n"
-            f"- Время рождения: {partner.get('time','')}\n"
-            if partner else ""
-        ) +
-        (f"Выбранные опции: {', '.join(options)}\n" if options else "") +
-        f"\nВопрос пользователя: {question}\n"
-        "Ответ должен быть подробным, конкретным и учитывать все вышеуказанные детали."
+    opts = data.get("opts", {})
+    prompt = prompt_template.format(
+        dob=me.get("dob", "—"),
+        place=me.get("place", "—"),
+        gender=me.get("gender", "—"),
+        time=me.get("time", "—"),
+        partner=partner,
+        opts=opts,
+        question=data.get("question", "")
     )
 
     response = openai.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": prompt}],
-        max_tokens=600,
+        max_tokens=450,
         temperature=0.8
     )
     return jsonify({"response": response.choices[0].message.content})
