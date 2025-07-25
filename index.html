@@ -7,25 +7,8 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Языковое меню -->
-  <div class="lang-select-row">
-    <select id="lang-select">
-      <option value="ru">Русский</option>
-      <option value="en">English</option>
-      <option value="es">Español</option>
-      <option value="pt">Português</option>
-      <option value="de">Deutsch</option>
-      <option value="fr">Français</option>
-      <option value="sr">Српски</option>
-      <option value="pl">Polski</option>
-      <option value="ar">العربية</option>
-      <option value="zh">中文</option>
-    </select>
-  </div>
-
   <div class="container">
     <h1>GlobalAstro</h1>
-
     <div class="cards-row">
       <div class="card-btn empty" id="my-data-btn">
         <span>Мои данные</span>
@@ -71,51 +54,48 @@
       </div>
     </div>
 
-    <!-- Окно вопроса -->
     <label class="question-label" for="user-question">Какой ваш вопрос астрологу?</label>
     <textarea id="user-question" placeholder="Например: Какой у меня будет ближайший месяц?"></textarea>
 
-    <!-- Блоки аккордеоны -->
+    <!-- АККОРДЕОНЫ -->
     <div class="accordion-list">
-      <!-- Блок 1 -->
       <div class="accordion-card">
         <div class="accordion-header">Время прогноза</div>
         <div class="accordion-body">
-          <strong>Долгосрочные</strong><br>
+          <b>Долгосрочные</b><br>
           <label><input type="checkbox" value="Натальный прогноз на жизнь"> Натальный прогноз на жизнь</label>
           <label><input type="checkbox" value="Прогноз на год (соляр)"> Прогноз на год (соляр)</label>
           <label><input type="checkbox" value="Прогноз на месяц (лунар, ингрессии)"> Прогноз на месяц (лунар, ингрессии)</label>
           <label><input type="checkbox" value="Прогноз на неделю"> Прогноз на неделю</label>
           <label><input type="checkbox" value="Прогноз на день"> Прогноз на день</label>
           <label><input type="checkbox" value="Прогноз по жизненным периодам (Фирдарии, дирекции, прогрессии, Вимшоттари Даша)"> Прогноз по жизненным периодам (Фирдарии, дирекции, прогрессии, Вимшоттари Даша)</label>
-          <br><strong>Краткосрочные</strong><br>
+          <br><b>Краткосрочные</b><br>
           <label><input type="checkbox" value="Ежедневный прогноз (по транзитам Луны и аспектам)"> Ежедневный прогноз (по транзитам Луны и аспектам)</label>
           <label><input type="checkbox" value="Прогноз на час (часовая астрология / хорар)"> Прогноз на час (часовая астрология / хорар)</label>
         </div>
       </div>
-      <!-- Блок 2 -->
       <div class="accordion-card">
         <div class="accordion-header">Школа и традиция астрологии</div>
         <div class="accordion-body">
-          <strong>Западная астрология</strong><br>
+          <b>Западная астрология</b><br>
           <label><input type="checkbox" value="Классическая"> Классическая</label>
           <label><input type="checkbox" value="Психологическая"> Психологическая</label>
           <label><input type="checkbox" value="Эзотерическая"> Эзотерическая</label>
           <label><input type="checkbox" value="Эволюционная"> Эволюционная</label>
           <label><input type="checkbox" value="Ураническая"> Ураническая</label>
           <label><input type="checkbox" value="Гелиоцентрическая"> Гелиоцентрическая</label>
-          <br><strong>Индийская (Ведическая / Джйотиш)</strong><br>
+          <br><b>Индийская (Ведическая / Джйотиш)</b><br>
           <label><input type="checkbox" value="Сидерическая система"> Сидерическая система</label>
           <label><input type="checkbox" value="Даша-системы (Вимшоттари и др.)"> Даша-системы (Вимшоттари и др.)</label>
           <label><input type="checkbox" value="Навамша и варги"> Навамша и варги</label>
           <label><input type="checkbox" value="Панчанга-прогноз"> Панчанга-прогноз</label>
           <label><input type="checkbox" value="Мухурта"> Мухурта</label>
-          <br><strong>Китайская астрология</strong><br>
+          <br><b>Китайская астрология</b><br>
           <label><input type="checkbox" value="Ба Цзы (4 столпа судьбы)"> Ба Цзы (4 столпа судьбы)</label>
           <label><input type="checkbox" value="Цзы Вэй Доу Шу"> Цзы Вэй Доу Шу</label>
           <label><input type="checkbox" value="Фэн-шуй с натальной привязкой"> Фэн-шуй с натальной привязкой</label>
           <label><input type="checkbox" value="12 животных + стихии"> 12 животных + стихии</label>
-          <br><strong>Другое</strong><br>
+          <br><b>Другое</b><br>
           <label><input type="checkbox" value="Тибетская астрология"> Тибетская астрология</label>
           <label><input type="checkbox" value="Арабская традиция"> Арабская традиция</label>
           <label><input type="checkbox" value="Майянская (Тцолкин, Кин)"> Майянская (Тцолкин, Кин)</label>
@@ -123,7 +103,6 @@
           <label><input type="checkbox" value="Оккультная (Каббала, Таро)"> Оккультная (Каббала, Таро)</label>
         </div>
       </div>
-      <!-- Блок 3 -->
       <div class="accordion-card">
         <div class="accordion-header">Техника прогноза</div>
         <div class="accordion-body">
@@ -138,7 +117,6 @@
           <label><input type="checkbox" value="Электив"> Электив (поиск лучшего времени)</label>
         </div>
       </div>
-      <!-- Блок 4 -->
       <div class="accordion-card">
         <div class="accordion-header">Редкие и нестандартные прогнозы</div>
         <div class="accordion-body">
