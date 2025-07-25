@@ -1,153 +1,231 @@
-// ---- Языки интерфейса ----
-const LANGS = {
+// ======= Локализация =======
+const UI = {
   ru: {
-    astro: "GlobalAstro",
-    ask: "Получить ответ",
     qLabel: "Какой Ваш вопрос астрологу?",
     me: "Мои данные",
     partner: "Данные партнёра",
     options: "Дополнительные опции",
-    resError: "Ошибка соединения: ",
-    wait: "⏳ Запрос отправлен... ждём ответ от звёзд :)",
-    enterQ: "Введите свой вопрос!",
-    partnerName: "Имя",
+    result: "Получить ответ",
+    modalMe: "Мои данные",
+    modalPartner: "Данные партнёра",
+    modalOptions: "Дополнительные опции",
+    name: "Имя",
     dob: "Дата рождения",
     place: "Место рождения",
     gender: "Пол",
+    male: "Мужской",
+    female: "Женский",
     time: "Время рождения (необязательно)",
     save: "Сохранить",
     cancel: "Отмена",
-    optNum: "Нумерология",
-    optTaro: "Таро",
-    optChina: "Китайский гороскоп",
-    optMore: "Ещё",
-    qPlaceholder: [
-      "Покупать мне BMW X5 на следующей неделе?",
-      "Что ждёт меня в отношениях с новым партнёром?",
-      "Как будет складываться моя карьера в этом году?",
-      "Когда лучше начинать новое дело?",
-      "Стоит ли соглашаться на переезд?",
-      "Какие энергии месяца для меня наиболее важны?",
-      "В какой сфере меня ждёт успех в ближайшее время?",
-      "Как будут складываться отношения с детьми?",
-      "Есть ли вероятность встретить любовь в этом месяце?",
-      "Подходит ли мне выбранная профессия?",
-      "Когда ждать повышения на работе?",
-      "Стоит ли инвестировать в недвижимость сейчас?",
-      "Что скажет гороскоп о моём здоровье?",
-      "Появятся ли новые друзья в этом году?",
-      "Нужно ли мне менять сферу деятельности?",
-      "Есть ли опасность крупных трат в этом месяце?",
-      "Когда лучше планировать отпуск?",
-      "Смогу ли я реализовать творческий проект?",
-      "Какая дата удачна для подписания договора?",
-      "Какова совместимость с моим партнёром?"
-    ]
+    numer: "Нумерология",
+    taro: "Таро",
+    china: "Китайский гороскоп",
+    more: "Ещё"
   },
   en: {
-    astro: "GlobalAstro",
-    ask: "Get Answer",
-    qLabel: "What is your question for the astrologer?",
-    me: "My Data",
-    partner: "Partner's Data",
-    options: "Extra options",
-    resError: "Connection error: ",
-    wait: "⏳ Request sent... waiting for an answer from the stars :)",
-    enterQ: "Please enter your question!",
-    partnerName: "Name",
+    qLabel: "What's your question for the astrologer?",
+    me: "My data",
+    partner: "Partner's data",
+    options: "Additional options",
+    result: "Get answer",
+    modalMe: "My data",
+    modalPartner: "Partner's data",
+    modalOptions: "Additional options",
+    name: "Name",
     dob: "Date of birth",
     place: "Place of birth",
     gender: "Gender",
+    male: "Male",
+    female: "Female",
     time: "Time of birth (optional)",
     save: "Save",
     cancel: "Cancel",
-    optNum: "Numerology",
-    optTaro: "Tarot",
-    optChina: "Chinese horoscope",
-    optMore: "More",
-    qPlaceholder: [
-      "Should I buy a BMW X5 next week?",
-      "What awaits me in a new relationship?",
-      "How will my career unfold this year?",
-      "When is the best time to start something new?",
-      "Should I agree to move?",
-      "What are the most important energies of the month for me?",
-      "Which field will bring me success soon?",
-      "How will my relationship with children develop?",
-      "Will I meet love this month?",
-      "Is my chosen profession right for me?",
-      "When to expect a promotion?",
-      "Should I invest in real estate now?",
-      "What does my horoscope say about health?",
-      "Will I find new friends this year?",
-      "Should I change my field?",
-      "Are there risks of big expenses this month?",
-      "When is the best time to plan a vacation?",
-      "Will I realize my creative project?",
-      "What date is lucky for signing a contract?",
-      "How compatible am I with my partner?"
-    ]
+    numer: "Numerology",
+    taro: "Tarot",
+    china: "Chinese horoscope",
+    more: "More"
   }
-  // ... добавь другие языки по аналогии, если нужно
+  // Можешь добавить остальные языки аналогично
 };
 
-function getLang() {
-  let code = localStorage.getItem('astro_lang') || 'ru';
-  return code;
+// ======= Локализация =======
+let currentLang = localStorage.getItem('astro_lang') || "ru";
+function updateUI(lang) {
+  const T = UI[lang] || UI["ru"];
+  document.getElementById("qLabel").innerText = T.qLabel;
+  document.getElementById("me-title").innerText = T.me;
+  document.getElementById("partner-title").innerText = T.partner;
+  document.getElementById("options-title").innerText = T.options;
+  document.getElementById("ask-btn").innerText = T.result;
+  // Модалки
+  document.getElementById("modal-me").querySelector("h3").innerText = T.modalMe;
+  document.getElementById("modal-partner").querySelector("h3").innerText = T.modalPartner;
+  document.getElementById("modal-options").querySelector("h3").innerText = T.modalOptions;
+  let lbls = document.querySelectorAll("#modal-me label, #modal-partner label, #modal-options label");
+  let idx = 0;
+  [
+    T.dob, T.place, T.gender, T.time, // me
+    T.name, T.dob, T.place, T.gender, T.time // partner
+  ].forEach(txt => { if (lbls[idx]) lbls[idx++].innerText = txt; });
+  document.getElementById("me-gender").options[0].text = T.male;
+  document.getElementById("me-gender").options[1].text = T.female;
+  document.getElementById("p-gender").options[0].text = T.male;
+  document.getElementById("p-gender").options[1].text = T.female;
+  let optLabels = document.querySelectorAll("#modal-options label");
+  if(optLabels[0]) optLabels[0].lastChild.textContent = " " + T.numer;
+  if(optLabels[1]) optLabels[1].lastChild.textContent = " " + T.taro;
+  if(optLabels[2]) optLabels[2].lastChild.textContent = " " + T.china;
+  if(optLabels[3]) optLabels[3].lastChild.textContent = " " + T.more;
+  document.querySelectorAll(".modal-btn")[0].innerText = T.save;
+  document.querySelectorAll(".modal-btn.cancel")[0].innerText = T.cancel;
+  document.querySelectorAll(".modal-btn")[1].innerText = T.save;
+  document.querySelectorAll(".modal-btn.cancel")[1].innerText = T.cancel;
+  document.querySelectorAll(".modal-btn")[2].innerText = T.save;
+  document.querySelectorAll(".modal-btn.cancel")[2].innerText = T.cancel;
 }
-function setLang(code) {
-  localStorage.setItem('astro_lang', code);
-  updateLang();
+
+// ======= Язык =======
+document.getElementById("lang-select").value = currentLang;
+document.getElementById("lang-select").addEventListener("change", function() {
+  currentLang = this.value;
+  localStorage.setItem('astro_lang', currentLang);
+  updateUI(currentLang);
+});
+
+// ======= Модальные окна =======
+function openModal(id) {
+  document.getElementById("modal-bg").style.display = "flex";
+  document.querySelectorAll(".modal").forEach(x=>x.style.display="none");
+  document.getElementById(id).style.display = "block";
 }
-function updateLang() {
-  const code = getLang();
-  const L = LANGS[code] || LANGS['ru'];
-  document.querySelector(".brand-title").innerText = L.astro;
-  document.querySelector(".ask-btn").innerText = L.ask;
-  document.getElementById("qLabel").innerText = L.qLabel;
-  document.getElementById("me-title").innerText = L.me;
-  document.getElementById("partner-title").innerText = L.partner;
-  document.getElementById("options-title").innerText = L.options;
-  // модалки
-  document.querySelectorAll("#modal-me label")[0].innerText = L.dob;
-  document.querySelectorAll("#modal-me label")[1].innerText = L.place;
-  document.querySelectorAll("#modal-me label")[2].innerText = L.gender;
-  document.querySelectorAll("#modal-me label")[3].innerText = L.time;
-  document.querySelectorAll("#modal-me .modal-btn")[0].innerText = L.save;
-  document.querySelectorAll("#modal-me .modal-btn")[1].innerText = L.cancel;
-  // partner
-  document.querySelectorAll("#modal-partner label")[0].innerText = L.partnerName;
-  document.querySelectorAll("#modal-partner label")[1].innerText = L.dob;
-  document.querySelectorAll("#modal-partner label")[2].innerText = L.place;
-  document.querySelectorAll("#modal-partner label")[3].innerText = L.gender;
-  document.querySelectorAll("#modal-partner label")[4].innerText = L.time;
-  document.querySelectorAll("#modal-partner .modal-btn")[0].innerText = L.save;
-  document.querySelectorAll("#modal-partner .modal-btn")[1].innerText = L.cancel;
-  // options
-  document.querySelectorAll("#modal-options label")[0].innerText = L.optNum;
-  document.querySelectorAll("#modal-options label")[1].innerText = L.optTaro;
-  document.querySelectorAll("#modal-options label")[2].innerText = L.optChina;
-  document.querySelectorAll("#modal-options label")[3].innerText = L.optMore;
-  document.querySelectorAll("#modal-options .modal-btn")[0].innerText = L.save;
-  document.querySelectorAll("#modal-options .modal-btn")[1].innerText = L.cancel;
+function closeModal() {
+  document.getElementById("modal-bg").style.display = "none";
 }
-document.getElementById("lang-select").onchange = function() {
-  setLang(this.value);
-  updateLang();
+window.closeModal = closeModal;
+
+// Мои данные
+document.getElementById("open-me").onclick = () => {
+  openModal("modal-me");
+  document.getElementById("me-dob").value = localStorage.getItem("me-dob") || "";
+  document.getElementById("me-place").value = localStorage.getItem("me-place") || "";
+  document.getElementById("me-gender").value = localStorage.getItem("me-gender") || "мужской";
+  document.getElementById("me-time").value = localStorage.getItem("me-time") || "";
 };
-updateLang();
-
-// ----------- Плейсхолдеры для textarea --------
-let qIndex = 0;
-function rotatePlaceholder() {
-  const code = getLang();
-  const L = LANGS[code] || LANGS['ru'];
-  const textarea = document.getElementById('question');
-  textarea.setAttribute("placeholder", L.qPlaceholder[qIndex]);
-  qIndex = (qIndex + 1) % L.qPlaceholder.length;
+// Сохранить мои данные
+window.saveMe = function() {
+  localStorage.setItem("me-dob", document.getElementById("me-dob").value);
+  localStorage.setItem("me-place", document.getElementById("me-place").value);
+  localStorage.setItem("me-gender", document.getElementById("me-gender").value);
+  localStorage.setItem("me-time", document.getElementById("me-time").value);
+  showSummary();
+  closeModal();
 }
-setInterval(rotatePlaceholder, 3000);
-rotatePlaceholder();
 
-// ---- (Дальше не менялось, оставьте ваши функции getData, setData, updateSummary, updateOptionsSummary, модалки, saveMe/savePartner/saveOptions, send-запросы к серверу — все как было) ----
-// Просто вставьте вашу актуальную логику после этого блока, она совместима!
+// Партнёр
+document.getElementById("open-partner").onclick = () => {
+  openModal("modal-partner");
+  document.getElementById("p-name").value = localStorage.getItem("p-name") || "";
+  document.getElementById("p-dob").value = localStorage.getItem("p-dob") || "";
+  document.getElementById("p-place").value = localStorage.getItem("p-place") || "";
+  document.getElementById("p-gender").value = localStorage.getItem("p-gender") || "мужской";
+  document.getElementById("p-time").value = localStorage.getItem("p-time") || "";
+};
+window.savePartner = function() {
+  localStorage.setItem("p-name", document.getElementById("p-name").value);
+  localStorage.setItem("p-dob", document.getElementById("p-dob").value);
+  localStorage.setItem("p-place", document.getElementById("p-place").value);
+  localStorage.setItem("p-gender", document.getElementById("p-gender").value);
+  localStorage.setItem("p-time", document.getElementById("p-time").value);
+  showSummary();
+  closeModal();
+}
+// Опции
+document.getElementById("open-options").onclick = () => {
+  openModal("modal-options");
+  document.getElementById("opt-num").checked = localStorage.getItem("opt-num")==="1";
+  document.getElementById("opt-taro").checked = localStorage.getItem("opt-taro")==="1";
+  document.getElementById("opt-china").checked = localStorage.getItem("opt-china")==="1";
+  document.getElementById("opt-more").checked = localStorage.getItem("opt-more")==="1";
+};
+window.saveOptions = function() {
+  localStorage.setItem("opt-num", document.getElementById("opt-num").checked ? "1":"0");
+  localStorage.setItem("opt-taro", document.getElementById("opt-taro").checked ? "1":"0");
+  localStorage.setItem("opt-china", document.getElementById("opt-china").checked ? "1":"0");
+  localStorage.setItem("opt-more", document.getElementById("opt-more").checked ? "1":"0");
+  closeModal();
+}
+
+// ======= Краткая инфа на кнопках =======
+function showSummary() {
+  // Мои данные
+  let s = [];
+  if(localStorage.getItem("me-dob")) s.push(localStorage.getItem("me-dob"));
+  if(localStorage.getItem("me-place")) s.push(localStorage.getItem("me-place"));
+  if(localStorage.getItem("me-gender")) s.push(localStorage.getItem("me-gender"));
+  if(localStorage.getItem("me-time")) s.push(localStorage.getItem("me-time"));
+  document.getElementById("me-summary").innerHTML = s.length ? s.join("<br>") : "<span style='color:#ccc;'>–</span>";
+  // Партнёр
+  let ps = [];
+  if(localStorage.getItem("p-name")) ps.push(localStorage.getItem("p-name"));
+  if(localStorage.getItem("p-dob")) ps.push(localStorage.getItem("p-dob"));
+  if(localStorage.getItem("p-place")) ps.push(localStorage.getItem("p-place"));
+  if(localStorage.getItem("p-gender")) ps.push(localStorage.getItem("p-gender"));
+  if(localStorage.getItem("p-time")) ps.push(localStorage.getItem("p-time"));
+  document.getElementById("partner-summary").innerHTML = ps.length ? ps.join("<br>") : "<span style='color:#ccc;'>–</span>";
+  // Опции
+  let opts = [];
+  if(localStorage.getItem("opt-num")==="1") opts.push("Нумерология");
+  if(localStorage.getItem("opt-taro")==="1") opts.push("Таро");
+  if(localStorage.getItem("opt-china")==="1") opts.push("Кит. гороскоп");
+  if(localStorage.getItem("opt-more")==="1") opts.push("Ещё");
+  document.getElementById("options-summary").innerHTML = opts.length ? opts.join(", ") : "";
+}
+showSummary();
+
+// ======= Запрос =======
+document.getElementById("ask-btn").onclick = function() {
+  const question = document.getElementById("question").value;
+  if(!question.trim()) {
+    document.getElementById("result").innerText = "Введите вопрос!";
+    return;
+  }
+  document.getElementById("result").innerText = "⏳ Запрос отправлен...";
+  // Собираем данные
+  let data = {
+    me: {
+      dob: localStorage.getItem("me-dob")||"",
+      place: localStorage.getItem("me-place")||"",
+      gender: localStorage.getItem("me-gender")||"",
+      time: localStorage.getItem("me-time")||""
+    },
+    partner: {
+      name: localStorage.getItem("p-name")||"",
+      dob: localStorage.getItem("p-dob")||"",
+      place: localStorage.getItem("p-place")||"",
+      gender: localStorage.getItem("p-gender")||"",
+      time: localStorage.getItem("p-time")||""
+    },
+    options: {
+      numer: localStorage.getItem("opt-num")==="1",
+      taro: localStorage.getItem("opt-taro")==="1",
+      china: localStorage.getItem("opt-china")==="1",
+      more: localStorage.getItem("opt-more")==="1"
+    },
+    question,
+    lang: currentLang
+  };
+  fetch("/horoscope", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  })
+    .then(r => r.json())
+    .then(res => {
+      document.getElementById("result").innerText = res.response || "Нет ответа от сервера";
+    })
+    .catch(()=>document.getElementById("result").innerText = "Ошибка соединения");
+}
+
+// ==== init ====
+updateUI(currentLang);
