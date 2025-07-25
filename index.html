@@ -11,6 +11,7 @@
     <select id="lang-select">
       <option value="ru">Русский</option>
       <option value="en">English</option>
+      <!-- Добавь другие языки если понадобится -->
     </select>
   </div>
   <div class="container shadow">
@@ -24,57 +25,55 @@
         <textarea id="question" placeholder="Покупать мне BMW X5 на следующей неделе?"></textarea>
       </div>
       <div class="block-buttons">
-        <button class="card-btn" id="me-btn">
+        <button class="card-btn empty" id="me-btn">
           <div class="card-title" id="me-title">Мои данные</div>
           <div class="card-content" id="me-content">—<br>—<br>—<br>—</div>
         </button>
-        <button class="card-btn" id="partner-btn">
+        <button class="card-btn empty" id="partner-btn">
           <div class="card-title" id="partner-title">Данные партнера</div>
           <div class="card-content" id="partner-content">—<br>—<br>—<br>—<br>—</div>
         </button>
       </div>
 
-      <!-- Accordion Options -->
-      <div id="accordion-options" class="accordion-block">
-        <!-- ВРЕМЯ ПРОГНОЗА -->
-        <div class="accordion-item">
-          <div class="accordion-header">Время прогноза</div>
+      <!-- Новый красивый аккордеон блоки -->
+      <div id="accordion">
+        <div class="accordion-card">
+          <button class="accordion-header" data-accordion="block1">Время прогноза</button>
           <div class="accordion-body">
-            <strong>🕰️ Долгосрочные</strong><br>
+            <b>🕰️ Долгосрочные</b><br>
             <label><input type="checkbox" class="opt-time" value="Натальный прогноз на жизнь"> Натальный прогноз на жизнь</label>
             <label><input type="checkbox" class="opt-time" value="Прогноз на год (соляр)"> Прогноз на год (соляр)</label>
             <label><input type="checkbox" class="opt-time" value="Прогноз на месяц (лунар, ингрессии)"> Прогноз на месяц (лунар, ингрессии)</label>
             <label><input type="checkbox" class="opt-time" value="Прогноз на неделю"> Прогноз на неделю</label>
             <label><input type="checkbox" class="opt-time" value="Прогноз на день"> Прогноз на день</label>
             <label><input type="checkbox" class="opt-time" value="Прогноз по жизненным периодам (Фирдарии, дирекции, прогрессии, Вимшоттари Даша)"> Прогноз по жизненным периодам (Фирдарии, дирекции, прогрессии, Вимшоттари Даша)</label>
-            <strong>⏳ Краткосрочные</strong><br>
+            <b>⏳ Краткосрочные</b><br>
             <label><input type="checkbox" class="opt-time" value="Ежедневный прогноз (по транзитам Луны и аспектам)"> Ежедневный прогноз (по транзитам Луны и аспектам)</label>
             <label><input type="checkbox" class="opt-time" value="Прогноз на час (часовая астрология / хорар)"> Прогноз на час (часовая астрология / хорар)</label>
           </div>
         </div>
-        <!-- ШКОЛА И ТРАДИЦИЯ -->
-        <div class="accordion-item">
-          <div class="accordion-header">Школа и традиция</div>
+        <div class="accordion-card">
+          <button class="accordion-header" data-accordion="block2">Школа и традиция</button>
           <div class="accordion-body">
-            <strong>🔹 Западная астрология</strong><br>
+            <b>🔹 Западная астрология</b><br>
             <label><input type="checkbox" class="opt-school" value="Классическая"> Классическая</label>
             <label><input type="checkbox" class="opt-school" value="Психологическая"> Психологическая</label>
             <label><input type="checkbox" class="opt-school" value="Эзотерическая"> Эзотерическая</label>
             <label><input type="checkbox" class="opt-school" value="Эволюционная"> Эволюционная</label>
             <label><input type="checkbox" class="opt-school" value="Ураническая"> Ураническая</label>
             <label><input type="checkbox" class="opt-school" value="Гелиоцентрическая"> Гелиоцентрическая</label>
-            <strong>🔸 Индийская (Ведическая / Джйотиш)</strong><br>
+            <b>🔸 Индийская (Ведическая / Джйотиш)</b><br>
             <label><input type="checkbox" class="opt-school" value="Сидерическая система"> Сидерическая система</label>
             <label><input type="checkbox" class="opt-school" value="Даша-системы (Вимшоттари и др.)"> Даша-системы (Вимшоттари и др.)</label>
             <label><input type="checkbox" class="opt-school" value="Навамша и варги"> Навамша и варги</label>
             <label><input type="checkbox" class="opt-school" value="Панчанга-прогноз"> Панчанга-прогноз</label>
             <label><input type="checkbox" class="opt-school" value="Мухурта"> Мухурта</label>
-            <strong>🔶 Китайская астрология</strong><br>
+            <b>🔶 Китайская астрология</b><br>
             <label><input type="checkbox" class="opt-school" value="Ба Цзы (4 столпа судьбы)"> Ба Цзы (4 столпа судьбы)</label>
             <label><input type="checkbox" class="opt-school" value="Цзы Вэй Доу Шу"> Цзы Вэй Доу Шу</label>
             <label><input type="checkbox" class="opt-school" value="Фэн-шуй с натальной привязкой"> Фэн-шуй с натальной привязкой</label>
             <label><input type="checkbox" class="opt-school" value="12 животных + стихии"> 12 животных + стихии</label>
-            <strong>⚪ Другое</strong><br>
+            <b>⚪ Другое</b><br>
             <label><input type="checkbox" class="opt-school" value="Тибетская астрология"> Тибетская астрология</label>
             <label><input type="checkbox" class="opt-school" value="Арабская традиция (арабские части, лунные дома)"> Арабская традиция (арабские части, лунные дома)</label>
             <label><input type="checkbox" class="opt-school" value="Майянская (Тцолкин, Кин)"> Майянская (Тцолкин, Кин)</label>
@@ -82,9 +81,8 @@
             <label><input type="checkbox" class="opt-school" value="Оккультная (Каббала, Таро)"> Оккультная (Каббала, Таро)</label>
           </div>
         </div>
-        <!-- ТЕХНИКА ПРОГНОЗА -->
-        <div class="accordion-item">
-          <div class="accordion-header">Техника прогноза</div>
+        <div class="accordion-card">
+          <button class="accordion-header" data-accordion="block3">Техника прогноза</button>
           <div class="accordion-body">
             <label><input type="checkbox" class="opt-method" value="Транзиты (текущие планеты к наталу)"> Транзиты (текущие планеты к наталу)</label>
             <label><input type="checkbox" class="opt-method" value="Прогрессии (1 день = 1 год жизни)"> Прогрессии (1 день = 1 год жизни)</label>
@@ -97,9 +95,8 @@
             <label><input type="checkbox" class="opt-method" value="Электив (поиск лучшего времени)"> Электив (поиск лучшего времени)</label>
           </div>
         </div>
-        <!-- РЕДКИЕ И НЕСТАНДАРТНЫЕ ПРОГНОЗЫ -->
-        <div class="accordion-item">
-          <div class="accordion-header">Редкие и нестандартные прогнозы</div>
+        <div class="accordion-card">
+          <button class="accordion-header" data-accordion="block4">Редкие и нестандартные прогнозы</button>
           <div class="accordion-body">
             <label><input type="checkbox" class="opt-rare" value="Гороскоп страны (мунда́нная астрология)"> Гороскоп страны (мунда́нная астрология)</label>
             <label><input type="checkbox" class="opt-rare" value="Гороскоп по Таро"> Гороскоп по Таро</label>
@@ -116,8 +113,7 @@
       <div id="result"></div>
     </div>
   </div>
-
-  <!-- Модалки — строго как было -->
+  <!-- Модальные окна для "Мои данные" и "Данные партнера" -->
   <div class="modal-bg" id="modal-me">
     <div class="modal">
       <h3 id="modal-me-title">Мои данные</h3>
