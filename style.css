@@ -4,40 +4,10 @@ body {
   font-family: 'San Francisco', 'Segoe UI', Arial, sans-serif;
   min-height: 100vh;
 }
-.lang-select-row {
-  width: 100vw;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 9px 15px 0 0;
-  background: transparent;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 20;
-}
-#lang-select {
-  font-size: 1.02rem;
-  border-radius: 8px;
-  padding: 5px 13px;
-  margin-top: 5px;
-  margin-bottom: 2px;
-  border: 1.1px solid #c9b0e7;
-  background: #fcfcfd;
-  color: #5c38b1;
-  font-weight: 600;
-  box-shadow: 0 2px 5px #ece1fc65;
-  cursor: pointer;
-  min-width: 130px;
-  outline: none;
-  transition: border 0.13s, background 0.13s;
-}
-#lang-select:focus { border: 1.1px solid #9a72ce; background: #f2edfa; }
-
 .container {
   background: #fff;
   max-width: 430px;
-  margin: 58px auto 24px;
+  margin: 36px auto 24px;
   border-radius: 28px;
   padding: 24px 16px 32px 16px;
   box-shadow: 0 4px 40px 0 #b4bbcc2f;
@@ -140,26 +110,9 @@ body {
   background: linear-gradient(101deg, #ece2fa 10%, #e1d0f5 100%);
   color: #7c43cb;
 }
-.options-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.full-btn {
   width: 100%;
-  margin: 4px 0 13px 0;
-  min-height: 60px;
-  background: #ededed;
-  color: #aaa;
-  border: 1.1px solid #e5e5e5;
-  border-radius: 18px;
-  box-shadow: 0 2px 8px #e8dbf7;
-  font-size: 1.01rem;
-  text-align: center;
-  transition: background 0.2s, box-shadow 0.2s, color 0.2s;
-}
-.options-btn.filled {
-  background: linear-gradient(101deg, #ece2fa 10%, #e1d0f5 100%);
-  color: #7c43cb;
+  margin-bottom: 15px;
 }
 .ask-btn {
   width: 100%;
