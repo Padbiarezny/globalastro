@@ -1,136 +1,192 @@
-// --- Локализация, данные и интерфейс ---
-const accordionData = [
-  {
-    header: "🕰️ Время прогноза",
-    groups: [
-      {title: "Долгосрочные", options: [
-        "Натальный прогноз на жизнь",
-        "Прогноз на год (соляр)",
-        "Прогноз на месяц (лунар, ингрессии)",
-        "Прогноз на неделю",
-        "Прогноз на день",
-        "Прогноз по жизненным периодам (Фирдарии, дирекции, прогрессии, Вимшоттари Даша)"
-      ]},
-      {title: "Краткосрочные", options: [
-        "Ежедневный прогноз (по транзитам Луны и аспектам)",
-        "Прогноз на час (часовая астрология / хорар)"
-      ]}
-    ]
-  },
-  {
-    header: "🧭 Школа/традиция астрологии",
-    groups: [
-      {title: "Западная астрология", options: [
-        "Классическая",
-        "Психологическая",
-        "Эзотерическая",
-        "Эволюционная",
-        "Ураническая",
-        "Гелиоцентрическая"
-      ]},
-      {title: "Индийская (Ведическая / Джйотиш)", options: [
-        "Сидерическая система",
-        "Даша-системы (Вимшоттари и др.)",
-        "Навамша и варги",
-        "Панчанга-прогноз",
-        "Мухурта"
-      ]},
-      {title: "Китайская астрология", options: [
-        "Ба Цзы (4 столпа судьбы)",
-        "Цзы Вэй Доу Шу",
-        "Фэн-шуй с натальной привязкой",
-        "12 животных + стихии"
-      ]},
-      {title: "Другое", options: [
-        "Тибетская астрология",
-        "Арабская традиция (арабские части, лунные дома)",
-        "Майянская (Тцолкин, Кин)",
-        "Кармическая астрология",
-        "Оккультная (Каббала, Таро)"
-      ]}
-    ]
-  },
-  {
-    header: "🔧 Техника прогноза",
-    groups: [
-      {title: null, options: [
-        "Транзиты (текущие планеты к наталу)",
-        "Прогрессии (1 день = 1 год жизни)",
-        "Дирекции (смещение точек карты)",
-        "Соляр (год от дня рождения)",
-        "Лунар (месяц от лунного цикла)",
-        "Ингрессии (вход планет в знаки)",
-        "Астрокартография (планеты на карте мира)",
-        "Хорар (ответ по моменту вопроса)",
-        "Электив (поиск лучшего времени)"
-      ]}
-    ]
-  },
-  {
-    header: "🌌 Редкие и нестандартные прогнозы",
-    groups: [
-      {title: null, options: [
-        "Гороскоп страны (мунда́нная астрология)",
-        "Гороскоп по Таро",
-        "Сакральная геометрия",
-        "Астрология фиксированных звёзд",
-        "Космограмма (без точного времени)",
-        "Нумерологическая астрология",
-        "Астро-психотипирование (MBTI + зодиак)"
-      ]}
-    ]
-  }
-];
+// --- Глобальные переменные для хранения данных ---
+let myData = JSON.parse(localStorage.getItem("astro_mydata") || "{}");
+let partnerData = JSON.parse(localStorage.getItem("astro_partnerdata") || "{}");
 
-// --- Рендер аккордеонов ---
-function renderAccordions() {
-  const wrap = document.getElementById('accordion-wrapper');
-  wrap.innerHTML = '';
-  accordionData.forEach((block, i) => {
-    const acc = document.createElement('div');
-    acc.className = 'accordion-block';
-    acc.innerHTML = `
-      <div class="accordion" id="accordion${i}">
-        <div class="accordion-header">${block.header}<span class="accordion-arrow">&#9654;</span></div>
-        <div class="accordion-content">
-          ${block.groups.map(gr =>
-            `<div class="checkbox-group">
-              ${gr.title ? `<div class="accordion-group-title">${gr.title}</div>` : ''}
-              ${gr.options.map((opt, j) =>
-                `<label><input type="checkbox" name="accordion${i}" value="${opt.replace(/"/g,'&quot;')}"> ${opt}</label>`
-              ).join('')}
-            </div>`
-          ).join('')}
-        </div>
-      </div>
-    `;
-    wrap.appendChild(acc);
-  });
+// --- Модальные окна ---
+const modalBg = document.createElement("div");
+modalBg.className = "modal-bg";
+document.body.appendChild(modalBg);
 
-  // --- Логика открытия/закрытия аккордеонов ---
-  document.querySelectorAll('.accordion-header').forEach(header => {
-    header.onclick = function() {
-      const acc = this.parentNode;
-      acc.classList.toggle('open');
+// --- Открытие/закрытие модальных окон ---
+function showModal(contentHTML) {
+    modalBg.innerHTML = `<div class="modal">${contentHTML}</div>`;
+    modalBg.classList.add("active");
+    modalBg.onclick = (e) => {
+        if (e.target === modalBg) closeModal();
     };
-  });
 }
-renderAccordions();
-
-// --- Получить все выбранные значения чекбоксов ---
-function getAccordionSelections() {
-  const result = {};
-  accordionData.forEach((block, i) => {
-    const checked = Array.from(document.querySelectorAll(`input[name="accordion${i}"]:checked`)).map(x => x.value);
-    if (checked.length) result[block.header] = checked;
-  });
-  return result;
+function closeModal() {
+    modalBg.classList.remove("active");
+    modalBg.innerHTML = "";
 }
 
-// --- Всё остальное как раньше: язык, модалки, данные, вопрос, отправка ---
+// --- Форма "Мои данные" ---
+function openMyDataForm() {
+    showModal(`
+    <h3>Мои данные</h3>
+    <label>Дата рождения</label>
+    <input id="my-date" type="date" value="${myData.date || ""}">
+    <label>Место рождения</label>
+    <input id="my-place" type="text" value="${myData.place || ""}">
+    <label>Пол</label>
+    <select id="my-gender">
+      <option value="">-</option>
+      <option value="Мужской"${myData.gender === "Мужской" ? " selected" : ""}>Мужской</option>
+      <option value="Женский"${myData.gender === "Женский" ? " selected" : ""}>Женский</option>
+    </select>
+    <label>Время рождения (необязательно)</label>
+    <input id="my-time" type="time" value="${myData.time || ""}">
+    <div class="modal-btn-row">
+      <button class="modal-btn" onclick="saveMyData()">Сохранить</button>
+      <button class="modal-btn cancel" onclick="closeModal()">Отмена</button>
+    </div>`);
+}
+window.openMyDataForm = openMyDataForm;
+window.closeModal = closeModal;
 
-// ... (ДАЛЕЕ ВСТАВЬ СВОЙ РАБОЧИЙ КОД script.js кроме блока, который рендерил старую кнопку "дополнительные опции")
-// Например — сохранение и отображение "моих данных", "данных партнера", языки, и т.д.
+// --- Форма "Данные партнера" ---
+function openPartnerDataForm() {
+    showModal(`
+    <h3>Данные партнера</h3>
+    <label>Имя</label>
+    <input id="p-name" type="text" value="${partnerData.name || ""}">
+    <label>Дата рождения</label>
+    <input id="p-date" type="date" value="${partnerData.date || ""}">
+    <label>Место рождения</label>
+    <input id="p-place" type="text" value="${partnerData.place || ""}">
+    <label>Пол</label>
+    <select id="p-gender">
+      <option value="">-</option>
+      <option value="Мужской"${partnerData.gender === "Мужской" ? " selected" : ""}>Мужской</option>
+      <option value="Женский"${partnerData.gender === "Женский" ? " selected" : ""}>Женский</option>
+    </select>
+    <label>Время рождения (необязательно)</label>
+    <input id="p-time" type="time" value="${partnerData.time || ""}">
+    <div class="modal-btn-row">
+      <button class="modal-btn" onclick="savePartnerData()">Сохранить</button>
+      <button class="modal-btn cancel" onclick="closeModal()">Отмена</button>
+    </div>`);
+}
+window.openPartnerDataForm = openPartnerDataForm;
 
-// --- Пример: обработка отправки вопроса с учётом выбранных опций ---
-document.getElementById('ask
+// --- Сохранение данных ---
+window.saveMyData = function() {
+    myData = {
+        date: document.getElementById('my-date').value,
+        place: document.getElementById('my-place').value,
+        gender: document.getElementById('my-gender').value,
+        time: document.getElementById('my-time').value
+    };
+    localStorage.setItem("astro_mydata", JSON.stringify(myData));
+    closeModal();
+    updateMyDataCard();
+};
+window.savePartnerData = function() {
+    partnerData = {
+        name: document.getElementById('p-name').value,
+        date: document.getElementById('p-date').value,
+        place: document.getElementById('p-place').value,
+        gender: document.getElementById('p-gender').value,
+        time: document.getElementById('p-time').value
+    };
+    localStorage.setItem("astro_partnerdata", JSON.stringify(partnerData));
+    closeModal();
+    updatePartnerDataCard();
+};
+
+// --- Вывод данных в кнопки ---
+function updateMyDataCard() {
+    const el = document.getElementById("my-data-card");
+    if (myData.date || myData.place || myData.gender || myData.time) {
+        el.innerHTML = `<div class="card-title">Мои данные</div>
+            <div class="card-content">
+              ${myData.date ? myData.date : "-"}<br>
+              ${myData.place ? myData.place : "-"}<br>
+              ${myData.gender ? myData.gender : "-"}<br>
+              ${myData.time ? myData.time : "-"}
+            </div>`;
+    } else {
+        el.innerHTML = `<div class="card-title">Мои данные</div>
+            <div class="card-content">—<br>—<br>—<br>—</div>`;
+    }
+}
+function updatePartnerDataCard() {
+    const el = document.getElementById("partner-data-card");
+    if (partnerData.name || partnerData.date || partnerData.place || partnerData.gender || partnerData.time) {
+        el.innerHTML = `<div class="card-title">Данные партнера</div>
+            <div class="card-content">
+              ${partnerData.name ? partnerData.name : "-"}<br>
+              ${partnerData.date ? partnerData.date : "-"}<br>
+              ${partnerData.place ? partnerData.place : "-"}<br>
+              ${partnerData.gender ? partnerData.gender : "-"}<br>
+              ${partnerData.time ? partnerData.time : "-"}
+            </div>`;
+    } else {
+        el.innerHTML = `<div class="card-title">Данные партнера</div>
+            <div class="card-content">—<br>—<br>—<br>—<br>—</div>`;
+    }
+}
+
+// --- Сброс отображения при загрузке ---
+window.onload = function() {
+    updateMyDataCard();
+    updatePartnerDataCard();
+};
+
+// --- Клик по кнопкам ---
+document.getElementById("my-data-card").onclick = openMyDataForm;
+document.getElementById("partner-data-card").onclick = openPartnerDataForm;
+
+// --- Обработка отправки формы ---
+document.getElementById("ask-btn").onclick = function() {
+    const question = document.getElementById("question").value.trim();
+    if (!question || !(myData.date && myData.place && myData.gender)) {
+        document.getElementById("result").innerText = "Пожалуйста, заполните свои данные и напишите вопрос.";
+        return;
+    }
+    document.getElementById("result").innerText = "⏳ Отправляю запрос...";
+    // Собираем всё
+    const payload = {
+        myData, partnerData, question
+    };
+    fetch("/horoscope", {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify(payload)
+    }).then(r => r.json())
+      .then(res => {
+          document.getElementById("result").innerText = res.response || "Нет ответа от сервера.";
+      })
+      .catch(() => {
+          document.getElementById("result").innerText = "Ошибка соединения";
+      });
+};
+
+// --- Placeholder cycling (примеров вопросов) ---
+const exampleQs = [
+    "Покупать мне BMW X5 на следующей неделе?",
+    "Какие перемены ждать в работе в августе?",
+    "Будет ли гармония в отношениях с партнером?",
+    "Когда лучше планировать переезд?",
+    "Стоит ли открывать бизнес в этом году?",
+    "Как пройдут мои ближайшие путешествия?",
+    "Есть ли шанс встретить свою любовь этим летом?",
+    "Какая моя главная жизненная задача?",
+    "Как усилить здоровье в ближайший месяц?",
+    "Подходит ли мне смена профессии?",
+    "Как сложится общение с родителями?",
+    "Чего опасаться в ближайшие полгода?",
+    "Как использовать свой потенциал на максимум?",
+    "Перееду ли я в другой город?",
+    "Стоит ли инвестировать в недвижимость?",
+    "Какие таланты во мне скрыты?",
+    "Что мешает моему финансовому росту?",
+    "Что ждёт моего ребенка в учебе?",
+    "Когда лучше начинать новые отношения?",
+    "Как развить интуицию?"
+];
+let qIndex = 0;
+setInterval(() => {
+    qIndex = (qIndex + 1) % exampleQs.length;
+    document.getElementById("question").placeholder = exampleQs[qIndex];
+}, 3000);
