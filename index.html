@@ -7,69 +7,111 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container shadow">
-    <div class="logo-row">
-      <img class="logo-img" src="https://i.imgur.com/lpSvLzC.png" alt="">
-      <span class="brand-title" id="brand-title">GlobalAstro</span>
-    </div>
-    <div class="block-buttons">
-      <button class="card-btn" id="me-btn"><span class="card-title" id="me-title">Мои данные</span><span class="card-content" id="me-content">—<br>—<br>—<br>—</span></button>
-      <button class="card-btn" id="partner-btn"><span class="card-title" id="partner-title">Данные партнера</span><span class="card-content" id="partner-content">—<br>—<br>—<br>—<br>—</span></button>
-    </div>
-    <div class="main-block">
-      <span class="label-title" id="label-title">Какой ваш вопрос астрологу?</span>
-      <input type="text" id="question" placeholder="Покупать мне BMW X5 на следующей неделе?">
-      <!-- Аккордеоны -->
-      <div id="accordion-wrapper"></div>
-      <button class="ask-btn" id="ask-btn">Получить ответ</button>
-      <div id="result"></div>
-    </div>
-  </div>
-
-  <!-- МОДАЛКИ прямо внутри .container! -->
-  <div class="modal-bg" id="modal-me">
-    <div class="modal">
-      <h3 id="modal-me-title">Мои данные</h3>
-      <label id="me-dob-label">Дата рождения</label>
-      <input type="date" id="me-dob">
-      <label id="me-place-label">Место рождения</label>
-      <input type="text" id="me-place">
-      <label id="me-gender-label">Пол</label>
-      <select id="me-gender">
-        <option value="мужской">Мужской</option>
-        <option value="женский">Женский</option>
+  <div id="app-main">
+    <!-- Языковой селектор -->
+    <div class="lang-select">
+      <select id="lang-select">
+        <option value="ru">Русский</option>
+        <option value="en">English</option>
+        <option value="es">Español</option>
+        <option value="pt">Português</option>
+        <option value="de">Deutsch</option>
+        <option value="fr">Français</option>
+        <option value="sr">Српски</option>
+        <option value="pl">Polski</option>
+        <option value="ar">العربية</option>
+        <option value="zh">中文</option>
       </select>
-      <label id="me-time-label">Время рождения</label>
-      <input type="time" id="me-time">
-      <div class="modal-btn-row">
-        <button class="modal-btn" id="me-save-btn">Сохранить</button>
-        <button class="modal-btn cancel" id="me-cancel-btn">Отмена</button>
+    </div>
+    <div class="logo-block">
+      <img src="Image.png" alt="Logo" class="astro-logo">
+      <span class="app-title">GlobalAstro</span>
+    </div>
+    <div class="astro-blocks-row">
+      <div class="astro-card" id="my-data-card"></div>
+      <div class="astro-card" id="partner-data-card"></div>
+    </div>
+    <div class="astro-section">
+      <label class="question-label" for="question">Какой ваш вопрос астрологу?</label>
+      <textarea id="question" placeholder="Покупать мне BMW X5 на следующей неделе?"></textarea>
+    </div>
+
+    <!-- Accordion blocks for analysis options -->
+    <div class="accordion-list">
+      <div class="accordion">
+        <div class="accordion-header">Время прогноза</div>
+        <div class="accordion-body">
+          <div class="group-label">🕰️ Долгосрочные</div>
+          <label><input type="checkbox" value="Натальный прогноз"> Натальный прогноз на жизнь</label>
+          <label><input type="checkbox" value="Год"> Прогноз на год (соляр)</label>
+          <label><input type="checkbox" value="Месяц"> Прогноз на месяц (лунар, ингрессии)</label>
+          <label><input type="checkbox" value="Неделя"> Прогноз на неделю</label>
+          <label><input type="checkbox" value="День"> Прогноз на день</label>
+          <label><input type="checkbox" value="Жизненные периоды"> Прогноз по жизненным периодам (Фирдарии, дирекции, прогрессии, Вимшоттари Даша)</label>
+          <div class="group-label">⏳ Краткосрочные</div>
+          <label><input type="checkbox" value="Ежедневный"> Ежедневный прогноз</label>
+          <label><input type="checkbox" value="Час"> Прогноз на час (хорар)</label>
+        </div>
+      </div>
+      <div class="accordion">
+        <div class="accordion-header">Школа и традиция</div>
+        <div class="accordion-body">
+          <div class="group-label">🔹 Западная астрология</div>
+          <label><input type="checkbox" value="Классическая"> Классическая</label>
+          <label><input type="checkbox" value="Психологическая"> Психологическая</label>
+          <label><input type="checkbox" value="Эзотерическая"> Эзотерическая</label>
+          <label><input type="checkbox" value="Эволюционная"> Эволюционная</label>
+          <label><input type="checkbox" value="Ураническая"> Ураническая</label>
+          <label><input type="checkbox" value="Гелиоцентрическая"> Гелиоцентрическая</label>
+          <div class="group-label">🔸 Индийская (Ведическая / Джйотиш)</div>
+          <label><input type="checkbox" value="Сидерическая"> Сидерическая система</label>
+          <label><input type="checkbox" value="Даша-системы"> Даша-системы</label>
+          <label><input type="checkbox" value="Навамша"> Навамша и варги</label>
+          <label><input type="checkbox" value="Панчанга"> Панчанга-прогноз</label>
+          <label><input type="checkbox" value="Мухурта"> Мухурта</label>
+          <div class="group-label">🔶 Китайская астрология</div>
+          <label><input type="checkbox" value="Ба Цзы"> Ба Цзы (4 столпа судьбы)</label>
+          <label><input type="checkbox" value="Цзы Вэй Доу Шу"> Цзы Вэй Доу Шу</label>
+          <label><input type="checkbox" value="Фэн-шуй"> Фэн-шуй с натальной привязкой</label>
+          <label><input type="checkbox" value="12 животных"> 12 животных + стихии</label>
+          <div class="group-label">⚪ Другое</div>
+          <label><input type="checkbox" value="Тибетская"> Тибетская астрология</label>
+          <label><input type="checkbox" value="Арабская"> Арабская традиция</label>
+          <label><input type="checkbox" value="Майянская"> Майянская</label>
+          <label><input type="checkbox" value="Кармическая"> Кармическая астрология</label>
+          <label><input type="checkbox" value="Оккультная"> Оккультная (Каббала, Таро)</label>
+        </div>
+      </div>
+      <div class="accordion">
+        <div class="accordion-header">Техника прогноза</div>
+        <div class="accordion-body">
+          <label><input type="checkbox" value="Транзиты"> Транзиты</label>
+          <label><input type="checkbox" value="Прогрессии"> Прогрессии</label>
+          <label><input type="checkbox" value="Дирекции"> Дирекции</label>
+          <label><input type="checkbox" value="Соляр"> Соляр</label>
+          <label><input type="checkbox" value="Лунар"> Лунар</label>
+          <label><input type="checkbox" value="Ингрессии"> Ингрессии</label>
+          <label><input type="checkbox" value="Астрокартография"> Астрокартография</label>
+          <label><input type="checkbox" value="Хорар"> Хорар</label>
+          <label><input type="checkbox" value="Электив"> Электив</label>
+        </div>
+      </div>
+      <div class="accordion">
+        <div class="accordion-header">Редкие и нестандартные прогнозы</div>
+        <div class="accordion-body">
+          <label><input type="checkbox" value="Мунданная"> Гороскоп страны (мунда́нная астрология)</label>
+          <label><input type="checkbox" value="Таро"> Гороскоп по Таро</label>
+          <label><input type="checkbox" value="Геометрия"> Сакральная геометрия</label>
+          <label><input type="checkbox" value="Фиксированные звезды"> Астрология фиксированных звёзд</label>
+          <label><input type="checkbox" value="Космограмма"> Космограмма (без точного времени)</label>
+          <label><input type="checkbox" value="Нумерологическая"> Нумерологическая астрология</label>
+          <label><input type="checkbox" value="Астро-психотип"> Астро-психотипирование (MBTI + зодиак)</label>
+        </div>
       </div>
     </div>
+    <button id="ask-btn">Получить ответ</button>
+    <div id="result"></div>
   </div>
-  <div class="modal-bg" id="modal-partner">
-    <div class="modal">
-      <h3 id="modal-partner-title">Данные партнера</h3>
-      <label id="p-name-label">Имя</label>
-      <input type="text" id="p-name">
-      <label id="p-dob-label">Дата рождения</label>
-      <input type="date" id="p-dob">
-      <label id="p-place-label">Место рождения</label>
-      <input type="text" id="p-place">
-      <label id="p-gender-label">Пол</label>
-      <select id="p-gender">
-        <option value="мужской">Мужской</option>
-        <option value="женский">Женский</option>
-      </select>
-      <label id="p-time-label">Время рождения</label>
-      <input type="time" id="p-time">
-      <div class="modal-btn-row">
-        <button class="modal-btn" id="partner-save-btn">Сохранить</button>
-        <button class="modal-btn cancel" id="partner-cancel-btn">Отмена</button>
-      </div>
-    </div>
-  </div>
-
   <script src="script.js"></script>
 </body>
 </html>
