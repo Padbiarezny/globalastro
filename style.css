@@ -4,10 +4,31 @@ body {
   font-family: 'San Francisco', 'Segoe UI', Arial, sans-serif;
   min-height: 100vh;
 }
+.language-selector-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 18px 26px 0 0;
+  position: fixed;
+  z-index: 100;
+  background: none;
+}
+#language-selector {
+  padding: 6px 13px 6px 9px;
+  font-size: 1.01rem;
+  border-radius: 11px;
+  border: 1.2px solid #bfa0e6;
+  background: #f9f8fb;
+  color: #7c43cb;
+  outline: none;
+  cursor: pointer;
+  min-width: 110px;
+  max-width: 160px;
+}
 .container {
   background: #fff;
   max-width: 430px;
-  margin: 36px auto 24px;
+  margin: 56px auto 24px;
   border-radius: 28px;
   padding: 24px 16px 32px 16px;
   box-shadow: 0 4px 40px 0 #b4bbcc2f;
