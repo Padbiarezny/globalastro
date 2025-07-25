@@ -1,3 +1,30 @@
+.lang-switch-row {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 13px;
+  margin-bottom: 0px;
+  position: relative;
+  z-index: 20;
+  padding-right: 15vw;
+}
+#lang-select {
+  padding: 7px 15px 7px 10px;
+  font-size: 1.03rem;
+  border-radius: 12px;
+  background: #eae6f7;
+  border: 1.2px solid #bca0db;
+  color: #7145b2;
+  font-weight: bold;
+  margin-right: 7px;
+  min-width: 125px;
+  box-shadow: 0 1.5px 10px #dfcbe425;
+  outline: none;
+  cursor: pointer;
+}
+#lang-select:focus {
+  border-color: #7145b2;
+}
 body {
   margin: 0;
   background: linear-gradient(135deg, #e6e9f5 0%, #f9f9f9 100%);
