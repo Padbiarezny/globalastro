@@ -1,4 +1,3 @@
-// ---------- Локализации ----------
 const locales = {
   ru: {
     "brand-title": "GlobalAstro",
@@ -7,14 +6,12 @@ const locales = {
     "me-title": "Мои данные",
     "partner-title": "Данные партнёра",
     "options-title": "Дополнительные опции",
-    "result-default": "",
     "modal-me-title": "Мои данные",
     "me-dob-label": "Дата рождения",
     "me-place-label": "Место рождения",
     "me-gender-label": "Пол",
     "me-time-label": "Время рождения",
     "me-save-btn": "Сохранить",
-    "me-cancel-btn": "Отмена",
     "modal-partner-title": "Данные партнёра",
     "p-name-label": "Имя",
     "p-dob-label": "Дата рождения",
@@ -22,42 +19,14 @@ const locales = {
     "p-gender-label": "Пол",
     "p-time-label": "Время рождения",
     "partner-save-btn": "Сохранить",
-    "partner-cancel-btn": "Отмена",
     "modal-options-title": "Дополнительные опции",
     "opt-num-label": "Нумерология",
     "opt-taro-label": "Таро",
     "opt-china-label": "Китайский гороскоп",
     "opt-more-label": "Ещё",
     "options-save-btn": "Сохранить",
-    "options-cancel-btn": "Отмена",
-    "me-gender-male": "Мужской",
-    "me-gender-female": "Женский",
-    "p-gender-male": "Мужской",
-    "p-gender-female": "Женский",
-    "partner-summary-empty": "—",
-    "me-summary-empty": "—",
-    "question-placeholder": [
-      "Покупать мне BMW X5 на следующей неделе?",
-      "Ждать ли повышения в этом месяце?",
-      "Встретится ли любовь в этом году?",
-      "Стоит ли менять работу сейчас?",
-      "Как улучшить отношения с партнёром?",
-      "Куда поехать в отпуск летом?",
-      "Что ожидает в финансовой сфере?",
-      "Нужен ли мне переезд в другой город?",
-      "Получится ли сдать экзамен?",
-      "Чего ждать от нового проекта?",
-      "Будет ли успешна сделка?",
-      "Стоит ли начинать бизнес?",
-      "Когда лучше выходить замуж?",
-      "Какие риски в ближайшее время?",
-      "Чего избегать в следующем месяце?",
-      "Какой знак зодиака мне подходит?",
-      "Чего ждать от партнёра?",
-      "Переезжать ли мне за границу?",
-      "Стоит ли доверять новому знакомому?",
-      "Как пройдут ближайшие недели?"
-    ]
+    "question-placeholder": "Покупать мне BMW X5 на следующей неделе?",
+    "options-cancel-btn": "Отмена"
   },
   en: {
     "brand-title": "GlobalAstro",
@@ -66,15 +35,38 @@ const locales = {
     "me-title": "My data",
     "partner-title": "Partner data",
     "options-title": "Additional options",
-    "result-default": "",
     "modal-me-title": "My data",
     "me-dob-label": "Date of birth",
     "me-place-label": "Place of birth",
     "me-gender-label": "Gender",
     "me-time-label": "Time of birth",
     "me-save-btn": "Save",
-    "me-cancel-btn": "Cancel",
     "modal-partner-title": "Partner data",
     "p-name-label": "Name",
     "p-dob-label": "Date of birth",
     "p-place-label": "Place of birth",
+    "p-gender-label": "Gender",
+    "p-time-label": "Time of birth",
+    "partner-save-btn": "Save",
+    "modal-options-title": "Additional options",
+    "opt-num-label": "Numerology",
+    "opt-taro-label": "Tarot",
+    "opt-china-label": "Chinese horoscope",
+    "opt-more-label": "More",
+    "options-save-btn": "Save",
+    "question-placeholder": "Should I buy a BMW X5 next week?",
+    "options-cancel-btn": "Cancel"
+  }
+};
+
+// --- Языки
+const langSelector = document.getElementById('language-selector');
+let currentLang = langSelector.value || 'ru';
+
+function applyLocale(lang) {
+  currentLang = lang;
+  const t = locales[lang] || locales['ru'];
+  for (const key in t) {
+    const el = document.getElementById(key);
+    if (el) {
+      if (el.tagName === 'INPUT
