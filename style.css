@@ -30,7 +30,7 @@ h1 { text-align: center; margin-bottom: 24px; font-size: 2.5em; }
 
 .question-label { font-weight: bold; font-size: 1.22em; display: block; margin: 16px 0 7px 0; }
 #user-question {
-  width: 100%; min-height: 70px; resize: vertical; padding: 13px;
+  width: 100%; min-height: 80px; resize: vertical; padding: 16px;
   font-size: 1.16em; border: 2px solid #cebaf7; border-radius: 11px;
   margin-bottom: 16px; background: #f7f5fa;
   box-sizing: border-box;
@@ -38,7 +38,7 @@ h1 { text-align: center; margin-bottom: 24px; font-size: 2.5em; }
 
 .accordion-list { margin: 0 0 16px 0; }
 .accordion-card {
-  margin-bottom: 10px;
+  margin-bottom: 14px;
   border-radius: 16px;
   box-shadow: 0 2px 18px #f3e9fd15;
   background: #f2effc;
@@ -48,46 +48,4 @@ h1 { text-align: center; margin-bottom: 24px; font-size: 2.5em; }
 }
 .accordion-header {
   padding: 16px 20px;
-  font-size: 1.15em;
-  font-weight: bold;
-  background: #ede7fb;
-  cursor: pointer;
-  user-select: none;
-}
-.accordion-card.open { box-shadow: 0 8px 30px #d2bcf822; border-color: #b89bf5; }
-.accordion-body {
-  padding: 12px 20px;
-  background: #f7f5fa;
-  font-size: 1.04em;
-  display: none;
-  border-top: 2px solid #e3dbfa;
-}
-.accordion-card.open .accordion-body { display: block; }
-.accordion-body label { display: block; margin-bottom: 3px; font-size: .98em; }
-.accordion-body input[type="checkbox"] { margin-right: 7px; accent-color: #a87df7; }
-
-#ask-btn {
-  width: 100%; background: linear-gradient(90deg,#ad7df6 0,#734bdc 100%);
-  color: #fff; border: none; border-radius: 22px; font-size: 1.36em; font-weight: bold;
-  margin: 16px 0 8px 0; padding: 16px 0; box-shadow: 0 1px 12px #d2bcf877;
-  transition: background .17s, box-shadow .17s;
-  cursor: pointer;
-}
-#ask-btn:active { background: #8967d4; }
-
-#result {
-  margin-top: 18px; background: #f6f3fc; border-radius: 14px;
-  padding: 15px; min-height: 42px; font-size: 1.09em; white-space: pre-wrap;
-  border: 1.7px solid #eee7fb;
-}
-
-.modal-bg { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #201f21c0; align-items: center; justify-content: center; z-index: 20;}
-.modal { background: #fff; border-radius: 18px; padding: 28px 24px; min-width: 300px; max-width: 95vw; }
-.modal input, .modal select { width: 100%; margin-bottom: 13px; padding: 9px; border-radius: 7px; border: 1.3px solid #dedede; font-size: 1.09em;}
-.modal-btn { width: 48%; background: #ae96ff; color: #fff; border: none; border-radius: 8px; font-size: 1.08em; padding: 10px; margin: 4px 0; cursor: pointer; }
-.modal-btn.cancel { background: #ddd; color: #333; }
-
-@media (max-width: 500px) {
-  .container { padding: 8px 1px 32px 1px; }
-  .modal { min-width: 90vw; padding: 14px 7px; }
-}
+  font-size: 1.15em
