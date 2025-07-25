@@ -1,128 +1,108 @@
-// --- Локализация ---
-const UI_TEXT = {
-  ru: {
-    astro: "GlobalAstro",
-    ask: "Получить ответ",
-    qLabel: "Какой ваш вопрос астрологу?",
-    placeh: "Покупать мне BMW X5 на следующей неделе?",
-    me: "Мои данные",
-    partner: "Данные партнера",
-    wait: "⏳ Запрос отправлен... ждём ответ от звёзд :)",
-    enterQ: "Введите свой вопрос!",
-    result: "Ответ появится здесь",
-  },
-  en: {
-    astro: "GlobalAstro",
-    ask: "Get Answer",
-    qLabel: "What is your question for the astrologer?",
-    placeh: "Should I buy a BMW X5 next week?",
-    me: "My Data",
-    partner: "Partner's Data",
-    wait: "⏳ Request sent... waiting for the stars :)",
-    enterQ: "Enter your question!",
-    result: "The answer will appear here",
+document.addEventListener('DOMContentLoaded', function () {
+  // --- Язык (сохраняется в localStorage)
+  const langSelect = document.getElementById('lang-select');
+  if (langSelect) {
+    const userLang = localStorage.getItem('astro_lang') || 'ru';
+    langSelect.value = userLang;
+    langSelect.onchange = function () {
+      localStorage.setItem('astro_lang', langSelect.value);
+      location.reload();
+    };
   }
-};
 
-// --- Определение языка ---
-function getLang() {
-  let saved = localStorage.getItem('astro_lang');
-  if (saved) return saved;
-  let tgLang = navigator.language || navigator.userLanguage;
-  if (tgLang.startsWith("ru")) return "ru";
-  return "en";
-}
-function applyLang() {
-  const lang = getLang();
-  const txt = UI_TEXT[lang];
-  document.getElementById('brand-title').innerText = txt.astro;
-  document.getElementById('label-title').innerText = txt.qLabel;
-  document.getElementById('question').placeholder = txt.placeh;
-  document.getElementById('ask-btn').innerText = txt.ask;
-  document.getElementById('me-title').innerText = txt.me;
-  document.getElementById('partner-title').innerText = txt.partner;
-  document.getElementById('result').innerText = txt.result;
-  document.getElementById('lang-select').value = lang;
-}
+  // --- Мои данные/партнер (модалки)
+  function restoreCard(card) {
+    let data = {};
+    try { data = JSON.parse(localStorage.getItem('astro_'+card)||'{}'); } catch {}
+    let lines = [];
+    if (data.n) lines.push(data.n);
+    if (data.dob) lines.push(data.dob);
+    if (data.place) lines.push(data.place);
+    if (data.gender) lines.push(data.gender);
+    if (data.time) lines.push(data.time);
+    document.getElementById(card+"-content").innerHTML = lines.length ? lines.map(x=>"<div>"+x+"</div>").join("") : "<div>—</div><div>—</div><div>—</div><div>—</div>";
+    document.getElementById(card+"-btn").classList.toggle("empty", !lines.length);
+  }
+  function openModal(card) {
+    document.getElementById(card+"-modal-bg").style.display = 'flex';
+    let d = {};
+    try { d = JSON.parse(localStorage.getItem('astro_'+card)||'{}'); } catch {}
+    document.getElementById(card+"-n").value = d.n||"";
+    document.getElementById(card+"-dob").value = d.dob||"";
+    document.getElementById(card+"-place").value = d.place||"";
+    document.getElementById(card+"-gender").value = d.gender||"";
+    document.getElementById(card+"-time").value = d.time||"";
+  }
+  function closeModal(card) {
+    document.getElementById(card+"-modal-bg").style.display = 'none';
+  }
+  function saveModal(card) {
+    const d = {
+      n: document.getElementById(card+"-n").value.trim(),
+      dob: document.getElementById(card+"-dob").value.trim(),
+      place: document.getElementById(card+"-place").value.trim(),
+      gender: document.getElementById(card+"-gender").value,
+      time: document.getElementById(card+"-time").value.trim()
+    };
+    localStorage.setItem('astro_'+card, JSON.stringify(d));
+    closeModal(card);
+    restoreCard(card);
+  }
+  // --- Кнопки для открытия/закрытия модалок
+  document.getElementById('me-btn').onclick = ()=>openModal('me');
+  document.getElementById('partner-btn').onclick = ()=>openModal('partner');
+  document.getElementById('me-save').onclick = ()=>saveModal('me');
+  document.getElementById('partner-save').onclick = ()=>saveModal('partner');
+  document.getElementById('me-cancel').onclick = ()=>closeModal('me');
+  document.getElementById('partner-cancel').onclick = ()=>closeModal('partner');
 
-// --- Смена языка по select ---
-document.addEventListener('DOMContentLoaded', function() {
-  applyLang();
-  document.getElementById('lang-select').addEventListener('change', function () {
-    localStorage.setItem('astro_lang', this.value);
-    location.reload();
-  });
+  restoreCard('me');
+  restoreCard('partner');
 
-  // --- Аккордеон функционал ---
-  document.querySelectorAll('.accordion-header').forEach(header => {
-    header.addEventListener('click', function() {
+  // --- Аккордеоны
+  document.querySelectorAll('.accordion-header').forEach(header=>{
+    header.onclick = function() {
       const card = this.parentNode;
-      card.classList.toggle('open');
-      document.querySelectorAll('.accordion-card').forEach(other => {
-        if (other !== card) other.classList.remove('open');
-      });
-    });
+      const wasOpen = card.classList.contains('open');
+      document.querySelectorAll('.accordion-card').forEach(c=>c.classList.remove('open'));
+      if (!wasOpen) card.classList.add('open');
+    }
   });
 
-  // --- "Мои данные" и "Данные партнера" ---
-  loadCard('me');
-  loadCard('partner');
-
-  document.getElementById('me-btn').addEventListener('click', () => editCard('me'));
-  document.getElementById('partner-btn').addEventListener('click', () => editCard('partner'));
-
-  // --- Запрос ---
-  document.getElementById('ask-btn').addEventListener('click', function() {
+  // --- Кнопка "Получить ответ"
+  document.getElementById('ask-btn').onclick = function() {
     const question = document.getElementById('question').value.trim();
-    if (!question) return alert(UI_TEXT[getLang()].enterQ);
+    if (!question) { alert("Введите вопрос!"); return; }
     this.disabled = true;
-    document.getElementById('result').innerText = UI_TEXT[getLang()].wait;
-
-    // Чтение чекбоксов
-    const checked = Array.from(document.querySelectorAll('.accordion-body input[type=checkbox]:checked')).map(cb => cb.value);
-
-    // Чтение данных пользователя и партнера
-    const me = getCardData('me');
-    const partner = getCardData('partner');
+    document.getElementById('result').innerText = "⏳ Генерируем ответ...";
+    // Собираем данные
+    let meData = {}; let partnerData = {};
+    try { meData = JSON.parse(localStorage.getItem('astro_me')||'{}'); } catch {}
+    try { partnerData = JSON.parse(localStorage.getItem('astro_partner')||'{}'); } catch {}
+    // Чекбоксы опций
+    const options = [];
+    document.querySelectorAll('.accordion-body input[type=checkbox]:checked').forEach(cb=>{
+      options.push(cb.value);
+    });
+    // Язык
+    const lang = document.getElementById('lang-select') ? document.getElementById('lang-select').value : 'ru';
 
     fetch("/horoscope", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
+        me: meData,
+        partner: partnerData,
         question,
-        me,
-        partner,
-        options: checked
+        options,
+        lang
       })
     })
-      .then(r => r.json())
-      .then(res => {
+      .then(res=>res.json())
+      .then(res=>{
         document.getElementById('result').innerText = res.response || "Нет ответа";
       })
-      .catch(() => document.getElementById('result').innerText = "Ошибка соединения")
-      .finally(() => { this.disabled = false; });
-  });
+      .catch(()=>document.getElementById('result').innerText = "Ошибка соединения")
+      .finally(()=>{ this.disabled = false; });
+  };
 });
-
-// --- helpers для "Мои данные" и "Данные партнера" ---
-function editCard(type) {
-  let name = prompt(type === 'me' ? "Введите ваши имя, дату, место, пол, время рождения через запятую (например: Иван, 20.01.1990, Минск, мужской, 3:00)" :
-    "Введите имя, дату, место, пол, время рождения партнера через запятую");
-  if (name === null) return;
-  let [n, dob, place, gender, time] = (name || "").split(',').map(x => x ? x.trim() : "");
-  let data = { n, dob, place, gender, time };
-  localStorage.setItem("astro_" + type, JSON.stringify(data));
-  loadCard(type);
-}
-function loadCard(type) {
-  let d = {};
-  try { d = JSON.parse(localStorage.getItem("astro_" + type) || '{}'); } catch {}
-  let content = [d.n, d.dob, d.place, d.gender, d.time].filter(Boolean).join('<br>');
-  let btn = document.getElementById(type + "-btn");
-  let cdiv = document.getElementById(type + "-content");
-  cdiv.innerHTML = content ? content : '—<br>—<br>—<br>—';
-  btn.classList.toggle('empty', !content);
-}
-function getCardData(type) {
-  try { return JSON.parse(localStorage.getItem("astro_" + type) || '{}'); } catch { return {}; }
-}
