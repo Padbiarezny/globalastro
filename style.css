@@ -1,93 +1,237 @@
-body { font-family: sans-serif; background: #f9f9f9; margin: 0; padding: 0; }
-.container { max-width: 430px; margin: 36px auto 0 auto; background: #fff; border-radius: 22px; box-shadow: 0 0 32px #eee; padding: 28px 16px 32px 16px; }
-
-h1 { text-align: center; margin-bottom: 24px; font-size: 2.5em; }
-
-.cards-row {
+/* --- Оставляю твой аккуратный стиль --- */
+body {
+  margin: 0;
+  background: linear-gradient(135deg, #e6e9f5 0%, #f9f9f9 100%);
+  font-family: 'San Francisco', 'Segoe UI', Arial, sans-serif;
+  min-height: 100vh;
+}
+.container {
+  background: #fff;
+  max-width: 430px;
+  margin: 36px auto 24px;
+  border-radius: 28px;
+  padding: 24px 16px 32px 16px;
+  box-shadow: 0 4px 40px 0 #b4bbcc2f;
+  position: relative;
+}
+.logo-row {
   display: flex;
-  gap: 18px;
+  align-items: center;
   justify-content: center;
-  margin-bottom: 18px;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.logo-img {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: #f6f2ff;
+  object-fit: cover;
+  border: 2px solid #dec8fa;
+}
+.brand-title {
+  font-family: 'SF Pro Display', 'Segoe UI', Arial, sans-serif;
+  font-weight: 900;
+  font-size: 2.3rem;
+  color: #7c43cb;
+  letter-spacing: -2px;
+  margin: 0 0 0 5px;
+}
+.lang-switch-row {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 13px;
+  margin-bottom: 0px;
+  position: relative;
+  z-index: 20;
+  padding-right: 15vw;
+}
+#lang-select {
+  padding: 7px 15px 7px 10px;
+  font-size: 1.03rem;
+  border-radius: 12px;
+  background: #eae6f7;
+  border: 1.2px solid #bca0db;
+  color: #7145b2;
+  font-weight: bold;
+  margin-right: 7px;
+  min-width: 125px;
+  box-shadow: 0 1.5px 10px #dfcbe425;
+  outline: none;
+  cursor: pointer;
+}
+.label-title {
+  font-size: 1.13rem;
+  font-weight: 600;
+  color: #544e5b;
+  margin-bottom: 8px;
+  display: block;
+}
+.block-question textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 13px;
+  border: 1.5px solid #bfa0e6;
+  font-size: 1rem;
+  box-sizing: border-box;
+  resize: vertical;
+  background: #f8f6fa;
+  margin-bottom: 12px;
+  text-align: left;
+  min-height: 60px;
+}
+.block-buttons {
+  display: flex;
+  gap: 13px;
+  margin-bottom: 8px;
 }
 .card-btn {
   flex: 1;
-  background: #f2effc;
-  border-radius: 16px;
+  background: linear-gradient(101deg, #ece2fa 10%, #e1d0f5 100%);
+  color: #7c43cb;
+  border: none;
+  border-radius: 18px;
+  padding: 11px 7px 11px 11px;
+  font-weight: 600;
+  font-size: 1.01rem;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 8px #e8dbf7;
   cursor: pointer;
-  padding: 12px 10px 22px 10px;
+  transition: background 0.2s, box-shadow 0.2s, color 0.2s;
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 130px;
-  min-height: 80px;
-  border: 2px solid #e5dfff;
-  transition: box-shadow .14s;
-  font-size: 1.16em;
+  min-height: 82px;
+  position: relative;
+  text-align: center;
+  justify-content: center;
 }
-.card-btn.empty { background: #f7f5fa; color: #ccc; border: 2px solid #ece8f8; }
-.card-btn span { font-weight: bold; font-size: 1.13em; margin-bottom: 10px; }
-.card-content { font-size: 1.07em; margin-top: 3px; text-align: center; line-height: 1.38; }
-
-.question-label { font-weight: bold; font-size: 1.22em; display: block; margin: 16px 0 7px 0; }
-#user-question {
-  width: 100%; min-height: 50px; resize: vertical; padding: 13px;
-  font-size: 1.16em; border: 2px solid #cebaf7; border-radius: 11px;
-  margin-bottom: 16px; background: #f7f5fa;
-  box-sizing: border-box;
+.card-title {
+  font-size: 1.02rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: inherit;
+  width: 100%;
+  text-align: center;
+}
+.card-content {
+  font-size: 1.01rem;
+  line-height: 1.21;
+  color: inherit;
+  opacity: 0.85;
+  width: 100%;
+  text-align: center;
+  padding-left: 0;
+}
+.card-btn.empty {
+  background: #ededed;
+  color: #aaa;
+  border: 1.1px solid #e5e5e5;
+}
+.card-btn.filled {
+  background: linear-gradient(101deg, #ece2fa 10%, #e1d0f5 100%);
+  color: #7c43cb;
+}
+.ask-btn {
+  width: 100%;
+  padding: 18px;
+  background: linear-gradient(90deg, #8651d1 40%, #5e36a3 100%);
+  color: #fff;
+  border: none;
+  border-radius: 17px;
+  font-size: 1.13rem;
+  font-weight: bold;
+  box-shadow: 0 2.5px 16px #bca6df85;
+  margin-top: 7px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+.ask-btn:hover {
+  background: linear-gradient(90deg, #6e3fc7 40%, #493585 100%);
+}
+#result {
+  min-height: 24px;
+  margin-top: 14px;
+  background: #f8f6fa;
+  border-radius: 14px;
+  padding: 10px 13px;
+  font-size: 1.02rem;
+  color: #3f3356;
+  box-shadow: 0 0.5px 4px #e5d3fa1a;
 }
 
-.accordion-list { margin: 0 0 16px 0; }
+/* --- Аккордеоны, стилизуем как "дополнительные опции" --- */
+.accordion-list {
+  margin-bottom: 20px;
+}
 .accordion-card {
-  margin-bottom: 10px;
-  border-radius: 16px;
-  box-shadow: 0 2px 18px #f3e9fd15;
-  background: #f2effc;
-  border: 2px solid #e3dbfa;
+  background: linear-gradient(101deg, #ece2fa 10%, #e1d0f5 100%);
+  border-radius: 18px;
+  box-shadow: 0 2px 8px #e8dbf7;
+  margin-bottom: 11px;
+  transition: box-shadow 0.22s;
+  cursor: pointer;
+  padding: 0;
   overflow: hidden;
-  transition: box-shadow 0.18s;
 }
 .accordion-header {
-  padding: 16px 20px;
-  font-size: 1.15em;
+  padding: 14px 22px;
   font-weight: bold;
-  background: #ede7fb;
-  cursor: pointer;
-  user-select: none;
+  color: #7c43cb;
+  font-size: 1.09rem;
+  border-bottom: 1px solid #e1d0f5;
+  position: relative;
 }
-.accordion-card.open { box-shadow: 0 8px 30px #d2bcf822; border-color: #b89bf5; }
+.accordion-header::after {
+  content: '▼';
+  position: absolute;
+  right: 18px; top: 12px;
+  font-size: 1rem;
+  color: #ab94db;
+  transition: transform 0.2s;
+}
+.accordion-card.open .accordion-header::after {
+  transform: rotate(180deg);
+}
 .accordion-body {
-  padding: 12px 20px;
-  background: #f7f5fa;
-  font-size: 1.04em;
   display: none;
-  border-top: 2px solid #e3dbfa;
+  background: #f8f6fa;
+  padding: 18px 22px 14px 22px;
+  color: #5a4a78;
+  font-size: 0.98rem;
+  border-radius: 0 0 17px 17px;
 }
-.accordion-card.open .accordion-body { display: block; }
-.accordion-body label { display: block; margin-bottom: 3px; font-size: .98em; }
-.accordion-body input[type="checkbox"] { margin-right: 7px; accent-color: #a87df7; }
-
-#ask-btn {
-  width: 100%; background: linear-gradient(90deg,#ad7df6 0,#734bdc 100%);
-  color: #fff; border: none; border-radius: 22px; font-size: 1.36em; font-weight: bold;
-  margin: 16px 0 8px 0; padding: 16px 0; box-shadow: 0 1px 12px #d2bcf877;
-  transition: background .17s, box-shadow .17s;
+.accordion-card.open .accordion-body {
+  display: block;
+}
+.accordion-body label {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 0.99rem;
   cursor: pointer;
+  font-weight: 500;
 }
-#ask-btn:active { background: #8967d4; }
-
-#result {
-  margin-top: 18px; background: #f6f3fc; border-radius: 14px;
-  padding: 15px; min-height: 42px; font-size: 1.09em; white-space: pre-wrap;
-  border: 1.7px solid #eee7fb;
+.accordion-body strong {
+  color: #a874ec;
+  display: block;
+  margin-top: 9px;
+  margin-bottom: 2px;
+  font-size: 1.03rem;
+  font-weight: 600;
+}
+.accordion-body input[type="checkbox"] {
+  accent-color: #7c43cb;
+  margin-right: 7px;
+  transform: scale(1.11);
 }
 
-.modal-bg { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #201f21c0; align-items: center; justify-content: center; z-index: 20;}
-.modal { background: #fff; border-radius: 18px; padding: 28px 24px; min-width: 300px; max-width: 95vw; }
-.modal input, .modal select { width: 100%; margin-bottom: 13px; padding: 9px; border-radius: 7px; border: 1.3px solid #dedede; font-size: 1.09em;}
-.modal-btn { width: 48%; background: #ae96ff; color: #fff; border: none; border-radius: 8px; font-size: 1.08em; padding: 10px; margin: 4px 0; cursor: pointer; }
-.modal-btn.cancel { background: #ddd; color: #333; }
-
-@media (max-width: 500px) {
-  .container { padding: 8px 1px 32px 1px; }
-  .modal { min-width: 90vw; padding: 14px 7px; }
+/* --- адаптив --- */
+@media (max-width: 560px) {
+  .container { max-width: 99vw; border-radius: 0 0 20px 20px; }
+  .main-block { padding: 0 2px; }
+  .logo-row { margin-bottom: 6px; }
+  .brand-title { font-size: 2rem; }
+  .modal { padding: 17px 5vw 14px 5vw; max-width: 97vw;}
 }
