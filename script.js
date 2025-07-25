@@ -1,14 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-  // --- Язык ---
-  const langSelect = document.getElementById('lang-select');
-  if (langSelect) {
-    langSelect.value = localStorage.getItem('astro_lang') || 'ru';
-    langSelect.addEventListener('change', function () {
-      localStorage.setItem('astro_lang', langSelect.value);
-      location.reload();
-    });
-  }
-
   // --- Восстановление данных ---
   restoreCard('my', 'my-data');
   restoreCard('partner', 'partner-data');
@@ -33,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
     head.onclick = function () {
       const parent = this.parentNode;
       parent.classList.toggle('open');
-      // Для мультиоткрытия: закомментируй след. 2 строки
+      // Для мультиоткрытия: закомментируй след. 2 строки если надо
       document.querySelectorAll('.accordion-card').forEach(card => {
         if (card !== parent) card.classList.remove('open');
       });
@@ -59,8 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
       user: userData,
       partner: partnerData,
       question: question,
-      options: options,
-      lang: (langSelect ? langSelect.value : "ru")
+      options: options
     };
     fetch('/horoscope', {
       method: 'POST',
