@@ -7,7 +7,8 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="lang-select-bar">
+  <!-- ЯЗЫК: выпадающий список -->
+  <div class="lang-select-row">
     <select id="lang-select">
       <option value="ru">Русский</option>
       <option value="en">English</option>
@@ -21,68 +22,77 @@
       <option value="zh">中文</option>
     </select>
   </div>
-  <div class="container">
-    <h1>GlobalAstro</h1>
-    <div class="buttons-bar">
-      <button id="open-me" class="astro-btn">
-        <div id="me-title">Мои данные</div>
-        <div id="me-summary" class="astro-summary"></div>
+
+  <div class="container shadow">
+    <div class="logo-row">
+      <img class="logo-img" src="https://i.imgur.com/UusRtNE.png" alt="logo">
+      <div class="brand-title">GlobalAstro</div>
+    </div>
+
+    <div class="block-question">
+      <span class="label-title">Какой ваш вопрос астрологу?</span>
+      <textarea id="question" placeholder="Покупать мне BMW X5 на следующей неделе?" rows="3"></textarea>
+    </div>
+
+    <div class="block-buttons">
+      <button class="card-btn filled" id="open-me">
+        <div class="card-title">Мои данные</div>
+        <div class="card-content" id="me-summary">—<br>—<br>—<br>—</div>
       </button>
-      <button id="open-partner" class="astro-btn">
-        <div id="partner-title">Данные партнера</div>
-        <div id="partner-summary" class="astro-summary"></div>
+      <button class="card-btn empty" id="open-partner">
+        <div class="card-title">Данные партнера</div>
+        <div class="card-content" id="partner-summary">—<br>—<br>—<br>—<br>—</div>
       </button>
-      <button id="open-options" class="astro-btn">
-        <div id="options-title">Дополнительные опции</div>
-        <div id="options-summary" class="astro-summary"></div>
+      <button class="card-btn empty" id="open-options">
+        <div class="card-title">Дополнительные опции</div>
+        <div class="card-content" id="options-summary">—</div>
       </button>
     </div>
-    <div class="astro-form">
-      <label id="qLabel" for="question">Какой ваш вопрос астрологу?</label>
-      <input id="question" type="text" placeholder="Покупать мне BMW X5 на следующей неделе?">
-      <button id="ask-btn" type="button">Получить ответ</button>
-    </div>
-    <div id="result" class="astro-result"></div>
+
+    <button class="ask-btn" id="ask-btn">Получить ответ</button>
+    <div id="result"></div>
   </div>
-  <!-- Модальные окна -->
-  <div id="modal-bg" class="modal-bg" onclick="closeModal()" style="display:none;">
-    <div id="modal-me" class="modal" onclick="event.stopPropagation()">
+
+  <!-- Модалки для ввода данных (оставил как было) -->
+  <div id="modal-bg" class="modal-bg">
+    <div class="modal" id="modal-me" style="display:none">
       <h3>Мои данные</h3>
-      <label>Дата рождения<input id="me-dob" type="date"></label>
-      <label>Место рождения<input id="me-place" type="text"></label>
-      <label>Пол
-        <select id="me-gender">
-          <option value="мужской">Мужской</option>
-          <option value="женский">Женский</option>
-        </select>
-      </label>
-      <label>Время рождения (необязательно)<input id="me-time" type="time"></label>
-      <button class="modal-btn" onclick="saveMe()">Сохранить</button>
-      <button class="modal-btn cancel" onclick="closeModal()">Отмена</button>
+      <label>Дата рождения</label><input type="date" id="me-dob">
+      <label>Место рождения</label><input type="text" id="me-place">
+      <label>Пол</label>
+      <select id="me-gender"><option value="мужской">Мужской</option><option value="женский">Женский</option></select>
+      <label>Время рождения</label><input type="time" id="me-time">
+      <div class="modal-btn-row">
+        <button class="modal-btn" onclick="saveMe()">OK</button>
+        <button class="modal-btn cancel" onclick="closeModal()">Отмена</button>
+      </div>
     </div>
-    <div id="modal-partner" class="modal" onclick="event.stopPropagation()">
+    <div class="modal" id="modal-partner" style="display:none">
       <h3>Данные партнера</h3>
-      <label>Имя<input id="p-name" type="text"></label>
-      <label>Дата рождения<input id="p-dob" type="date"></label>
-      <label>Место рождения<input id="p-place" type="text"></label>
-      <label>Пол
-        <select id="p-gender">
-          <option value="мужской">Мужской</option>
-          <option value="женский">Женский</option>
-        </select>
-      </label>
-      <label>Время рождения (необязательно)<input id="p-time" type="time"></label>
-      <button class="modal-btn" onclick="savePartner()">Сохранить</button>
-      <button class="modal-btn cancel" onclick="closeModal()">Отмена</button>
+      <label>Имя</label><input type="text" id="p-name">
+      <label>Дата рождения</label><input type="date" id="p-dob">
+      <label>Место рождения</label><input type="text" id="p-place">
+      <label>Пол</label>
+      <select id="p-gender">
+        <option value="мужской">Мужской</option>
+        <option value="женский">Женский</option>
+      </select>
+      <label>Время рождения</label><input type="time" id="p-time">
+      <div class="modal-btn-row">
+        <button class="modal-btn" onclick="savePartner()">OK</button>
+        <button class="modal-btn cancel" onclick="closeModal()">Отмена</button>
+      </div>
     </div>
-    <div id="modal-options" class="modal" onclick="event.stopPropagation()">
+    <div class="modal" id="modal-options" style="display:none">
       <h3>Дополнительные опции</h3>
       <label><input type="checkbox" id="opt-num"> Нумерология</label>
       <label><input type="checkbox" id="opt-taro"> Таро</label>
       <label><input type="checkbox" id="opt-china"> Китайский гороскоп</label>
       <label><input type="checkbox" id="opt-more"> Ещё</label>
-      <button class="modal-btn" onclick="saveOptions()">Сохранить</button>
-      <button class="modal-btn cancel" onclick="closeModal()">Отмена</button>
+      <div class="modal-btn-row">
+        <button class="modal-btn" onclick="saveOptions()">OK</button>
+        <button class="modal-btn cancel" onclick="closeModal()">Отмена</button>
+      </div>
     </div>
   </div>
   <script src="script.js"></script>
