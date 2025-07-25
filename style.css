@@ -43,7 +43,7 @@ body {
   margin-bottom: 14px;
 }
 .block-question textarea {
-  width: 100%;
+  width: calc(100% - 4px); /* Уменьшает ширину, чтобы не выходить за границы */
   height: 54px;
   padding: 12px 15px;
   border-radius: 12px;
@@ -54,6 +54,7 @@ body {
   resize: vertical;
   outline: none;
   margin-bottom: 10px;
+  box-sizing: border-box;
 }
 .block-buttons {
   display: flex;
