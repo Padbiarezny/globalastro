@@ -30,65 +30,66 @@
     </div>
 
     <div class="block-question">
-      <span class="label-title">Какой ваш вопрос астрологу?</span>
+      <span class="label-title" id="label-question">Какой ваш вопрос астрологу?</span>
       <textarea id="question" placeholder="Покупать мне BMW X5 на следующей неделе?" rows="3"></textarea>
     </div>
 
     <div class="block-buttons">
       <button class="card-btn filled" id="open-me">
-        <div class="card-title">Мои данные</div>
+        <div class="card-title" id="btn-me-title">Мои данные</div>
         <div class="card-content" id="me-summary">—<br>—<br>—<br>—</div>
       </button>
       <button class="card-btn empty" id="open-partner">
-        <div class="card-title">Данные партнера</div>
+        <div class="card-title" id="btn-partner-title">Данные партнера</div>
         <div class="card-content" id="partner-summary">—<br>—<br>—<br>—<br>—</div>
       </button>
-      <button class="card-btn empty" id="open-options">
-        <div class="card-title">Дополнительные опции</div>
-        <div class="card-content" id="options-summary">—</div>
-      </button>
     </div>
+
+    <button class="card-btn options-btn" id="open-options">
+      <div class="card-title" id="btn-options-title">Дополнительные опции</div>
+      <div class="card-content" id="options-summary">—</div>
+    </button>
 
     <button class="ask-btn" id="ask-btn">Получить ответ</button>
     <div id="result"></div>
   </div>
 
-  <!-- Модалки для ввода данных (оставил как было) -->
+  <!-- Модалки для ввода данных -->
   <div id="modal-bg" class="modal-bg">
     <div class="modal" id="modal-me" style="display:none">
-      <h3>Мои данные</h3>
-      <label>Дата рождения</label><input type="date" id="me-dob">
-      <label>Место рождения</label><input type="text" id="me-place">
-      <label>Пол</label>
+      <h3 id="modal-me-title">Мои данные</h3>
+      <label id="label-me-dob">Дата рождения</label><input type="date" id="me-dob">
+      <label id="label-me-place">Место рождения</label><input type="text" id="me-place">
+      <label id="label-me-gender">Пол</label>
       <select id="me-gender"><option value="мужской">Мужской</option><option value="женский">Женский</option></select>
-      <label>Время рождения</label><input type="time" id="me-time">
+      <label id="label-me-time">Время рождения</label><input type="time" id="me-time">
       <div class="modal-btn-row">
         <button class="modal-btn" onclick="saveMe()">OK</button>
         <button class="modal-btn cancel" onclick="closeModal()">Отмена</button>
       </div>
     </div>
     <div class="modal" id="modal-partner" style="display:none">
-      <h3>Данные партнера</h3>
-      <label>Имя</label><input type="text" id="p-name">
-      <label>Дата рождения</label><input type="date" id="p-dob">
-      <label>Место рождения</label><input type="text" id="p-place">
-      <label>Пол</label>
+      <h3 id="modal-partner-title">Данные партнера</h3>
+      <label id="label-p-name">Имя</label><input type="text" id="p-name">
+      <label id="label-p-dob">Дата рождения</label><input type="date" id="p-dob">
+      <label id="label-p-place">Место рождения</label><input type="text" id="p-place">
+      <label id="label-p-gender">Пол</label>
       <select id="p-gender">
         <option value="мужской">Мужской</option>
         <option value="женский">Женский</option>
       </select>
-      <label>Время рождения</label><input type="time" id="p-time">
+      <label id="label-p-time">Время рождения</label><input type="time" id="p-time">
       <div class="modal-btn-row">
         <button class="modal-btn" onclick="savePartner()">OK</button>
         <button class="modal-btn cancel" onclick="closeModal()">Отмена</button>
       </div>
     </div>
     <div class="modal" id="modal-options" style="display:none">
-      <h3>Дополнительные опции</h3>
-      <label><input type="checkbox" id="opt-num"> Нумерология</label>
-      <label><input type="checkbox" id="opt-taro"> Таро</label>
-      <label><input type="checkbox" id="opt-china"> Китайский гороскоп</label>
-      <label><input type="checkbox" id="opt-more"> Ещё</label>
+      <h3 id="modal-options-title">Дополнительные опции</h3>
+      <label><input type="checkbox" id="opt-num"> <span id="label-opt-num">Нумерология</span></label>
+      <label><input type="checkbox" id="opt-taro"> <span id="label-opt-taro">Таро</span></label>
+      <label><input type="checkbox" id="opt-china"> <span id="label-opt-china">Китайский гороскоп</span></label>
+      <label><input type="checkbox" id="opt-more"> <span id="label-opt-more">Ещё</span></label>
       <div class="modal-btn-row">
         <button class="modal-btn" onclick="saveOptions()">OK</button>
         <button class="modal-btn cancel" onclick="closeModal()">Отмена</button>
