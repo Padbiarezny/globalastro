@@ -1,3 +1,107 @@
+// --- Локализация: основные языки ---
+const UI_TEXT = {
+  ru: {
+    astro: "GlobalAstro",
+    ask: "Получить ответ",
+    qLabel: "Какой Ваш вопрос астрологу?",
+    placeh: "Покупать мне BMW X5 на следующей неделе?",
+    me: "Мои данные",
+    partner: "Данные партнера",
+    options: "Дополнительные опции",
+    num: "Нумерология",
+    taro: "Таро",
+    china: "Китайский гороскоп",
+    more: "Ещё",
+    save: "Сохранить",
+    cancel: "Отмена",
+    name: "Имя",
+    dob: "Дата рождения",
+    place: "Место рождения",
+    gender: "Пол",
+    time: "Время рождения (необязательно)",
+    question: "Вопрос",
+    result: "Результат",
+    wait: "⏳ Запрос отправлен... ждём ответ от звёзд :)",
+    enterQ: "Введите свой вопрос!"
+  },
+  en: {
+    astro: "GlobalAstro",
+    ask: "Get Answer",
+    qLabel: "What is your question for the astrologer?",
+    placeh: "Should I buy a BMW X5 next week?",
+    me: "My Data",
+    partner: "Partner's Data",
+    options: "Extra options",
+    num: "Numerology",
+    taro: "Tarot",
+    china: "Chinese horoscope",
+    more: "More",
+    save: "Save",
+    cancel: "Cancel",
+    name: "Name",
+    dob: "Date of birth",
+    place: "Place of birth",
+    gender: "Gender",
+    time: "Time of birth (optional)",
+    question: "Question",
+    result: "Result",
+    wait: "⏳ Request sent... waiting for an answer from the stars :)",
+    enterQ: "Please enter your question!"
+  }
+  // Добавь другие языки по аналогии!
+};
+
+// --- Установка языка по выбору ---
+let curLang = localStorage.getItem("astro_lang") || "ru";
+function setLang(lang) {
+  curLang = lang;
+  localStorage.setItem("astro_lang", lang);
+  const T = UI_TEXT[lang] || UI_TEXT["ru"];
+  document.querySelector('.brand-title').innerText = T.astro;
+  document.querySelector('.ask-btn').innerText = T.ask;
+  document.querySelector('.label-title').innerText = T.qLabel;
+  document.getElementById('question').setAttribute("placeholder", T.placeh);
+  document.getElementById('open-me').querySelector(".card-title").innerText = T.me;
+  document.getElementById('open-partner').querySelector(".card-title").innerText = T.partner;
+  document.getElementById('open-options').querySelector(".card-title").innerText = T.options;
+
+  // Модальные окна (если открыты — обновлять тоже)
+  document.querySelectorAll('.modal').forEach(modal => {
+    if (modal.id === 'modal-me') {
+      modal.querySelector('h3').innerText = T.me;
+      modal.querySelectorAll('label')[0].innerText = T.dob;
+      modal.querySelectorAll('label')[1].innerText = T.place;
+      modal.querySelectorAll('label')[2].innerText = T.gender;
+      modal.querySelectorAll('label')[3].innerText = T.time;
+      modal.querySelectorAll('.modal-btn')[0].innerText = T.save;
+      modal.querySelectorAll('.modal-btn')[1].innerText = T.cancel;
+    }
+    if (modal.id === 'modal-partner') {
+      modal.querySelector('h3').innerText = T.partner;
+      modal.querySelectorAll('label')[0].innerText = T.name;
+      modal.querySelectorAll('label')[1].innerText = T.dob;
+      modal.querySelectorAll('label')[2].innerText = T.place;
+      modal.querySelectorAll('label')[3].innerText = T.gender;
+      modal.querySelectorAll('label')[4].innerText = T.time;
+      modal.querySelectorAll('.modal-btn')[0].innerText = T.save;
+      modal.querySelectorAll('.modal-btn')[1].innerText = T.cancel;
+    }
+    if (modal.id === 'modal-options') {
+      modal.querySelector('h3').innerText = T.options;
+      modal.querySelectorAll('label')[0].innerHTML = `<input type="checkbox" id="opt-num"> ${T.num}`;
+      modal.querySelectorAll('label')[1].innerHTML = `<input type="checkbox" id="opt-taro"> ${T.taro}`;
+      modal.querySelectorAll('label')[2].innerHTML = `<input type="checkbox" id="opt-china"> ${T.china}`;
+      modal.querySelectorAll('label')[3].innerHTML = `<input type="checkbox" id="opt-more"> ${T.more}`;
+      modal.querySelectorAll('.modal-btn')[0].innerText = T.save;
+      modal.querySelectorAll('.modal-btn')[1].innerText = T.cancel;
+    }
+  });
+}
+document.getElementById('lang-select').value = curLang;
+setLang(curLang);
+document.getElementById('lang-select').addEventListener('change', function() {
+  setLang(this.value);
+});
 const translations = {
   ru: {
     "brand-title": "GlobalAstro",
