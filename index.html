@@ -7,37 +7,46 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container shadow">
-    <div class="logo-row">
-      <img src="https://github.com/Padbiarezny/globalastro/blob/main/Image.png?raw=true/?size=96&id=a0tQpEKxL17w&format=png" alt="Astro" class="logo-img"/>
-      <h1 class="brand-title">GlobalAstro</h1>
+  <div class="container">
+    <div class="header-row">
+      <div class="logo-row">
+        <img src="https://cdn-icons-png.flaticon.com/512/2285/2285890.png" class="logo-img" alt="Logo">
+        <span class="brand-title">GlobalAstro</span>
+      </div>
+      <div class="lang-select-wrap">
+        <select id="lang-select" class="lang-select">
+          <option value="ru">Русский</option>
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="pt">Português</option>
+          <option value="de">Deutsch</option>
+          <option value="fr">Français</option>
+          <option value="sr">Српски</option>
+          <option value="pl">Polski</option>
+          <option value="ar">العربية</option>
+          <option value="zh">中文</option>
+        </select>
+      </div>
     </div>
+
     <div class="main-block">
+      <span class="label-title" id="qLabel">Какой Ваш вопрос астрологу?</span>
       <div class="block-question">
-        <label for="question" class="label-title">Какой Ваш вопрос астрологу?</label>
         <textarea id="question" placeholder="Покупать мне BMW X5 на следующей неделе?"></textarea>
       </div>
+
       <div class="block-buttons">
-        <button class="card-btn empty" id="open-me" type="button">
-          <div class="card-title">Мои данные</div>
-          <div class="card-content" id="me-summary"></div>
-        </button>
-        <button class="card-btn empty" id="open-partner" type="button">
-          <div class="card-title">Данные партнёра</div>
-          <div class="card-content" id="partner-summary"></div>
-        </button>
+        <button id="open-me" class="card-btn"><span class="card-title" id="me-title">Мои данные</span><span id="me-summary" class="card-content"></span></button>
+        <button id="open-partner" class="card-btn"><span class="card-title" id="partner-title">Данные партнёра</span><span id="partner-summary" class="card-content"></span></button>
       </div>
-      <button class="card-btn full-btn" id="open-options" type="button">
-        <div class="card-title">Дополнительные опции</div>
-        <div class="card-content" id="options-summary"></div>
-      </button>
-      <button class="ask-btn" id="ask-btn" type="button">Получить ответ</button>
+      <button id="open-options" class="card-btn full-btn"><span class="card-title" id="options-title">Дополнительные опции</span><span id="options-summary" class="card-content"></span></button>
+      <button class="ask-btn" id="ask-btn">Получить ответ</button>
       <div id="result"></div>
     </div>
   </div>
-  <!-- Modal windows -->
+  <!-- Модалки и bg -->
   <div class="modal-bg" id="modal-bg">
-    <div class="modal" id="modal-me">
+    <div class="modal" id="modal-me" style="display:none;">
       <h3>Мои данные</h3>
       <label>Дата рождения</label>
       <input type="date" id="me-dob">
@@ -48,14 +57,14 @@
         <option value="мужской">Мужской</option>
         <option value="женский">Женский</option>
       </select>
-      <label>Время рождения (опционально)</label>
+      <label>Время рождения (необязательно)</label>
       <input type="time" id="me-time">
       <div class="modal-btn-row">
-        <button class="modal-btn cancel" type="button" onclick="closeModal()">Отмена</button>
-        <button class="modal-btn" type="button" onclick="saveMe()">Сохранить</button>
+        <button class="modal-btn" onclick="saveMe()">Сохранить</button>
+        <button class="modal-btn cancel" onclick="closeModal()">Отмена</button>
       </div>
     </div>
-    <div class="modal" id="modal-partner">
+    <div class="modal" id="modal-partner" style="display:none;">
       <h3>Данные партнёра</h3>
       <label>Имя</label>
       <input type="text" id="p-name">
@@ -65,26 +74,25 @@
       <input type="text" id="p-place">
       <label>Пол</label>
       <select id="p-gender">
-        <option value="">-</option>
         <option value="мужской">Мужской</option>
         <option value="женский">Женский</option>
       </select>
-      <label>Время рождения (опционально)</label>
+      <label>Время рождения (необязательно)</label>
       <input type="time" id="p-time">
       <div class="modal-btn-row">
-        <button class="modal-btn cancel" type="button" onclick="closeModal()">Отмена</button>
-        <button class="modal-btn" type="button" onclick="savePartner()">Сохранить</button>
+        <button class="modal-btn" onclick="savePartner()">Сохранить</button>
+        <button class="modal-btn cancel" onclick="closeModal()">Отмена</button>
       </div>
     </div>
-    <div class="modal" id="modal-options">
-      <h3>Доп. опции</h3>
-      <label><input type="checkbox" class="option-checkbox" id="opt-num"> Нумерология</label>
-      <label><input type="checkbox" class="option-checkbox" id="opt-taro"> Таро</label>
-      <label><input type="checkbox" class="option-checkbox" id="opt-china"> Китайский гороскоп</label>
-      <label><input type="checkbox" class="option-checkbox" id="opt-more"> Ещё что-нибудь</label>
+    <div class="modal" id="modal-options" style="display:none;">
+      <h3>Дополнительные опции</h3>
+      <label><input type="checkbox" id="opt-num"> Нумерология</label>
+      <label><input type="checkbox" id="opt-taro"> Таро</label>
+      <label><input type="checkbox" id="opt-china"> Китайский гороскоп</label>
+      <label><input type="checkbox" id="opt-more"> Ещё</label>
       <div class="modal-btn-row">
-        <button class="modal-btn cancel" type="button" onclick="closeModal()">Отмена</button>
-        <button class="modal-btn" type="button" onclick="saveOptions()">Сохранить</button>
+        <button class="modal-btn" onclick="saveOptions()">Сохранить</button>
+        <button class="modal-btn cancel" onclick="closeModal()">Отмена</button>
       </div>
     </div>
   </div>
