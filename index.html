@@ -22,18 +22,15 @@
       <option value="zh">中文</option>
     </select>
   </div>
-
   <div class="container shadow">
     <div class="logo-row">
       <img class="logo-img" src="https://i.imgur.com/UusRtNE.png" alt="logo">
       <div class="brand-title">GlobalAstro</div>
     </div>
-
     <div class="block-question">
       <span class="label-title" id="label-question">Какой ваш вопрос астрологу?</span>
       <textarea id="question" placeholder="Покупать мне BMW X5 на следующей неделе?" rows="3"></textarea>
     </div>
-
     <div class="block-buttons">
       <button class="card-btn filled" id="open-me">
         <div class="card-title" id="btn-me-title">Мои данные</div>
@@ -44,17 +41,14 @@
         <div class="card-content" id="partner-summary">—<br>—<br>—<br>—<br>—</div>
       </button>
     </div>
-
     <button class="card-btn options-btn" id="open-options">
       <div class="card-title" id="btn-options-title">Дополнительные опции</div>
       <div class="card-content" id="options-summary">—</div>
     </button>
-
     <button class="ask-btn" id="ask-btn">Получить ответ</button>
     <div id="result"></div>
   </div>
-
-  <!-- Модалки для ввода данных -->
+  <!-- Модальные окна -->
   <div id="modal-bg" class="modal-bg">
     <div class="modal" id="modal-me" style="display:none">
       <h3 id="modal-me-title">Мои данные</h3>
@@ -64,8 +58,8 @@
       <select id="me-gender"><option value="мужской">Мужской</option><option value="женский">Женский</option></select>
       <label id="label-me-time">Время рождения</label><input type="time" id="me-time">
       <div class="modal-btn-row">
-        <button class="modal-btn" onclick="saveMe()">OK</button>
-        <button class="modal-btn cancel" onclick="closeModal()">Отмена</button>
+        <button class="modal-btn" id="btn-save-me">OK</button>
+        <button class="modal-btn cancel" id="btn-cancel-me">Отмена</button>
       </div>
     </div>
     <div class="modal" id="modal-partner" style="display:none">
@@ -80,8 +74,8 @@
       </select>
       <label id="label-p-time">Время рождения</label><input type="time" id="p-time">
       <div class="modal-btn-row">
-        <button class="modal-btn" onclick="savePartner()">OK</button>
-        <button class="modal-btn cancel" onclick="closeModal()">Отмена</button>
+        <button class="modal-btn" id="btn-save-partner">OK</button>
+        <button class="modal-btn cancel" id="btn-cancel-partner">Отмена</button>
       </div>
     </div>
     <div class="modal" id="modal-options" style="display:none">
@@ -91,8 +85,8 @@
       <label><input type="checkbox" id="opt-china"> <span id="label-opt-china">Китайский гороскоп</span></label>
       <label><input type="checkbox" id="opt-more"> <span id="label-opt-more">Ещё</span></label>
       <div class="modal-btn-row">
-        <button class="modal-btn" onclick="saveOptions()">OK</button>
-        <button class="modal-btn cancel" onclick="closeModal()">Отмена</button>
+        <button class="modal-btn" id="btn-save-options">OK</button>
+        <button class="modal-btn cancel" id="btn-cancel-options">Отмена</button>
       </div>
     </div>
   </div>
