@@ -1,4 +1,4 @@
-// -------- Локализации --------
+// ---------- Локализации ----------
 const locales = {
   ru: {
     "brand-title": "GlobalAstro",
@@ -7,7 +7,6 @@ const locales = {
     "me-title": "Мои данные",
     "partner-title": "Данные партнёра",
     "options-title": "Дополнительные опции",
-    "options-summary": "",
     "result-default": "",
     "modal-me-title": "Мои данные",
     "me-dob-label": "Дата рождения",
@@ -67,7 +66,6 @@ const locales = {
     "me-title": "My data",
     "partner-title": "Partner data",
     "options-title": "Additional options",
-    "options-summary": "",
     "result-default": "",
     "modal-me-title": "My data",
     "me-dob-label": "Date of birth",
@@ -119,21 +117,15 @@ const locales = {
       "Can I trust a new acquaintance?",
       "How will the coming weeks go?"
     ]
-  },
-  // Можно добавить остальные языки по аналогии!
+  }
 };
-
-// -------- Список языков --------
 const langList = [
   { code: "ru", name: "Русский" },
-  { code: "en", name: "English" },
-  // ...добавь сюда остальные языки по аналогии (если переведёшь)
+  { code: "en", name: "English" }
 ];
-
-// -------- Глобальная переменная --------
 let currentLang = "ru";
 
-// -------- UI-обновление --------
+// -------------- UI обновление ---------------
 function updateUI() {
   const t = locales[currentLang] || locales["ru"];
   document.getElementById("brand-title").innerText = t["brand-title"];
@@ -142,37 +134,12 @@ function updateUI() {
   document.getElementById("me-title").innerText = t["me-title"];
   document.getElementById("partner-title").innerText = t["partner-title"];
   document.getElementById("options-title").innerText = t["options-title"];
-  document.getElementById("modal-me-title").innerText = t["modal-me-title"];
-  document.getElementById("me-dob-label").innerText = t["me-dob-label"];
-  document.getElementById("me-place-label").innerText = t["me-place-label"];
-  document.getElementById("me-gender-label").innerText = t["me-gender-label"];
-  document.getElementById("me-time-label").innerText = t["me-time-label"];
-  document.getElementById("me-save-btn").innerText = t["me-save-btn"];
-  document.getElementById("me-cancel-btn").innerText = t["me-cancel-btn"];
-  document.getElementById("modal-partner-title").innerText = t["modal-partner-title"];
-  document.getElementById("p-name-label").innerText = t["p-name-label"];
-  document.getElementById("p-dob-label").innerText = t["p-dob-label"];
-  document.getElementById("p-place-label").innerText = t["p-place-label"];
-  document.getElementById("p-gender-label").innerText = t["p-gender-label"];
-  document.getElementById("p-time-label").innerText = t["p-time-label"];
-  document.getElementById("partner-save-btn").innerText = t["partner-save-btn"];
-  document.getElementById("partner-cancel-btn").innerText = t["partner-cancel-btn"];
-  document.getElementById("modal-options-title").innerText = t["modal-options-title"];
-  document.getElementById("opt-num-label").innerText = t["opt-num-label"];
-  document.getElementById("opt-taro-label").innerText = t["opt-taro-label"];
-  document.getElementById("opt-china-label").innerText = t["opt-china-label"];
-  document.getElementById("opt-more-label").innerText = t["opt-more-label"];
-  document.getElementById("options-save-btn").innerText = t["options-save-btn"];
-  document.getElementById("options-cancel-btn").innerText = t["options-cancel-btn"];
-  // Gender selects
   document.getElementById("me-gender").options[0].text = t["me-gender-male"];
   document.getElementById("me-gender").options[1].text = t["me-gender-female"];
   document.getElementById("p-gender").options[0].text = t["p-gender-male"];
   document.getElementById("p-gender").options[1].text = t["p-gender-female"];
-  // Placeholder вопроса
   placeholderStart();
 }
-
 // --------- Placeholder rotation ---------
 let phIndex = 0, phTimer = null;
 function placeholderStart() {
@@ -187,7 +154,7 @@ function placeholderStart() {
   }, 3000);
 }
 
-// --------- Language selector ---------
+// ---------- Language selector ---------
 function renderLangSelect() {
   const select = document.getElementById("language-selector");
   select.innerHTML = "";
@@ -204,7 +171,8 @@ function renderLangSelect() {
   };
 }
 
-// --------- Инициализация ---------
+// --------------- Modal logic & saving ----------------
+// ...твой старый рабочий код для модальных окон, кнопок, открытия/закрытия/сохранения здесь!
 window.addEventListener("DOMContentLoaded", function() {
   // autodetect
   let tgLang = null;
@@ -218,6 +186,84 @@ window.addEventListener("DOMContentLoaded", function() {
 
   renderLangSelect();
   updateUI();
-  // далее весь твой старый функционал!
-  // ... (оставь код логики приложения: модалки, отправка, сохранение и т.д.)
+
+  // ----------- ДАЛЕЕ вставь сюда весь твой рабочий код ниже -----------
+  // --- Ниже пример базовой логики (добавь свою если отличается):
+  // 1. Открытие/закрытие модальных окон
+  document.getElementById('me-title').onclick = function() {
+    document.getElementById('modal-me').classList.add('show');
+  };
+  document.getElementById('partner-title').onclick = function() {
+    document.getElementById('modal-partner').classList.add('show');
+  };
+  document.getElementById('options-title').onclick = function() {
+    document.getElementById('modal-options').classList.add('show');
+  };
+  document.querySelectorAll('.modal-cancel').forEach(btn => btn.onclick = function() {
+    btn.closest('.modal').classList.remove('show');
+  });
+  document.getElementById('me-save-btn').onclick = function() {
+    // сохранить мои данные
+    localStorage.setItem("me-dob", document.getElementById("me-dob").value);
+    localStorage.setItem("me-place", document.getElementById("me-place").value);
+    localStorage.setItem("me-gender", document.getElementById("me-gender").value);
+    localStorage.setItem("me-time", document.getElementById("me-time").value);
+    document.getElementById('modal-me').classList.remove('show');
+  };
+  document.getElementById('partner-save-btn').onclick = function() {
+    localStorage.setItem("p-name", document.getElementById("p-name").value);
+    localStorage.setItem("p-dob", document.getElementById("p-dob").value);
+    localStorage.setItem("p-place", document.getElementById("p-place").value);
+    localStorage.setItem("p-gender", document.getElementById("p-gender").value);
+    localStorage.setItem("p-time", document.getElementById("p-time").value);
+    document.getElementById('modal-partner').classList.remove('show');
+  };
+  document.getElementById('options-save-btn').onclick = function() {
+    // Сохрани опции если они есть
+    document.getElementById('modal-options').classList.remove('show');
+  };
+
+  // 2. Восстановление полей
+  document.getElementById("me-dob").value = localStorage.getItem("me-dob") || "";
+  document.getElementById("me-place").value = localStorage.getItem("me-place") || "";
+  document.getElementById("me-gender").value = localStorage.getItem("me-gender") || "мужской";
+  document.getElementById("me-time").value = localStorage.getItem("me-time") || "";
+
+  document.getElementById("p-name").value = localStorage.getItem("p-name") || "";
+  document.getElementById("p-dob").value = localStorage.getItem("p-dob") || "";
+  document.getElementById("p-place").value = localStorage.getItem("p-place") || "";
+  document.getElementById("p-gender").value = localStorage.getItem("p-gender") || "мужской";
+  document.getElementById("p-time").value = localStorage.getItem("p-time") || "";
+
+  // 3. Отправка формы
+  document.getElementById("ask-btn").onclick = function() {
+    const question = document.getElementById("question").value;
+    const me = {
+      dob: localStorage.getItem("me-dob") || "",
+      place: localStorage.getItem("me-place") || "",
+      gender: localStorage.getItem("me-gender") || "",
+      time: localStorage.getItem("me-time") || ""
+    };
+    const partner = {
+      name: localStorage.getItem("p-name") || "",
+      dob: localStorage.getItem("p-dob") || "",
+      place: localStorage.getItem("p-place") || "",
+      gender: localStorage.getItem("p-gender") || "",
+      time: localStorage.getItem("p-time") || ""
+    };
+    document.getElementById("result").innerText = "⏳ " + (currentLang === "en" ? "Sending..." : "Запрос отправлен... ждём ответ :)");
+    fetch("/horoscope", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ question, me, partner, lang: currentLang })
+    })
+      .then(r=>r.json())
+      .then(r=>{
+        document.getElementById("result").innerText = r.response || (currentLang === "en" ? "No answer" : "Нет ответа от сервера");
+      })
+      .catch(()=>{
+        document.getElementById("result").innerText = currentLang === "en" ? "Error" : "Ошибка соединения";
+      });
+  };
+
 });
