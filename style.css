@@ -1,30 +1,93 @@
-body { font-family: sans-serif; background: #f9f9f9; padding: 0; margin: 0; }
-.container { max-width: 410px; margin: 36px auto 0 auto; background: #fff; border-radius: 12px; box-shadow: 0 0 14px #ccc; padding: 24px; }
+body { font-family: sans-serif; background: #f9f9f9; margin: 0; padding: 0; }
+.container { max-width: 430px; margin: 36px auto 0 auto; background: #fff; border-radius: 22px; box-shadow: 0 0 32px #eee; padding: 28px 16px 32px 16px; }
 
-h1 { text-align: center; margin-bottom: 28px; }
+h1 { text-align: center; margin-bottom: 24px; font-size: 2.5em; }
 
 .cards-row {
   display: flex;
-  gap: 14px;
+  gap: 18px;
   justify-content: center;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 .card-btn {
   flex: 1;
-  background: #f1f3f9;
-  border-radius: 8px;
+  background: #f2effc;
+  border-radius: 16px;
   cursor: pointer;
-  padding: 8px 10px 12px 10px;
+  padding: 12px 10px 22px 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   min-width: 130px;
-  min-height: 56px;
-  transition: box-shadow .12s;
-  border: 1.5px solid #dee2ef;
+  min-height: 80px;
+  border: 2px solid #e5dfff;
+  transition: box-shadow .14s;
+  font-size: 1.16em;
 }
-.card-btn span { font-weight: bold; font-size: 1.08em; }
-.card-btn.empty { background: #f4f5f7; color: #bbb; border: 1.5px solid #e2e3eb; }
-.card-content { font-size: .96em; margin-top: 4px; text-align: center; line-height: 1.28; }
+.card-btn.empty { background: #f7f5fa; color: #ccc; border: 2px solid #ece8f8; }
+.card-btn span { font-weight: bold; font-size: 1.13em; margin-bottom: 10px; }
+.card-content { font-size: 1.07em; margin-top: 3px; text-align: center; line-height: 1.38; }
 
-.modal-bg { display: none; position: fixed; top: 0; left: 0; width: 100vw;
+.question-label { font-weight: bold; font-size: 1.22em; display: block; margin: 16px 0 7px 0; }
+#user-question {
+  width: 100%; min-height: 50px; resize: vertical; padding: 13px;
+  font-size: 1.16em; border: 2px solid #cebaf7; border-radius: 11px;
+  margin-bottom: 16px; background: #f7f5fa;
+  box-sizing: border-box;
+}
+
+.accordion-list { margin: 0 0 16px 0; }
+.accordion-card {
+  margin-bottom: 10px;
+  border-radius: 16px;
+  box-shadow: 0 2px 18px #f3e9fd15;
+  background: #f2effc;
+  border: 2px solid #e3dbfa;
+  overflow: hidden;
+  transition: box-shadow 0.18s;
+}
+.accordion-header {
+  padding: 16px 20px;
+  font-size: 1.15em;
+  font-weight: bold;
+  background: #ede7fb;
+  cursor: pointer;
+  user-select: none;
+}
+.accordion-card.open { box-shadow: 0 8px 30px #d2bcf822; border-color: #b89bf5; }
+.accordion-body {
+  padding: 12px 20px;
+  background: #f7f5fa;
+  font-size: 1.04em;
+  display: none;
+  border-top: 2px solid #e3dbfa;
+}
+.accordion-card.open .accordion-body { display: block; }
+.accordion-body label { display: block; margin-bottom: 3px; font-size: .98em; }
+.accordion-body input[type="checkbox"] { margin-right: 7px; accent-color: #a87df7; }
+
+#ask-btn {
+  width: 100%; background: linear-gradient(90deg,#ad7df6 0,#734bdc 100%);
+  color: #fff; border: none; border-radius: 22px; font-size: 1.36em; font-weight: bold;
+  margin: 16px 0 8px 0; padding: 16px 0; box-shadow: 0 1px 12px #d2bcf877;
+  transition: background .17s, box-shadow .17s;
+  cursor: pointer;
+}
+#ask-btn:active { background: #8967d4; }
+
+#result {
+  margin-top: 18px; background: #f6f3fc; border-radius: 14px;
+  padding: 15px; min-height: 42px; font-size: 1.09em; white-space: pre-wrap;
+  border: 1.7px solid #eee7fb;
+}
+
+.modal-bg { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #201f21c0; align-items: center; justify-content: center; z-index: 20;}
+.modal { background: #fff; border-radius: 18px; padding: 28px 24px; min-width: 300px; max-width: 95vw; }
+.modal input, .modal select { width: 100%; margin-bottom: 13px; padding: 9px; border-radius: 7px; border: 1.3px solid #dedede; font-size: 1.09em;}
+.modal-btn { width: 48%; background: #ae96ff; color: #fff; border: none; border-radius: 8px; font-size: 1.08em; padding: 10px; margin: 4px 0; cursor: pointer; }
+.modal-btn.cancel { background: #ddd; color: #333; }
+
+@media (max-width: 500px) {
+  .container { padding: 8px 1px 32px 1px; }
+  .modal { min-width: 90vw; padding: 14px 7px; }
+}
