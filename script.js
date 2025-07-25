@@ -1,4 +1,4 @@
-const locales = {
+const translations = {
   ru: {
     "brand-title": "GlobalAstro",
     "question-label": "Какой ваш вопрос астрологу?",
@@ -25,8 +25,7 @@ const locales = {
     "opt-china-label": "Китайский гороскоп",
     "opt-more-label": "Ещё",
     "options-save-btn": "Сохранить",
-    "question-placeholder": "Покупать мне BMW X5 на следующей неделе?",
-    "options-cancel-btn": "Отмена"
+    "question-placeholder": "Покупать мне BMW X5 на следующей неделе?"
   },
   en: {
     "brand-title": "GlobalAstro",
@@ -54,19 +53,55 @@ const locales = {
     "opt-china-label": "Chinese horoscope",
     "opt-more-label": "More",
     "options-save-btn": "Save",
-    "question-placeholder": "Should I buy a BMW X5 next week?",
-    "options-cancel-btn": "Cancel"
+    "question-placeholder": "Should I buy a BMW X5 next week?"
   }
 };
 
-// --- Языки
-const langSelector = document.getElementById('language-selector');
-let currentLang = langSelector.value || 'ru';
-
-function applyLocale(lang) {
-  currentLang = lang;
-  const t = locales[lang] || locales['ru'];
-  for (const key in t) {
-    const el = document.getElementById(key);
+function applyLang(lang) {
+  const t = translations[lang];
+  if (!t) return;
+  Object.entries(t).forEach(([id, text]) => {
+    const el = document.getElementById(id);
     if (el) {
-      if (el.tagName === 'INPUT
+      if (el.tagName === "TEXTAREA") {
+        el.placeholder = text;
+      } else {
+        el.innerText = text;
+      }
+    }
+  });
+}
+document.getElementById('language-selector').addEventListener('change', function() {
+  applyLang(this.value);
+});
+
+window.addEventListener('DOMContentLoaded', function() {
+  applyLang(document.getElementById('language-selector').value);
+
+  // --- Кнопки модалок ---
+  document.getElementById('me-btn').onclick = () => {
+    document.getElementById('modal-me').classList.add('active');
+  };
+  document.getElementById('partner-btn').onclick = () => {
+    document.getElementById('modal-partner').classList.add('active');
+  };
+  document.getElementById('options-btn').onclick = () => {
+    document.getElementById('modal-options').classList.add('active');
+  };
+
+  document.querySelectorAll('.modal-cancel').forEach(btn => {
+    btn.onclick = () => {
+      btn.closest('.modal-bg').classList.remove('active');
+    };
+  });
+  // --- Сохраняем и закрываем модалки (можешь доработать свою логику ниже)
+  document.getElementById('me-save-btn').onclick = function() {
+    document.getElementById('modal-me').classList.remove('active');
+  };
+  document.getElementById('partner-save-btn').onclick = function() {
+    document.getElementById('modal-partner').classList.remove('active');
+  };
+  document.getElementById('options-save-btn').onclick = function() {
+    document.getElementById('modal-options').classList.remove('active');
+  };
+});
